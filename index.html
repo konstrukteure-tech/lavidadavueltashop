@@ -1,172 +1,330 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>La Vida da Vuelta Shop</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="La vida da vuelta – T-Shirt Shop. Einfach bestellen, weltweit versendet." />
 
   <style>
+    :root{
+      --text:#1b1b1b;
+      --muted:#4a4a4a;
+      --card:#ffffff;
+      --line: rgba(0,0,0,.10);
+      --shadow: 0 12px 35px rgba(0,0,0,.18);
+      --radius: 18px;
+      --accent: #ffd200;
+      --accentText:#0b0b0b;
+      --max: 1100px;
+      --pad: 18px;
+    }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(
-        180deg,
-        #6f8fa6 0%,
-        #9fb3c2 35%,
-        #d7d7d7 100%
-      );
-      color:#1a1a1a;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: linear-gradient(180deg, #89a7b7 0%, #b8c7d1 40%, #e2e2e2 100%);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding: 26px var(--pad) 40px;}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 10px 0 18px;
+    }
+    .brand{display:flex; flex-direction:column; gap:2px;}
+    .brand strong{font-size: 18px; letter-spacing:.2px;}
+    .brand span{font-size: 13px; color: var(--muted);}
+    .lang{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .lang select{
+      padding: 8px 10px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      font-weight: 700;
     }
 
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding:40px 20px;
-    }
-
-    h1{
-      text-align:center;
-      font-size:42px;
-      margin-bottom:10px;
-    }
-
-    .sub{
-      text-align:center;
-      font-size:18px;
-      margin-bottom:40px;
-    }
-
-    .shop{
+    .hero{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:40px;
-      align-items:center;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr;}
     }
 
-    @media(max-width:900px){
-      .shop{ grid-template-columns:1fr; }
+    .card{
+      background: rgba(255,255,255,.88);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(4px);
     }
-
-    .mockup img{
-      width:100%;
-      border-radius:12px;
-      box-shadow:0 10px 30px rgba(0,0,0,.2);
+    .inner{padding: 18px;}
+    h1{
+      margin: 0 0 6px;
+      font-size: 42px;
+      line-height: 1.05;
+      text-transform: lowercase;
     }
-
-    .panel{
-      background:white;
-      padding:30px;
-      border-radius:16px;
-      box-shadow:0 10px 30px rgba(0,0,0,.15);
+    .sub{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+      text-transform: lowercase;
     }
-
-    label{
-      display:block;
-      margin-top:15px;
-      font-weight:600;
-    }
-
-    select{
-      width:100%;
-      padding:10px;
-      font-size:16px;
-      margin-top:5px;
-    }
-
     .price{
-      font-size:28px;
-      font-weight:700;
-      margin:20px 0;
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin: 12px 0 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:1px dashed rgba(0,0,0,.20);
+      background: rgba(255,255,255,.70);
     }
-
-    .buy{
-      display:block;
-      text-align:center;
-      margin-top:20px;
-      padding:14px;
-      font-size:18px;
-      font-weight:700;
-      background:#ffd200;
-      color:black;
+    .price .big{font-size: 30px; font-weight: 900;}
+    .price .small{font-size:12px; color: var(--muted); padding-bottom:4px;}
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    @media (max-width: 520px){ .grid2{grid-template-columns:1fr;} }
+    label{display:block; font-size:12px; color: var(--muted); margin: 0 0 6px; text-transform: lowercase;}
+    select, input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      color: var(--text);
+      outline:none;
+      font-size: 15px;
+    }
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top: 14px; align-items:center;}
+    .btn{
+      appearance:none; border:none; cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight:900;
+      letter-spacing:.2px;
       text-decoration:none;
-      border-radius:10px;
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width: 230px;
+    }
+    .btnPrimary{
+      background: var(--accent);
+      color: var(--accentText);
+    }
+    .btnGhost{
+      background: rgba(255,255,255,.72);
+      border:1px solid var(--line);
+      color: var(--text);
+      min-width:auto;
+      font-weight: 800;
+    }
+    .btn:active{transform: translateY(1px)}
+    .note{font-size:12px; color: var(--muted); margin: 10px 0 0;}
+
+    /* Mockup panel */
+    .imgWrap{
+      padding: 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(255,255,255,.55);
+      min-height: 520px;
+    }
+    .imgInner{
+      width: 92%;
+      max-width: 520px;
+      border-radius: 20px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.7);
+      overflow:hidden;
+      box-shadow: 0 18px 45px rgba(0,0,0,.20);
+    }
+    .imgHeader{
+      padding: 12px 14px;
+      display:flex; align-items:center; justify-content:space-between;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: lowercase;
+    }
+    .imgBody{padding: 14px;}
+    .productImg{
+      width:100%;
+      display:block;
+      border-radius: 16px;
+      border:1px solid rgba(0,0,0,.10);
+      background:#f4f4f4;
+    }
+    .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top: 12px;}
+    .badge{
+      font-size:12px; color: var(--muted);
+      border:1px solid var(--line);
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.65);
+      text-transform: lowercase;
     }
 
     footer{
-      text-align:center;
-      margin-top:60px;
-      font-size:14px;
-      opacity:.7;
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,0,0,.12);
+      color: var(--muted);
+      font-size: 12px;
+      display:flex; justify-content:space-between; gap: 10px; flex-wrap:wrap;
+      text-transform: lowercase;
     }
+    .links a{color: var(--muted); text-decoration:none; border-bottom:1px dotted rgba(0,0,0,.25);}
+    .links a:hover{color: var(--text);}
+
+    /* Legal modal */
+    .legalModal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none; align-items:center; justify-content:center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .legalModal[open]{display:flex;}
+    .modalCard{
+      width: min(900px, 100%);
+      max-height: min(80vh, 760px);
+      overflow:auto;
+      border-radius: 18px;
+      border:1px solid rgba(0,0,0,.15);
+      background: rgba(255,255,255,.95);
+      box-shadow: var(--shadow);
+    }
+    .modalTop{
+      position: sticky; top:0;
+      background: rgba(255,255,255,.98);
+      border-bottom: 1px solid rgba(0,0,0,.12);
+      padding: 12px 14px;
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+    }
+    .modalTop strong{font-size: 14px; text-transform: lowercase;}
+    .closeBtn{
+      border:1px solid rgba(0,0,0,.15);
+      background: rgba(255,255,255,.9);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight: 900;
+      text-transform: lowercase;
+    }
+    .modalBody{padding: 14px;}
+    .modalBody h3{margin: 10px 0 6px; font-size: 14px; text-transform: lowercase;}
+    .modalBody p, .modalBody li{color: var(--muted); font-size: 13px;}
   </style>
 </head>
-<script>
-const texts = {
-  de: { buy: "jetzt mit paypal kaufen" },
-  es: { buy: "comprar ahora con paypal" },
-  en: { buy: "buy now with paypal" },
-  fr: { buy: "acheter maintenant avec paypal" },
-  it: { buy: "acquista ora con paypal" }
-};
-
-document.getElementById("lang").addEventListener("change", e => {
-  document.querySelector(".buy").innerText = texts[e.target.value].buy;
-});
-</script>
 
 <body>
-  <select id="lang" style="position:fixed; top:15px; right:15px; padding:6px;">
-  <option value="de">DE</option>
-  <option value="es">ES</option>
-  <option value="en">EN</option>
-  <option value="fr">FR</option>
-  <option value="it">IT</option>
-</select>
-
   <div class="wrap">
-    <h1>la vida da vuelta</h1>
-    <div class="sub">por fin se fue</div>
-
-    <div class="shop">
-      <div class="mockup">
-        <!-- HIER SPÄTER DEIN BILD -->
-        <img src="shirt-gelb-front.png" alt="T-Shirt gelb">
+    <header>
+      <div class="brand">
+        <strong id="brandTitle">la vida da vuelta shop</strong>
+        <span id="brandSubtitle">einfach bestellen · weltweit versendet</span>
       </div>
 
-      <div class="panel">
-        <div class="price">29,95 €</div>
-
-        <label>größe</label>
-        <select>
-          <option>XS</option>
-          <option>S</option>
-          <option selected>M</option>
-          <option>L</option>
-          <option>XL</option>
-          <option>XXL</option>
+      <div class="lang">
+        <span style="font-size:12px; color:var(--muted); font-weight:800; text-transform: lowercase;">sprache</span>
+        <select id="lang">
+          <option value="de" selected>de</option>
+          <option value="es">es</option>
+          <option value="en">en</option>
+          <option value="fr">fr</option>
+          <option value="it">it</option>
         </select>
-
-        <label>farbe</label>
-        <select>
-          <option>blau</option>
-          <option selected>gelb</option>
-          <option>rot</option>
-          <option>weiß</option>
-          <option>grau</option>
-          <option>khaki</option>
-          <option>grün</option>
-        </select>
-
-        <!-- PAYPAL LINK HIER ANPASSEN -->
-        <a class="buy" href="https://www.paypal.me/Thorsten Tenzer/29.95" target="_blank">
-          jetzt mit paypal kaufen
-        </a>
       </div>
-    </div>
+    </header>
 
-    <footer>
-      kontakt: konstrukture@gmx.de
-    </footer>
-  </div>
-</body>
-</html>
+    <div class="hero">
+      <!-- LEFT: Product -->
+      <div class="card">
+        <div class="inner">
+          <h1 id="headline">la vida da vuelta</h1>
+          <p class="sub" id="subline">por fin se fue</p>
+
+          <div class="price">
+            <div class="big" id="unitPriceLabel">29,95 €</div>
+            <div class="small" id="vatNote">inkl. mwst. · zzgl. versand (je nach zone)</div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label for="size" id="lblSize">größe</label>
+              <select id="size">
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M" selected>M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+            </div>
+            <div>
+              <label for="color" id="lblColor">farbe</label>
+              <select id="color">
+                <option value="blau">blau</option>
+                <option value="gelb" selected>gelb</option>
+                <option value="rot">rot</option>
+                <option value="weiß">weiß</option>
+                <option value="grau">grau</option>
+                <option value="khaki">khaki</option>
+                <option value="grün">grün</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid2" style="margin-top:12px;">
+            <div>
+              <label for="ship" id="lblShip">versandzone</label>
+              <select id="ship">
+                <option value="Deutschland" selected>deutschland</option>
+                <option value="Europa">europa</option>
+                <option value="Weltweit">weltweit</option>
+              </select>
+            </div>
+            <div>
+              <label for="qty" id="lblQty">menge</label>
+              <input id="qty" type="number" min="1" value="1" />
+            </div>
+          </div>
+
+          <div class="ctaRow">
+            <a class="btn btnPrimary" id="buyBtn" href="#" target="_blank" rel="noopener">jetzt mit paypal kaufen</a>
+            <button class="btn btnGhost" id="copyBtn" type="button">bestelldaten kopieren</button>
+          </div>
+
+          <p class="note" id="supportNote">
+            support: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT: Mockup -->
+      <div class="card imgWrap">
+        <div class="imgInner">
+          <div class="imgHeader">
+            <div id="previewLabel">produktvorschau</div>
+            <div id="previewHint">bilddatei im repo ablegen</div>
+          </div>
+          <div class="imgBody">
+            <!-- Bilddatei muss im gleichen Ordner liegen wie index.html -->
+            <!-- Bitte lade ein Bild hoch und nenne es EXACT: shirt-front-yellow.png -->
+            <img class="productImg" src="shirt-front-yellow.png" alt="t-shirt vorschau" />
+
+            <div class="badges">
+              <div class="badge" id="b1">unisex</div>
+              <div class="badge" id="b2">frontprint</div>
+              <div class="badge" id="b3">rücken: frei (kollektion)</div>
+            </div
+
