@@ -100,8 +100,29 @@
     }
   </style>
 </head>
+<script>
+const texts = {
+  de: { buy: "jetzt mit paypal kaufen" },
+  es: { buy: "comprar ahora con paypal" },
+  en: { buy: "buy now with paypal" },
+  fr: { buy: "acheter maintenant avec paypal" },
+  it: { buy: "acquista ora con paypal" }
+};
+
+document.getElementById("lang").addEventListener("change", e => {
+  document.querySelector(".buy").innerText = texts[e.target.value].buy;
+});
+</script>
 
 <body>
+  <select id="lang" style="position:fixed; top:15px; right:15px; padding:6px;">
+  <option value="de">DE</option>
+  <option value="es">ES</option>
+  <option value="en">EN</option>
+  <option value="fr">FR</option>
+  <option value="it">IT</option>
+</select>
+
   <div class="wrap">
     <h1>la vida da vuelta</h1>
     <div class="sub">por fin se fue</div>
@@ -137,7 +158,7 @@
         </select>
 
         <!-- PAYPAL LINK HIER ANPASSEN -->
-        <a class="buy" href="https://www.paypal.me/konstrukteure@gmx.de/29.95" target="_blank">
+        <a class="buy" href="https://www.paypal.me/Thorsten Tenzer/29.95" target="_blank">
           jetzt mit paypal kaufen
         </a>
       </div>
