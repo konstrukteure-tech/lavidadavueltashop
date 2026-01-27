@@ -662,34 +662,32 @@ Rücken frei." />
     // Legal modal placeholders
     // ======================
     const legal = {
-      impressum: `
-        <h3>impressum</h3>
-        <p><strong>angaben gemäß § 5 tmg</strong></p>
-        <ul>
-          <li><strong>betreiber:</strong>tenzer / torres</li>
-          <li><strong>e-mail:</strong> <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></li>
-          <li><strong>adresse:</strong>hüxtraße 72, 23552 lübeck, deutschland</li>
-        </ul>
-        <p><em></em></p>
-      `,
-      datenschutz: `
-        <h3>datenschutz (kurzfassung)</h3>
-        <p>wir verarbeiten personenbezogene daten zur bestellabwicklung (z. b. name, adresse, e-mail).</p>
-        <ul>
-          <li><strong>zahlung:</strong> paypal</li>
-          <li><strong>hosting:</strong> github pages</li>
-          <li><strong>kontakt:</strong> <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></li>
-        </ul>
-        <p><em></em></p>
-      `,
-      widerruf: `
-        <h3>widerruf</h3>
-        <p>verbraucher haben ein vierzehntägiges widerrufsrecht.</p>
-        <p><strong>widerruf:</strong> per e-mail an <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
-        <p><strong>rücksendekosten: trägt der käufer</strong></p>
-        <p><em></em></p>
-      `
-    };
+  impressum: `
+    <h3>impressum</h3>
+    <p><strong>angaben gemäß § 5 tmg</strong></p>
+    <ul>
+      <li><strong>betreiber:</strong> thorsten tenzer</li>
+      <li><strong>e-mail:</strong> <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></li>
+      <li><strong>adresse:</strong> bitte hier deine vollständige adresse eintragen</li>
+    </ul>
+  `,
+  datenschutz: `
+    <h3>datenschutz</h3>
+    <p>personenbezogene daten werden ausschließlich zur abwicklung von bestellungen verwendet.</p>
+    <ul>
+      <li><strong>zahlung:</strong> paypal</li>
+      <li><strong>hosting:</strong> github pages</li>
+      <li><strong>kontakt:</strong> <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></li>
+    </ul>
+  `,
+  widerruf: `
+    <h3>widerrufsbelehrung</h3>
+    <p>verbraucher haben ein vierzehntägiges widerrufsrecht.</p>
+    <p><strong>widerruf per e-mail:</strong> <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>
+    <p><strong>rücksendekosten:</strong> trägt der käufer.</p>
+  `
+};
+
 
     const modal = document.getElementById("legalModal");
     const modalBody = document.getElementById("modalBody");
