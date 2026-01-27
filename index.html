@@ -661,14 +661,17 @@ Rücken frei." />
     // ======================
     // Legal modal placeholders
     // ======================
-    const legal = {
+    /* ======================
+   LEGAL CONTENT (FIX)
+====================== */
+const legal = {
   impressum: `
     <h3>impressum</h3>
     <p><strong>angaben gemäß § 5 tmg</strong></p>
     <ul>
-      <li><strong>betreiber:</strong> tenzer / torres</li>
+      <li><strong>betreiber:</strong> thorsten tenzer</li>
       <li><strong>e-mail:</strong> <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></li>
-      <li><strong>adresse:</strong> hüxstraße 72, 23552 lübeck</li>
+      <li><strong>adresse:</strong> bitte hier deine vollständige adresse eintragen</li>
     </ul>
   `,
   datenschutz: `
@@ -688,20 +691,46 @@ Rücken frei." />
   `
 };
 
+/* ======================
+   LEGAL MODAL HANDLER (FIX)
+====================== */
+const modal = document.getElementById("legalModal");
+const modalBody = document.getElementById("modalBody");
+const modalTitle = document.getElementById("modalTitle");
+const closeBtn = document.getElementById("closeModal");
+
+document.getElementById("lnkImp").addEventListener("click", (e) => {
+  e.preventDefault();
+  modalTitle.textContent = "impressum";
+  modalBody.innerHTML = legal.impressum;
+  modal.setAttribute("open", "");
+});
+
+document.getElementById("lnkDs").addEventListener("click", (e) => {
+  e.preventDefault();
+  modalTitle.textContent = "datenschutz";
+  modalBody.innerHTML = legal.datenschutz;
+  modal.setAttribute("open", "");
+});
+
+document.getElementById("lnkWd").addEventListener("click", (e) => {
+  e.preventDefault();
+  modalTitle.textContent = "widerruf";
+  modalBody.innerHTML = legal.widerruf;
+  modal.setAttribute("open", "");
+});
+
+closeBtn.addEventListener("click", () => modal.removeAttribute("open"));
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) modal.removeAttribute("open");
+});
+
+
 
     const modal = document.getElementById("legalModal");
     const modalBody = document.getElementById("modalBody");
 
-    document.querySelectorAll("[data-open]").forEach(a => {
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
-        const key = a.getAttribute("data-open");
-        modalBody.innerHTML = legal[key] |"<p>kein inhalt.</p>";
-        modal.setAttribute("open", "");
-      });
-    });
-    document.getElementById("closeModal").addEventListener("click", () => modal.removeAttribute("open"));
-    modal.addEventListener("click", (e) => { if (e.target === modal) modal.removeAttribute("open"); });
+ 
 
     // ======================
     // Events
