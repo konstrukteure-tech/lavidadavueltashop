@@ -225,6 +225,53 @@
     .modalBody p, .modalBody li{color: var(--muted); font-size: 13px;}
   </style>
 </head>
+<script>
+  // ===== PayPal Konfiguration =====
+  // NUR diesen Platzhalter ersetzen:
+  const PAYPAL_ME = "https://www.paypal.me/DEINPAYPALNAME"; // <-- dein PayPal.Me Name
+  const UNIT_PRICE_EUR = 29.95;
+
+  // ===== Elemente =====
+  const buyBtn = document.getElementById("buyBtn");
+  const qtyEl  = document.getElementById("qty");
+
+  function clampInt(val, min=1, max=999){
+    const n = parseInt(val, 10);
+    if (Number.isNaN(n)) return min;
+    return Math.max(min, Math.min(max, n));
+  }
+
+  function fmtEUR(n){
+    return n.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+  }
+
+  function buildPayPalUrl(){
+    const qty = clampInt(qtyEl?.value ?? 1);
+    const total = UNIT_PRICE_EUR * qty;
+    const amount = total.toFixed(2).replace(",", ".");
+    return `${PAYPAL_ME}/${amount}`;
+  }
+
+  function refreshPayPal(){
+    if (!buyBtn) return;
+    const qty = clampInt(qtyEl?.value ?? 1);
+    const total = UNIT_PRICE_EUR * qty;
+
+    buyBtn.href = buildPayPalUrl();
+    buyBtn.target = "_blank";
+    buyBtn.rel = "noopener";
+
+    // Text inkl. Gesamtpreis
+    buyBtn.textContent = `jetzt mit paypal kaufen · ${fmtEUR(total)}`;
+  }
+
+  // Initial + bei Mengenänderung
+  refreshPayPal();
+  if (qtyEl) {
+    qtyEl.addEventListener("input", refreshPayPal);
+    qtyEl.addEventListener("change", refreshPayPal);
+  }
+</script>
 
 <body>
   <div class="wrap">
