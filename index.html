@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La Vida da Vuelta Shop</title>
-  <meta name="description" content="La vida da vuelta – T-Shirt Shop. Einfach bestellen, weltweit versendet." />
+  <meta name="description" content="La vida da vuelta – T-Shirt Shop. Einfach bestellen, weltweit versendet.Hochwertiges Unisex-T-Shirt mit Frontprint.
+Regulärer Schnitt, angenehm zu tragen.
+Rücken frei." />
 
   <style>
     :root{
@@ -666,9 +668,9 @@
         <ul>
           <li><strong>betreiber:</strong> tenzer / torres</li>
           <li><strong>e-mail:</strong> <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></li>
-          <li><strong>adresse:</strong> [Hüxtraße 72], [23552 lübeck], deutschland</li>
+          <li><strong>adresse:</strong> hüxtraße 72], 23552 lübeck, deutschland</li>
         </ul>
-        <p><em>platzhalter – bitte mit echten angaben ergänzen.</em></p>
+        <p><em></em></p>
       `,
       datenschutz: `
         <h3>datenschutz (kurzfassung)</h3>
@@ -684,8 +686,8 @@
         <h3>widerruf (platzhalter)</h3>
         <p>verbraucher haben ein vierzehntägiges widerrufsrecht.</p>
         <p><strong>widerruf:</strong> per e-mail an <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
-        <p><strong>rücksendekosten: trägt der Käufer</strong> [bitte festlegen]</p>
-        <p><em>platzhalter – bitte final prüfen/ergänzen.</em></p>
+        <p><strong>rücksendekosten: trägt der Käufer</strong></p>
+        <p><em></em></p>
       `
     };
 
@@ -696,7 +698,7 @@
       a.addEventListener("click", (e) => {
         e.preventDefault();
         const key = a.getAttribute("data-open");
-        modalBody.innerHTML = legal[key] || "<p>kein inhalt.</p>";
+        modalBody.innerHTML = legal[key] |"<p>kein inhalt.</p>";
         modal.setAttribute("open", "");
       });
     });
