@@ -4,31 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La Vida da Vuelta Shop</title>
-  <meta name="description" content="La vida da vuelta – T-Shirt Shop. Einfach bestellen, weltweit versendet.Hochwertiges Unisex-T-Shirt mit Frontprint.
-Regulärer Schnitt, angenehm zu tragen.
-Rücken frei." />
+  <meta name="description" content="La vida da vuelta – T-Shirt Shop. Einfach bestellen, weltweit versendet." />
 
   <style>
     :root{
-      --bg1:#86a6b8;
-      --bg2:#b9c9d3;
-      --bg3:#e6e6e6;
-
+      --bg1:#86a6b8; --bg2:#b9c9d3; --bg3:#e6e6e6;
       --card: rgba(255,255,255,.90);
       --line: rgba(0,0,0,.10);
       --text:#151515;
       --muted:#4a4a4a;
-
       --shadow: 0 14px 40px rgba(0,0,0,.18);
       --radius: 18px;
-
       --accent:#ffd200;
       --accentText:#0b0b0b;
-
       --max: 1120px;
       --pad: 18px;
     }
-
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -38,7 +29,6 @@ Rücken frei." />
       line-height:1.45;
     }
     a{color:inherit}
-
     .wrap{max-width:var(--max); margin:0 auto; padding: 26px var(--pad) 42px;}
 
     header{
@@ -74,9 +64,7 @@ Rücken frei." />
       gap: 22px;
       align-items:stretch;
     }
-    @media (max-width: 920px){
-      .hero{grid-template-columns: 1fr;}
-    }
+    @media (max-width: 920px){ .hero{grid-template-columns: 1fr;} }
 
     .card{
       background: var(--card);
@@ -102,10 +90,7 @@ Rücken frei." />
       text-transform:lowercase;
     }
 
-    .trustRow{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin: 10px 0 6px;
-    }
+    .trustRow{display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 6px;}
     .pill{
       font-size:12px;
       color: var(--muted);
@@ -118,7 +103,6 @@ Rücken frei." />
 
     .priceBox{
       display:grid;
-      grid-template-columns: 1fr;
       gap:8px;
       margin: 14px 0 14px;
       padding: 14px;
@@ -126,25 +110,11 @@ Rücken frei." />
       border:1px dashed rgba(0,0,0,.18);
       background: rgba(255,255,255,.72);
     }
-    .priceTop{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
-    }
-    .unit{
-      font-size: 15px;
-      color: var(--muted);
-      text-transform:lowercase;
-      font-weight: 700;
-    }
-    .unit strong{color:var(--text); font-weight: 900;}
-    .total{
-      font-size: 28px;
-      font-weight: 950;
-    }
-    .breakdown{
-      font-size:12px;
-      color: var(--muted);
-      text-transform:lowercase;
-    }
+    .priceTop{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+    .unit{font-size: 15px; color: var(--muted); text-transform:lowercase; font-weight: 700;}
+    .unit strong{color:var(--text); font-weight: 950;}
+    .total{font-size: 28px; font-weight: 950;}
+    .breakdown{font-size:12px; color: var(--muted); text-transform:lowercase;}
 
     .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
     @media (max-width: 520px){ .grid2{grid-template-columns:1fr;} }
@@ -168,13 +138,7 @@ Rücken frei." />
       font-size: 15px;
     }
 
-    .ctaRow{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top: 14px;
-    }
+    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top: 14px;}
     .btn{
       appearance:none;
       border:none;
@@ -189,7 +153,7 @@ Rücken frei." />
       justify-content:center;
     }
     .btnPrimary{
-      min-width: 260px;
+      min-width: 280px;
       background: var(--accent);
       color: var(--accentText);
       box-shadow: 0 10px 22px rgba(0,0,0,.25);
@@ -259,7 +223,7 @@ Rücken frei." />
     }
 
     footer{
-      margin-top: 20px;
+      margin-top: 22px;
       padding-top: 14px;
       border-top: 1px solid rgba(0,0,0,.12);
       color: var(--muted);
@@ -274,48 +238,33 @@ Rücken frei." />
       color: var(--muted);
       text-decoration:none;
       border-bottom:1px dotted rgba(0,0,0,.25);
+      margin-left: 8px;
     }
     .links a:hover{color: var(--text);}
 
-    /* Legal modal */
-    .legalModal{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      display:none; align-items:center; justify-content:center;
-      padding: 18px;
-      z-index: 50;
+    /* Legal (no dialog, no popup) */
+    .legal{
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.70);
     }
-    .legalModal[open]{display:flex;}
-    .modalCard{
-      width: min(900px, 100%);
-      max-height: min(80vh, 760px);
-      overflow:auto;
-      border-radius: 18px;
-      border:1px solid rgba(0,0,0,.15);
-      background: rgba(255,255,255,.95);
-      box-shadow: var(--shadow);
-    }
-    .modalTop{
-      position: sticky; top:0;
-      background: rgba(255,255,255,.98);
-      border-bottom: 1px solid rgba(0,0,0,.12);
-      padding: 12px 14px;
-      display:flex; justify-content:space-between; align-items:center; gap:12px;
-    }
-    .modalTop strong{font-size:14px; text-transform:lowercase;}
-    .closeBtn{
-      border:1px solid rgba(0,0,0,.15);
-      background: rgba(255,255,255,.9);
-      color: var(--text);
-      padding: 8px 10px;
-      border-radius: 12px;
+    details{padding: 8px 0;}
+    summary{
       cursor:pointer;
-      font-weight: 950;
+      list-style:none;
+      font-size: 14px;
+      color: var(--text);
       text-transform:lowercase;
     }
-    .modalBody{padding: 14px;}
-    .modalBody h3{margin: 10px 0 6px; font-size: 14px; text-transform:lowercase;}
-    .modalBody p, .modalBody li{color: var(--muted); font-size: 13px;}
+    summary::-webkit-details-marker{display:none;}
+    .legal p, .legal li{
+      font-size: 13px;
+      color: var(--muted);
+      margin: 8px 0;
+    }
+    .legal ul{margin: 8px 0 0 18px;}
   </style>
 </head>
 
@@ -405,15 +354,14 @@ Rücken frei." />
           </div>
 
           <div class="ctaRow">
-            <a id="buyBtn" class="btn btnPrimary" href="https://www.paypal.me/DEINNAME/34.90" target="_blank">
-  jetzt mit paypal kaufen
-</a>
-
+            <a class="btn btnPrimary" id="buyBtn" href="https://www.paypal.me/DEINPAYPALNAME/0.01" target="_blank" rel="noopener">
+              jetzt mit paypal kaufen
+            </a>
             <button class="btn btnGhost" id="copyBtn" type="button">bestelldaten kopieren</button>
           </div>
 
           <p class="note" id="supportNote">support: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>
-          <p class="note" id="legalNote">hinweis: versandkosten sind pauschal je zone. details im footer.</p>
+          <p class="note" id="legalNote">hinweis: versandkosten sind pauschal je zone.</p>
         </div>
       </div>
 
@@ -422,11 +370,11 @@ Rücken frei." />
         <div class="imgInner">
           <div class="imgHeader">
             <div id="previewLabel">produktvorschau</div>
-            <div id="previewHint">bilddatei im repo ablegen</div>
+            <div id="previewHint"></div>
           </div>
           <div class="imgBody">
-            <!-- Lade dein Bild hoch und nenne es exakt: hero-gelb-khaki.png -->
-            <img class="productImg" src="shirt-gelb-khaki.png" alt="t-shirt vorschau gelb & khaki" />
+            <!-- Dein Bild im Repo: hero-gelb-khaki.png -->
+            <img class="productImg" src="hero-gelb-khaki.png" alt="t-shirt vorschau gelb & khaki" />
             <div class="badges">
               <div class="badge" id="b1">gelb + khaki</div>
               <div class="badge" id="b2">kollektion: rücken frei</div>
@@ -436,54 +384,55 @@ Rücken frei." />
         </div>
       </div>
     </div>
-<section style="margin-top:40px; font-size:14px; color:#333">
-  <details>
-    <summary><strong>Impressum</strong></summary>
-    <p><strong>Betreiber:</strong> Thorsten Tenzer<br>
-    <strong>E-Mail:</strong> konstrukture@gmx.de<br>
-    <strong>Adresse:</strong> bitte hier vollständig eintragen</p>
-  </details>
 
-  <details>
-    <summary><strong>Datenschutz</strong></summary>
-    <p>Personenbezogene Daten werden ausschließlich zur Bestellabwicklung verwendet.
-    Zahlung erfolgt über PayPal. Hosting über GitHub Pages.</p>
-  </details>
+    <!-- LEGAL (stable, no popup) -->
+    <section class="legal" id="legalSection">
+      <details>
+        <summary id="sumImp">impressum</summary>
+        <div id="txtImp">
+          <p>angaben gemäß § 5 tmg</p>
+          <ul>
+            <li>betreiber: thorsten tenzer</li>
+            <li>e-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></li>
+            <li>adresse: bitte hier deine vollständige adresse eintragen</li>
+          </ul>
+        </div>
+      </details>
 
-  <details>
-    <summary><strong>Widerruf</strong></summary>
-    <p>Verbraucher haben ein vierzehntägiges Widerrufsrecht.
-    Widerruf per E-Mail an konstrukture@gmx.de.
-    Rücksendekosten trägt der Käufer.</p>
-  </details>
-</section>
+      <details>
+        <summary id="sumDs">datenschutz</summary>
+        <div id="txtDs">
+          <p>personenbezogene daten werden ausschließlich zur bestellabwicklung verwendet. zahlung erfolgt über paypal. hosting über github pages.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary id="sumWd">widerruf</summary>
+        <div id="txtWd">
+          <p>verbraucher haben ein vierzehntägiges widerrufsrecht. widerruf per e-mail an <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a>. rücksendekosten trägt der käufer.</p>
+        </div>
+      </details>
+    </section>
 
     <footer>
-      <div>© <span id="year"></span> · tenzer / torres · <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></div>
+      <div>© <span id="year"></span> · thorsten tenzer · <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></div>
       <div class="links">
-        <a href="#" data-open="impressum" id="lnkImp">impressum</a> ·
-        <a href="#" data-open="datenschutz" id="lnkDs">datenschutz</a> ·
-        <a href="#" data-open="widerruf" id="lnkWd">widerruf</a>
+        <a href="#legalSection" id="lnkImp">impressum</a>
+        <a href="#legalSection" id="lnkDs">datenschutz</a>
+        <a href="#legalSection" id="lnkWd">widerruf</a>
       </div>
     </footer>
   </div>
 
-  <!-- LEGAL MODAL -->
-
-
   <script>
     // ======================
-    // CONFIG
+    // CONFIG (nur PayPal.Me-Name ändern)
     // ======================
-    const PAYPAL_ME = "https://www.paypal.me/konstrukteure@gmx.de"; // <-- nur das ersetzen
+    const PAYPAL_ME = "https://www.paypal.me/konstrukteure@gmx.de"; // konstrukteure@gmx.de<-- hier deinen PayPal.Me-Namen eintragen
     const UNIT_PRICE_EUR = 29.95;
 
-    // Versandkosten (Pauschalen je Zone) – dauerhaft gleich, einfach, rechtssicher für Start
-    const SHIPPING = {
-      DE: 4.95,
-      EU: 9.95,
-      WW: 14.95
-    };
+    // feste Versandpauschalen je Zone (wie besprochen)
+    const SHIPPING = { DE: 4.95, EU: 9.95, WW: 14.95 };
 
     const SUPPORT_EMAIL = "konstrukture@gmx.de";
 
@@ -498,7 +447,7 @@ Rücken frei." />
     };
 
     // ======================
-    // I18N
+    // I18N (simple + robust)
     // ======================
     const I18N = {
       de: {
@@ -508,13 +457,12 @@ Rücken frei." />
         lblSize:"größe", lblColor:"farbe", lblShip:"versandzone", lblQty:"menge",
         buy:"jetzt mit paypal kaufen", copy:"bestelldaten kopieren",
         support:`support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
-        legal:"hinweis: versandkosten sind pauschal je zone. details im footer.",
-        previewLabel:"produktvorschau", previewHint:"bilddatei im repo ablegen",
+        legal:"hinweis: versandkosten sind pauschal je zone.",
+        previewLabel:"produktvorschau",
         b1:"gelb + khaki", b2:"kollektion: rücken frei", b3:"versand: de/eu/ww",
-        imp:"impressum", ds:"datenschutz", wd:"widerruf", close:"schließen",
-        modalDefault:"rechtliches",
         shipName:{DE:"deutschland", EU:"europa", WW:"weltweit"},
-        unitLine:"t-shirt"
+        unitLine:"t-shirt",
+        sumImp:"impressum", sumDs:"datenschutz", sumWd:"widerruf"
       },
       es: {
         brandSubtitle: "pedido fácil · envío mundial",
@@ -523,13 +471,12 @@ Rücken frei." />
         lblSize:"talla", lblColor:"color", lblShip:"envío", lblQty:"cantidad",
         buy:"comprar con paypal", copy:"copiar datos",
         support:`soporte: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
-        legal:"nota: gastos de envío fijos por zona. detalles en el pie.",
-        previewLabel:"vista previa", previewHint:"sube la imagen al repositorio",
+        legal:"nota: gastos de envío fijos por zona.",
+        previewLabel:"vista previa",
         b1:"amarillo + caqui", b2:"colección: espalda libre", b3:"envío: de/eu/ww",
-        imp:"aviso legal", ds:"privacidad", wd:"desistimiento", close:"cerrar",
-        modalDefault:"legal",
         shipName:{DE:"alemania", EU:"europa", WW:"mundial"},
-        unitLine:"camiseta"
+        unitLine:"camiseta",
+        sumImp:"aviso legal", sumDs:"privacidad", sumWd:"desistimiento"
       },
       en: {
         brandSubtitle: "simple checkout · worldwide shipping",
@@ -538,13 +485,12 @@ Rücken frei." />
         lblSize:"size", lblColor:"color", lblShip:"shipping", lblQty:"quantity",
         buy:"buy with paypal", copy:"copy details",
         support:`support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
-        legal:"note: flat shipping fees by zone. see footer.",
-        previewLabel:"preview", previewHint:"upload image to repo",
+        legal:"note: flat shipping fees by zone.",
+        previewLabel:"preview",
         b1:"yellow + khaki", b2:"collection: blank back", b3:"shipping: de/eu/ww",
-        imp:"imprint", ds:"privacy", wd:"withdrawal", close:"close",
-        modalDefault:"legal",
         shipName:{DE:"germany", EU:"europe", WW:"worldwide"},
-        unitLine:"t-shirt"
+        unitLine:"t-shirt",
+        sumImp:"imprint", sumDs:"privacy", sumWd:"withdrawal"
       },
       fr: {
         brandSubtitle: "commande simple · livraison mondiale",
@@ -553,13 +499,12 @@ Rücken frei." />
         lblSize:"taille", lblColor:"couleur", lblShip:"livraison", lblQty:"quantité",
         buy:"acheter avec paypal", copy:"copier",
         support:`support : <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
-        legal:"note : frais de livraison fixes par zone. voir le pied.",
-        previewLabel:"aperçu", previewHint:"déposez l’image dans le dépôt",
+        legal:"note : frais de livraison fixes par zone.",
+        previewLabel:"aperçu",
         b1:"jaune + kaki", b2:"collection : dos vierge", b3:"livraison : de/eu/ww",
-        imp:"mentions légales", ds:"confidentialité", wd:"rétractation", close:"fermer",
-        modalDefault:"légal",
         shipName:{DE:"allemagne", EU:"europe", WW:"monde"},
-        unitLine:"t-shirt"
+        unitLine:"t-shirt",
+        sumImp:"mentions légales", sumDs:"confidentialité", sumWd:"rétractation"
       },
       it: {
         brandSubtitle: "ordine semplice · spedizione mondiale",
@@ -568,189 +513,163 @@ Rücken frei." />
         lblSize:"taglia", lblColor:"colore", lblShip:"spedizione", lblQty:"quantità",
         buy:"acquista con paypal", copy:"copia dati",
         support:`supporto: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
-        legal:"nota: costi di spedizione fissi per zona. vedi footer.",
-        previewLabel:"anteprima", previewHint:"carica l’immagine nel repo",
+        legal:"nota: costi di spedizione fissi per zona.",
+        previewLabel:"anteprima",
         b1:"giallo + khaki", b2:"collezione: retro vuoto", b3:"spedizione: de/eu/ww",
-        imp:"note legali", ds:"privacy", wd:"recesso", close:"chiudi",
-        modalDefault:"legale",
         shipName:{DE:"germania", EU:"europa", WW:"mondo"},
-        unitLine:"t-shirt"
+        unitLine:"t-shirt",
+        sumImp:"note legali", sumDs:"privacy", sumWd:"recesso"
       }
     };
 
     // ======================
-    // UI refs
+    // Init after DOM ready (stability)
     // ======================
-    const langEl = document.getElementById("langSel");
-    const sizeEl = document.getElementById("size");
-    const colorEl = document.getElementById("color");
-    const shipEl = document.getElementById("ship");
-    const qtyEl  = document.getElementById("qty");
-    const buyBtn = document.getElementById("buyBtn");
-    const copyBtn= document.getElementById("copyBtn");
-    const totalPrice = document.getElementById("totalPrice");
-    const breakdownLine = document.getElementById("breakdownLine");
-    const unitPriceEl = document.getElementById("unitPrice");
+    document.addEventListener("DOMContentLoaded", () => {
+      const langEl = document.getElementById("langSel");
+      const sizeEl = document.getElementById("size");
+      const colorEl = document.getElementById("color");
+      const shipEl = document.getElementById("ship");
+      const qtyEl  = document.getElementById("qty");
 
-    function getShipCost(){
-      const zone = shipEl.value;
-      return SHIPPING[zone] ?? SHIPPING.DE;
-    }
+      const buyBtn = document.getElementById("buyBtn");
+      const copyBtn= document.getElementById("copyBtn");
 
-    function buildPayPalUrl(){
-      const qty = clampInt(qtyEl.value);
-      const ship = getShipCost();
-      const total = (UNIT_PRICE_EUR * qty) + ship;
-      const amount = total.toFixed(2).replace(",", ".");
-      return `${PAYPAL_ME}/${amount}`;
-    }
+      const totalPrice = document.getElementById("totalPrice");
+      const breakdownLine = document.getElementById("breakdownLine");
+      const unitPriceEl = document.getElementById("unitPrice");
 
-    function buildOrderNote(){
-      const size = sizeEl.value;
-      const color = colorEl.value;
-      const zone = shipEl.value;
-      const qty = clampInt(qtyEl.value);
-      return `order: la vida da vuelta t-shirt | size: ${size} | color: ${color} | zone: ${zone} | qty: ${qty} | ship: ${getShipCost().toFixed(2)} EUR | contact: ${SUPPORT_EMAIL}`;
-    }
+      const brandSubtitle = document.getElementById("brandSubtitle");
+      const langLabel = document.getElementById("langLabel");
 
-    function refresh(){
-      const qty = clampInt(qtyEl.value);
-      qtyEl.value = qty;
+      const pill1 = document.getElementById("pill1");
+      const pill2 = document.getElementById("pill2");
+      const pill3 = document.getElementById("pill3");
+      const pill4 = document.getElementById("pill4");
 
-      const shipCost = getShipCost();
-      const total = (UNIT_PRICE_EUR * qty) + shipCost;
+      const lblSize = document.getElementById("lblSize");
+      const lblColor = document.getElementById("lblColor");
+      const lblShip = document.getElementById("lblShip");
+      const lblQty = document.getElementById("lblQty");
 
-      unitPriceEl.textContent = fmtEUR(UNIT_PRICE_EUR);
-      totalPrice.textContent = fmtEUR(total);
+      const supportNote = document.getElementById("supportNote");
+      const legalNote = document.getElementById("legalNote");
 
-      buyBtn.href = buildPayPalUrl();
-      buyBtn.setAttribute("aria-label", `paypal: ${fmtEUR(total)}`);
-    }
+      const previewLabel = document.getElementById("previewLabel");
+      const previewHint = document.getElementById("previewHint");
 
-    function applyLang(code){
-      const t = I18N[code] || I18N.de;
+      const b1 = document.getElementById("b1");
+      const b2 = document.getElementById("b2");
+      const b3 = document.getElementById("b3");
 
-      document.getElementById("brandSubtitle").textContent = t.brandSubtitle;
-      document.getElementById("langLabel").textContent = t.langLabel;
+      const sumImp = document.getElementById("sumImp");
+      const sumDs = document.getElementById("sumDs");
+      const sumWd = document.getElementById("sumWd");
 
-      document.getElementById("pill1").textContent = t.pill1;
-      document.getElementById("pill2").textContent = t.pill2;
-      document.getElementById("pill3").textContent = t.pill3;
-      document.getElementById("pill4").textContent = t.pill4;
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-      document.getElementById("lblSize").textContent = t.lblSize;
-      document.getElementById("lblColor").textContent = t.lblColor;
-      document.getElementById("lblShip").textContent = t.lblShip;
-      document.getElementById("lblQty").textContent = t.lblQty;
+      const getShipCost = () => SHIPPING[shipEl.value] ?? SHIPPING.DE;
 
-      // Button text includes total
-      buyBtn.textContent = `${t.buy} · ${totalPrice.textContent}`;
-      copyBtn.textContent = t.copy;
-
-      document.getElementById("supportNote").innerHTML = t.support;
-      document.getElementById("legalNote").textContent = t.legal;
-
-      document.getElementById("previewLabel").textContent = t.previewLabel;
-      document.getElementById("previewHint").textContent = t.previewHint;
-
-      document.getElementById("b1").textContent = t.b1;
-      document.getElementById("b2").textContent = t.b2;
-      document.getElementById("b3").textContent = t.b3;
-
-      document.getElementById("lnkImp").textContent = t.imp;
-      document.getElementById("lnkDs").textContent = t.ds;
-      document.getElementById("lnkWd").textContent = t.wd;
-      document.getElementById("closeModal").textContent = t.close;
-      document.getElementById("modalTitle").textContent = t.modalDefault;
-
-      // update breakdown line with translated shipping name
-      const zone = shipEl.value;
-      const zoneName = t.shipName[zone] || t.shipName.DE;
-      const shipCost = getShipCost();
-      breakdownLine.textContent = `${t.unitLine}: ${fmtEUR(UNIT_PRICE_EUR)} · versand: ${fmtEUR(shipCost)} (${zoneName}) · gesamt: t-shirt + versand`;
-      if (code !== "de") {
-        // keep the breakdown readable in other languages with a simple pattern
-        breakdownLine.textContent = `${t.unitLine}: ${fmtEUR(UNIT_PRICE_EUR)} · shipping: ${fmtEUR(shipCost)} (${zoneName}) · total: item + shipping`;
+      function buildPayPalUrl(){
+        const qty = clampInt(qtyEl.value);
+        const ship = getShipCost();
+        const total = (UNIT_PRICE_EUR * qty) + ship;
+        const amount = total.toFixed(2);
+        return `${PAYPAL_ME}/${amount}`;
       }
-    }
 
-    // ======================
-    // Legal modal placeholders
-    // ======================
-    /* ======================
-   LEGAL CONTENT (FIX)
-====================== */
+      function refreshTotals(){
+        const qty = clampInt(qtyEl.value);
+        qtyEl.value = qty;
 
-  impressum: `
-    <h3>impressum</h3>
-    <p><strong>angaben gemäß § 5 tmg</strong></p>
-    <ul>
-      <li><strong>betreiber:</strong> tenzer / torres</li>
-      <li><strong>e-mail:</strong> <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></li>
-      <li><strong>adresse:</strong>hüxstraße 72, 23552 lübeck</li>
-    </ul>
-  `,
-  datenschutz: `
-    <h3>datenschutz</h3>
-    <p>personenbezogene daten werden ausschließlich zur abwicklung von bestellungen verwendet.</p>
-    <ul>
-      <li><strong>zahlung:</strong> paypal</li>
-      <li><strong>hosting:</strong> github pages</li>
-      <li><strong>kontakt:</strong> <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></li>
-    </ul>
-  `,
-  widerruf: `
-    <h3>widerrufsbelehrung</h3>
-    <p>verbraucher haben ein vierzehntägiges widerrufsrecht.</p>
-    <p><strong>widerruf per e-mail:</strong> <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>
-    <p><strong>rücksendekosten:</strong> trägt der käufer.</p>
-  `
-};
+        const shipCost = getShipCost();
+        const total = (UNIT_PRICE_EUR * qty) + shipCost;
 
-/* ======================
-   LEGAL MODAL HANDLER (FIX)
-====================== */
+        unitPriceEl.textContent = fmtEUR(UNIT_PRICE_EUR);
+        totalPrice.textContent = fmtEUR(total);
 
-
-
-
-
-    
-
-    // ======================
-    // Events
-    // ======================
-    [sizeEl, colorEl, shipEl, qtyEl].forEach(el => el.addEventListener("change", () => {
-      refresh();
-      applyLang(langEl.value);
-    }));
-    qtyEl.addEventListener("input", () => {
-      refresh();
-      applyLang(langEl.value);
-    });
-
-    copyBtn.addEventListener("click", async () => {
-      const note = buildOrderNote();
-      try{
-        await navigator.clipboard.writeText(note);
-        const old = copyBtn.textContent;
-        copyBtn.textContent = "✓";
-        setTimeout(()=> copyBtn.textContent = old, 900);
-      }catch(e){
-        alert("kopieren nicht möglich. bitte manuell:\n\n" + note);
+        // Always keep buy URL valid (never #)
+        buyBtn.href = buildPayPalUrl();
       }
-    });
 
-    langEl.addEventListener("change", () => {
+      function applyLang(code){
+        const t = I18N[code] || I18N.de;
+
+        brandSubtitle.textContent = t.brandSubtitle;
+        langLabel.textContent = t.langLabel;
+
+        pill1.textContent = t.pill1;
+        pill2.textContent = t.pill2;
+        pill3.textContent = t.pill3;
+        pill4.textContent = t.pill4;
+
+        lblSize.textContent = t.lblSize;
+        lblColor.textContent = t.lblColor;
+        lblShip.textContent = t.lblShip;
+        lblQty.textContent = t.lblQty;
+
+        previewLabel.textContent = t.previewLabel;
+        previewHint.textContent = ""; // remove hint text permanently
+
+        b1.textContent = t.b1;
+        b2.textContent = t.b2;
+        b3.textContent = t.b3;
+
+        supportNote.innerHTML = t.support;
+        legalNote.textContent = t.legal;
+
+        // Legal summaries (not bold, normal)
+        sumImp.textContent = t.sumImp;
+        sumDs.textContent = t.sumDs;
+        sumWd.textContent = t.sumWd;
+
+        // breakdown (short and stable)
+        const zone = shipEl.value;
+        const zoneName = (t.shipName && t.shipName[zone]) ? t.shipName[zone] : zone;
+        breakdownLine.textContent = `${t.unitLine}: ${fmtEUR(UNIT_PRICE_EUR)} · shipping: ${fmtEUR(getShipCost())} (${zoneName}) · total: item + shipping`;
+
+        // Button shows total
+        buyBtn.textContent = `${t.buy} · ${totalPrice.textContent}`;
+        copyBtn.textContent = t.copy;
+      }
+
+      function buildOrderNote(){
+        const size = sizeEl.value;
+        const color = colorEl.value;
+        const zone = shipEl.value;
+        const qty = clampInt(qtyEl.value);
+        const ship = getShipCost();
+        const total = (UNIT_PRICE_EUR * qty) + ship;
+        return `order: la vida da vuelta t-shirt | size: ${size} | color: ${color} | zone: ${zone} | qty: ${qty} | shipping: ${ship.toFixed(2)} EUR | total: ${total.toFixed(2)} EUR | contact: ${SUPPORT_EMAIL}`;
+      }
+
+      // Events
+      [sizeEl, colorEl, shipEl, qtyEl].forEach(el => el.addEventListener("change", () => {
+        refreshTotals();
+        applyLang(langEl.value);
+      }));
+      qtyEl.addEventListener("input", () => {
+        refreshTotals();
+        applyLang(langEl.value);
+      });
+      langEl.addEventListener("change", () => applyLang(langEl.value));
+
+      copyBtn.addEventListener("click", async () => {
+        const note = buildOrderNote();
+        try{
+          await navigator.clipboard.writeText(note);
+          const old = copyBtn.textContent;
+          copyBtn.textContent = "✓";
+          setTimeout(()=> copyBtn.textContent = old, 900);
+        }catch(e){
+          alert("kopieren nicht möglich. bitte manuell:\n\n" + note);
+        }
+      });
+
+      // Init
+      refreshTotals();
       applyLang(langEl.value);
     });
-
-    // ======================
-    // Init
-    // ======================
-    document.getElementById("year").textContent = new Date().getFullYear();
-    refresh();
-    applyLang("de");
   </script>
 </body>
 </html>
