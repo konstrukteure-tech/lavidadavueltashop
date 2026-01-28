@@ -735,6 +735,8 @@
         sumImp.textContent = t.sumImp;
         sumDs.textContent = t.sumDs;
         sumWd.textContent = t.sumWd;
+        if (sumShip) sumShip.textContent = t.sumShip || "versand & zahlung";
+
 
         // breakdown (short and stable)
         const zone = shipEl.value;
