@@ -714,6 +714,17 @@
 
       function applyLang(code){
         const t = I18N[code] || I18N.de;
+        // --- legal text content (multilingual) ---
+const txtImpEl  = document.getElementById("txtImp");
+const txtDsEl   = document.getElementById("txtDs");
+const txtWdEl   = document.getElementById("txtWd");
+const txtShipEl = document.getElementById("txtShip");
+
+if (txtImpEl  && t.txtImp)  txtImpEl.innerHTML  = t.txtImp;
+if (txtDsEl   && t.txtDs)   txtDsEl.innerHTML   = t.txtDs;
+if (txtWdEl   && t.txtWd)   txtWdEl.innerHTML   = t.txtWd;
+if (txtShipEl && t.txtShip) txtShipEl.innerHTML = t.txtShip;
+
 
         brandSubtitle.textContent = t.brandSubtitle;
         langLabel.textContent = t.langLabel;
