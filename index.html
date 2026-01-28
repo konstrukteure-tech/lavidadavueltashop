@@ -491,6 +491,16 @@
       </p>
     </div>
   </details>
+      <details>
+  <summary id="sumSize">größentabelle & passform</summary>
+  <div id="txtSize"></div>
+</details>
+
+<details>
+  <summary id="sumDelivery">lieferzeiten</summary>
+  <div id="txtDelivery"></div>
+</details>
+
 </section>
 
 
@@ -540,6 +550,36 @@ de: {
   unitLine:"t-shirt",
   sumImp:"impressum", sumDs:"datenschutz", sumWd:"widerruf",
   sumShip:"versand & zahlung",
+  sumSize: "größentabelle & passform",
+sumDelivery: "lieferzeiten",
+
+txtSize: `
+<h2>Größentabelle & Passform</h2>
+<p>Unsere T-Shirts haben eine normale Unisex-Passform.</p>
+
+<ul>
+  <li>XS: sehr schmal</li>
+  <li>S: schmal</li>
+  <li>M: normal</li>
+  <li>L: locker</li>
+  <li>XL: locker</li>
+  <li>XXL: extra locker</li>
+</ul>
+
+<p>Wenn du zwischen zwei Größen liegst, empfehlen wir die größere Größe.</p>
+`,
+
+txtDelivery: `
+<h2>Lieferzeiten</h2>
+<ul>
+  <li>Deutschland: ca. 3–5 Werktage</li>
+  <li>Europa (EU): ca. 5–8 Werktage</li>
+  <li>Weltweit: ca. 8–14 Werktage</li>
+</ul>
+
+<p>Die Lieferzeit beginnt nach Zahlungseingang.</p>
+`,
+
 
   // ✅ Inhalte (Deutsch) – du kannst hier später echte DE-Texte einsetzen
   txtImp: `
@@ -630,6 +670,36 @@ txtShip: `
         unitLine:"t-shirt",
         sumImp:"imprint", sumDs:"privacy", sumWd:"withdrawal",
         sumShip: "shipment ? billing",
+        sumSize: "size chart & fit",
+sumDelivery: "delivery times",
+
+txtSize: `
+<h2>Size Chart & Fit</h2>
+<p>Our T-shirts have a regular unisex fit.</p>
+
+<ul>
+  <li>XS: very slim</li>
+  <li>S: slim</li>
+  <li>M: regular</li>
+  <li>L: relaxed</li>
+  <li>XL: relaxed</li>
+  <li>XXL: extra relaxed</li>
+</ul>
+
+<p>If you are between two sizes, we recommend choosing the larger one.</p>
+`,
+
+txtDelivery: `
+<h2>Delivery Times</h2>
+<ul>
+  <li>Germany: approx. 3–5 business days</li>
+  <li>Europe (EU): approx. 5–8 business days</li>
+  <li>Worldwide: approx. 8–14 business days</li>
+</ul>
+
+<p>Delivery time starts after payment is received.</p>
+`,
+
         txtImp: `
 <h2>Imprint</h2>
 <p>Information according to German law (§ 5 TMG)</p>
@@ -889,6 +959,16 @@ if (txtShipEl && t.txtShip) txtShipEl.innerHTML = t.txtShip;
         sumDs.textContent = t.sumDs;
         sumWd.textContent = t.sumWd;
         if (sumShip) sumShip.textContent = t.sumShip || "versand & zahlung";
+        const sumSize = document.getElementById("sumSize");
+const sumDelivery = document.getElementById("sumDelivery");
+const txtSize = document.getElementById("txtSize");
+const txtDelivery = document.getElementById("txtDelivery");
+
+if (sumSize) sumSize.textContent = t.sumSize;
+if (sumDelivery) sumDelivery.textContent = t.sumDelivery;
+if (txtSize && t.txtSize) txtSize.innerHTML = t.txtSize;
+if (txtDelivery && t.txtDelivery) txtDelivery.innerHTML = t.txtDelivery;
+
 
 
         // breakdown (short and stable)
