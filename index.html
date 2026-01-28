@@ -405,7 +405,10 @@ Rücken frei." />
           </div>
 
           <div class="ctaRow">
-            <a class="btn btnPrimary" id="buyBtn" href="#" target="_blank" rel="noopener">jetzt mit paypal kaufen</a>
+            <a id="buyBtn" class="btn btnPrimary" href="https://www.paypal.me/DEINNAME/34.90" target="_blank">
+  jetzt mit paypal kaufen
+</a>
+
             <button class="btn btnGhost" id="copyBtn" type="button">bestelldaten kopieren</button>
           </div>
 
@@ -433,6 +436,27 @@ Rücken frei." />
         </div>
       </div>
     </div>
+<section style="margin-top:40px; font-size:14px; color:#333">
+  <details>
+    <summary><strong>Impressum</strong></summary>
+    <p><strong>Betreiber:</strong> Thorsten Tenzer<br>
+    <strong>E-Mail:</strong> konstrukture@gmx.de<br>
+    <strong>Adresse:</strong> bitte hier vollständig eintragen</p>
+  </details>
+
+  <details>
+    <summary><strong>Datenschutz</strong></summary>
+    <p>Personenbezogene Daten werden ausschließlich zur Bestellabwicklung verwendet.
+    Zahlung erfolgt über PayPal. Hosting über GitHub Pages.</p>
+  </details>
+
+  <details>
+    <summary><strong>Widerruf</strong></summary>
+    <p>Verbraucher haben ein vierzehntägiges Widerrufsrecht.
+    Widerruf per E-Mail an konstrukture@gmx.de.
+    Rücksendekosten trägt der Käufer.</p>
+  </details>
+</section>
 
     <footer>
       <div>© <span id="year"></span> · tenzer / torres · <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></div>
@@ -445,15 +469,7 @@ Rücken frei." />
   </div>
 
   <!-- LEGAL MODAL -->
-  <dialog class="legalModal" id="legalModal">
-    <div class="modalCard">
-      <div class="modalTop">
-        <strong id="modalTitle">rechtliches</strong>
-        <button class="closeBtn" id="closeModal" type="button">schließen</button>
-      </div>
-      <div class="modalBody" id="modalBody"></div>
-    </div>
-  </dialog>
+
 
   <script>
     // ======================
@@ -664,14 +680,14 @@ Rücken frei." />
     /* ======================
    LEGAL CONTENT (FIX)
 ====================== */
-const legal = {
+
   impressum: `
     <h3>impressum</h3>
     <p><strong>angaben gemäß § 5 tmg</strong></p>
     <ul>
-      <li><strong>betreiber:</strong> thorsten tenzer</li>
+      <li><strong>betreiber:</strong> tenzer / torres</li>
       <li><strong>e-mail:</strong> <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></li>
-      <li><strong>adresse:</strong> bitte hier deine vollständige adresse eintragen</li>
+      <li><strong>adresse:</strong>hüxstraße 72, 23552 lübeck</li>
     </ul>
   `,
   datenschutz: `
@@ -694,43 +710,12 @@ const legal = {
 /* ======================
    LEGAL MODAL HANDLER (FIX)
 ====================== */
-const modal = document.getElementById("legalModal");
-const modalBody = document.getElementById("modalBody");
-const modalTitle = document.getElementById("modalTitle");
-const closeBtn = document.getElementById("closeModal");
-
-document.getElementById("lnkImp").addEventListener("click", (e) => {
-  e.preventDefault();
-  modalTitle.textContent = "impressum";
-  modalBody.innerHTML = legal.impressum;
-  modal.setAttribute("open", "");
-});
-
-document.getElementById("lnkDs").addEventListener("click", (e) => {
-  e.preventDefault();
-  modalTitle.textContent = "datenschutz";
-  modalBody.innerHTML = legal.datenschutz;
-  modal.setAttribute("open", "");
-});
-
-document.getElementById("lnkWd").addEventListener("click", (e) => {
-  e.preventDefault();
-  modalTitle.textContent = "widerruf";
-  modalBody.innerHTML = legal.widerruf;
-  modal.setAttribute("open", "");
-});
-
-closeBtn.addEventListener("click", () => modal.removeAttribute("open"));
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) modal.removeAttribute("open");
-});
 
 
 
-    const modal = document.getElementById("legalModal");
-    const modalBody = document.getElementById("modalBody");
 
- 
+
+    
 
     // ======================
     // Events
