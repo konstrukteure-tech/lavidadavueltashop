@@ -526,29 +526,52 @@
     // I18N (simple + robust)
     // ======================
     const I18N = {
-      de: {
-        brandSubtitle: "einfach bestellen · weltweit versendet",
-        langLabel: "sprache",
-        pill1:"unisex", pill2:"frontprint", pill3:"rücken frei (kollektion)", pill4:"zahlung via paypal",
-        lblSize:"größe", lblColor:"farbe", lblShip:"versandzone", lblQty:"menge",
-        buy:"jetzt mit paypal kaufen", copy:"bestelldaten kopieren",
-        support:`support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
-        legal:"hinweis: versandkosten sind pauschal je zone.",
-        previewLabel:"produktvorschau",
-        b1:"gelb + khaki", b2:"kollektion: rücken frei", b3:"versand: de/eu/ww",
-        shipName:{DE:"deutschland", EU:"europa", WW:"weltweit"},
-        unitLine:"t-shirt",
-        sumImp:"impressum", sumDs:"datenschutz", sumWd:"widerruf",
-        sumShip: "versand & zahlung",
-        
-        txtImp: `...`,
-        txtDs: `...`,
-        txtWd: `...`,
-        txtShip: `...`
-}
+de: {
+  brandSubtitle: "einfach bestellen · weltweit versendet",
+  langLabel: "sprache",
+  pill1:"unisex", pill2:"frontprint", pill3:"rücken frei (kollektion)", pill4:"zahlung via paypal",
+  lblSize:"größe", lblColor:"farbe", lblShip:"versandzone", lblQty:"menge",
+  buy:"jetzt mit paypal kaufen", copy:"bestelldaten kopieren",
+  support:`support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
+  legal:"hinweis: versandkosten sind pauschal je zone.",
+  previewLabel:"produktvorschau",
+  b1:"gelb + khaki", b2:"kollektion: rücken frei", b3:"versand: de/eu/ww",
+  shipName:{DE:"deutschland", EU:"europa", WW:"weltweit"},
+  unitLine:"t-shirt",
+  sumImp:"impressum", sumDs:"datenschutz", sumWd:"widerruf",
+  sumShip:"versand & zahlung",
 
+  // ✅ Inhalte (Deutsch) – du kannst hier später echte DE-Texte einsetzen
+  txtImp: `
+<h2>Impressum</h2>
+<p>Angaben gemäß § 5 TMG</p>
+<p>Thorsten Tenzer, Carlos Torres Rivas<br>hüxtraße 72<br>23552 lübeck<br>Deutschland</p>
+<p>E-Mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>
+<p>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>thorsten tenzer / carlos torres rivas</p>
+`,
 
-      },
+  txtDs: `
+<h2>Datenschutzerklärung</h2>
+<p>Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen.</p>
+<p>Diese Website wird über GitHub Pages gehostet (GitHub Inc., USA). Dabei werden technisch notwendige Zugriffsdaten verarbeitet.</p>
+<p>Zahlungsabwicklung via PayPal (Europe) S.à r.l. et Cie, S.C.A., Luxemburg.</p>
+`,
+
+  txtWd: `
+<h2>Widerrufsbelehrung</h2>
+<p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p>
+<p>Widerruf per E-Mail an <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a>.</p>
+<p>Die Kosten der Rücksendung der Waren tragen Sie.</p>
+`,
+
+  txtShip: `
+<h2>Versand & Zahlung</h2>
+<p>Wir versenden nach Deutschland, in die EU sowie weltweit.</p>
+<p>Die Versandkosten werden im Bestellprozess transparent angezeigt.</p>
+<p>Zahlung erfolgt über PayPal.</p>
+`
+},
+
       es: {
         brandSubtitle: "pedido fácil · envío mundial",
         langLabel: "idioma",
@@ -562,7 +585,7 @@
         shipName:{DE:"alemania", EU:"europa", WW:"mundial"},
         unitLine:"camiseta",
         sumImp:"aviso legal", sumDs:"privacidad", sumWd:"desistimiento",
-        sumShip: "versand & zahlung"
+        sumShip: "envio & pago"
 
       },
       en: {
@@ -578,7 +601,7 @@
         shipName:{DE:"germany", EU:"europe", WW:"worldwide"},
         unitLine:"t-shirt",
         sumImp:"imprint", sumDs:"privacy", sumWd:"withdrawal",
-        sumShip: "versand & zahlung"
+        sumShip: "shipment ? billing"
 
       },
       fr: {
@@ -619,7 +642,7 @@
 
 
         
-        sumShip: "versand & zahlung"
+        sumShip: "livraison & paiement"
 
       },
       it: {
@@ -635,7 +658,7 @@
         shipName:{DE:"germania", EU:"europa", WW:"mondo"},
         unitLine:"t-shirt",
         sumImp:"note legali", sumDs:"privacy", sumWd:"recesso",
-        sumShip: "versand & zahlung"
+        sumShip: "spedizione & pagamento"
 
       }
     };
