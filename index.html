@@ -18,16 +18,17 @@
       --accent:#ffd200;
       --accentText:#0b0b0b;
 
-      /* ✅ Widerruf rot */
+      /* ✅ Widerruf rot + gut lesbar */
       --danger:#d62828;
       --dangerText:#ffffff;
 
-      /* ✅ breiter / bildschirmfüllender */
-      --max: 1680px;
-      --pad: 22px;
+      /* ✅ Full-width feel */
+      --pad: 24px;
+      --max: 1880px;
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -37,16 +38,21 @@
     }
     a{color:inherit}
 
-    /* ✅ wirklich breiter */
+    /* ✅ 16:9 / screen-fit: keeps content inside viewport as much as possible */
     .wrap{
       width: min(var(--max), calc(100vw - (var(--pad) * 2)));
       margin: 0 auto;
-      padding: 24px var(--pad) 42px;
+      padding: 18px var(--pad) 18px;
+      min-height: calc(100vh - 0px);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
     }
 
     header{
       display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding: 10px 0 16px;
+      padding: 8px 0 6px;
+      flex: 0 0 auto;
     }
     .brand{display:flex; flex-direction:column; gap:2px;}
     .brand strong{font-size:18px; letter-spacing:.2px; text-transform:lowercase;}
@@ -61,12 +67,17 @@
     }
 
     .hero{
+      flex: 1 1 auto;
       display:grid;
       grid-template-columns: 1.05fr .95fr;
-      gap: 22px;
+      gap: 18px;
       align-items:stretch;
+      min-height: 0; /* allows children to size correctly */
     }
-    @media (max-width: 980px){ .hero{grid-template-columns: 1fr;} }
+    @media (max-width: 980px){
+      .wrap{padding-bottom:28px}
+      .hero{grid-template-columns: 1fr;}
+    }
 
     .card{
       background: var(--card);
@@ -75,19 +86,26 @@
       box-shadow: var(--shadow);
       overflow:hidden;
       backdrop-filter: blur(4px);
+      min-height: 0;
     }
-    .inner{padding: 18px;}
+    .inner{
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      height:100%;
+    }
 
     h1{
-      margin:0 0 6px;
+      margin:0;
       font-size: 44px;
       line-height: 1.03;
       text-transform:lowercase;
       letter-spacing: -0.6px;
     }
-    .sub{margin:0 0 14px; font-size: 16px; color: var(--muted); text-transform:lowercase;}
+    .sub{margin:0; font-size: 16px; color: var(--muted); text-transform:lowercase;}
 
-    .trustRow{display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 6px;}
+    .trustRow{display:flex; gap:10px; flex-wrap:wrap; margin-top: 6px;}
     .pill{
       font-size:12px; color: var(--muted);
       border:1px solid var(--line);
@@ -95,12 +113,12 @@
       border-radius:999px;
       background: rgba(255,255,255,.70);
       text-transform:lowercase;
+      white-space:nowrap;
     }
 
     .priceBox{
       display:grid; gap:8px;
-      margin: 14px 0 14px;
-      padding: 14px;
+      padding: 12px 14px;
       border-radius: 16px;
       border:1px dashed rgba(0,0,0,.18);
       background: rgba(255,255,255,.72);
@@ -127,15 +145,16 @@
       color: var(--text);
       outline:none;
       font-size: 15px;
+      text-transform:lowercase;
     }
 
-    /* ✅ alle drei Buttons exakt gleich groß */
+    /* ✅ Buttons: always equal width & readable in ALL languages */
     .ctaRow{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap:12px;
       align-items:stretch;
-      margin-top: 14px;
+      margin-top: 2px;
     }
     @media (max-width: 760px){ .ctaRow{grid-template-columns:1fr;} }
 
@@ -143,19 +162,26 @@
       appearance:none;
       border:none;
       cursor:pointer;
-      height: 46px;
-      padding: 0 14px;
+      height: 48px;                 /* ✅ a bit taller: Widerruf readable */
+      padding: 0 10px;              /* ✅ tighter */
       border-radius: 14px;
       font-weight: 950;
       letter-spacing:.2px;
       text-decoration:none;
-      display:inline-flex;
+      display:flex;
       align-items:center;
       justify-content:center;
       width:100%;
-      white-space:nowrap;
+      min-width:0;
       text-transform:lowercase;
       user-select:none;
+
+      /* ✅ prevent uneven button sizes due to long text */
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 14px;
+      line-height: 1;
     }
     .btnPrimary{
       background: var(--accent);
@@ -175,62 +201,23 @@
     }
     .btn:active{transform: translateY(1px);}
 
-    .note{margin: 10px 0 0; font-size: 12px; color: var(--muted); text-transform:lowercase;}
-
-    /* Right panel image */
-    .imgWrap{
+    .noteRow{
       display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height: 520px;
-      background: rgba(255,255,255,.55);
-    }
-    .imgInner{
-      width: 92%;
-      max-width: 620px; /* ✅ etwas größer */
-      border-radius: 20px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.75);
-      overflow:hidden;
-      box-shadow: 0 18px 45px rgba(0,0,0,.20);
-    }
-    .imgHeader{
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
-      display:flex;
-      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
       justify-content:space-between;
-      font-size:12px;
-      color:var(--muted);
-      text-transform:lowercase;
+      align-items:center;
     }
-    .imgBody{padding: 14px;}
-    .productImg{
-      width:100%;
-      display:block;
-      border-radius: 16px;
-      border:1px solid rgba(0,0,0,.10);
-      background:#f4f4f4;
-    }
-    .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top: 12px;}
-    .badge{
-      font-size:12px;
-      color: var(--muted);
-      border:1px solid var(--line);
-      padding: 7px 9px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.70);
-      text-transform:lowercase;
-    }
+    .note{margin:0; font-size: 12px; color: var(--muted); text-transform:lowercase;}
 
-    /* ✅ Legal bar (kompakt, kein Scroll) */
+    /* ✅ Legal bar compact */
     .legalBar{
-      margin-top: 14px;
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       align-items:center;
       justify-content:flex-start;
+      margin-top: 2px;
     }
     .legalBtn{
       appearance:none;
@@ -243,6 +230,7 @@
       font-weight: 900;
       text-transform:lowercase;
       cursor:pointer;
+      white-space:nowrap;
     }
     .legalBtn:hover{opacity:.86}
     .legalBtn.danger{
@@ -251,9 +239,57 @@
       color:#7a0d0d;
     }
 
+    /* RIGHT: keep preview fitting 16:9 */
+    .imgWrap{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height: 100%;
+      background: rgba(255,255,255,.55);
+      padding: 16px;
+    }
+    .imgInner{
+      width: 100%;
+      max-width: 760px;
+      border-radius: 20px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      overflow:hidden;
+      box-shadow: 0 18px 45px rgba(0,0,0,.20);
+    }
+    .imgHeader{
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:12px;
+      color:var(--muted);
+      text-transform:lowercase;
+    }
+    .imgBody{padding: 12px;}
+    .productImg{
+      width:100%;
+      display:block;
+      border-radius: 16px;
+      border:1px solid rgba(0,0,0,.10);
+      background:#f4f4f4;
+    }
+    .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top: 10px;}
+    .badge{
+      font-size:12px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.70);
+      text-transform:lowercase;
+      white-space:nowrap;
+    }
+
     footer{
-      margin-top: 18px;
-      padding-top: 14px;
+      flex: 0 0 auto;
+      padding-top: 10px;
       border-top: 1px solid rgba(0,0,0,.12);
       color: var(--muted);
       font-size: 12px;
@@ -340,14 +376,16 @@
       <!-- LEFT -->
       <div class="card">
         <div class="inner">
-          <h1 id="headline">la vida da vuelta</h1>
-          <p class="sub" id="subline">por fin se fue</p>
+          <div>
+            <h1 id="headline">la vida da vuelta</h1>
+            <p class="sub" id="subline">por fin se fue</p>
 
-          <div class="trustRow">
-            <div class="pill" id="pill1">unisex</div>
-            <div class="pill" id="pill2">frontprint</div>
-            <div class="pill" id="pill3">rücken frei (kollektion)</div>
-            <div class="pill" id="pill4">zahlung via paypal</div>
+            <div class="trustRow">
+              <div class="pill" id="pill1">unisex</div>
+              <div class="pill" id="pill2">frontprint</div>
+              <div class="pill" id="pill3">rücken frei (kollektion)</div>
+              <div class="pill" id="pill4">zahlung via paypal</div>
+            </div>
           </div>
 
           <div class="priceBox">
@@ -374,20 +412,14 @@
             </div>
             <div>
               <label class="field" for="color" id="lblColor">farbe</label>
-              <!-- ✅ Farben werden per JS je Sprache gefüllt -->
               <select id="color"></select>
             </div>
           </div>
 
-          <div class="grid2" style="margin-top:12px;">
+          <div class="grid2">
             <div>
               <label class="field" for="ship" id="lblShip">versandzone</label>
-              <!-- ✅ Versandzone Labels werden per JS je Sprache gesetzt -->
-              <select id="ship">
-                <option value="DE">deutschland</option>
-                <option value="EU">europa</option>
-                <option value="WW">weltweit</option>
-              </select>
+              <select id="ship"></select>
             </div>
             <div>
               <label class="field" for="qty" id="lblQty">menge</label>
@@ -395,20 +427,19 @@
             </div>
           </div>
 
-          <!-- ✅ Reihenfolge: Bezahlen / Widerruf / Kopieren -->
+          <!-- ✅ EXACT equal buttons -->
           <div class="ctaRow">
-            <a class="btn btnPrimary" id="buyBtn" href="https://www.paypal.me/konstrukteure@gmx.de/0.01" target="_blank" rel="noopener">
-              bezahlen
-            </a>
+            <a class="btn btnPrimary" id="buyBtn" href="https://www.paypal.me/konstrukteure@gmx.de/0.01" target="_blank" rel="noopener">bezahlen</a>
             <button class="btn btnDanger" id="wdBtn" type="button">widerruf</button>
             <button class="btn btnGhost" id="copyBtn" type="button">bestelldaten kopieren</button>
           </div>
 
-          <p class="note" id="supportNote">support: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>
-          <p class="note" id="legalNote">hinweis: versandkosten sind pauschal je zone.</p>
+          <div class="noteRow">
+            <p class="note" id="supportNote">support: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>
+            <p class="note" id="legalNote">hinweis: versandkosten sind pauschal je zone.</p>
+          </div>
 
-          <!-- ✅ kompakt: alles im Überblick -->
-          <div class="legalBar" aria-label="legal quick access">
+          <div class="legalBar">
             <button class="legalBtn" data-legal="imp" type="button" id="lbImp">impressum</button>
             <button class="legalBtn" data-legal="ds" type="button" id="lbDs">datenschutz</button>
             <button class="legalBtn danger" data-legal="wd" type="button" id="lbWd">widerruf</button>
@@ -424,7 +455,7 @@
         <div class="imgInner">
           <div class="imgHeader">
             <div id="previewLabel">produktvorschau</div>
-            <div id="previewHint"></div>
+            <div></div>
           </div>
           <div class="imgBody">
             <img class="productImg" src="shirt-gelb-khaki.png" alt="t-shirt vorschau" />
@@ -443,7 +474,7 @@
     </footer>
   </div>
 
-  <!-- ✅ Legal Modal -->
+  <!-- Modal -->
   <div class="modal" id="legalModal" aria-hidden="true">
     <div class="modalCard" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
       <div class="modalHead">
@@ -455,20 +486,15 @@
   </div>
 
   <script>
-    // ======================
     // CONFIG
-    // ======================
     const PAYPAL_ME = "https://www.paypal.me/konstrukteure@gmx.de";
     const UNIT_PRICE_EUR = 21.95;
     const SHIPPING = { DE: 4.95, EU: 9.95, WW: 14.95 };
     const SUPPORT_EMAIL = "konstrukture@gmx.de";
 
-    // stabile Keys (werden je Sprache gelabelt)
+    // Stable keys -> always translate labels
     const COLOR_KEYS = ["blue","yellow","khaki","grey","white","red","green"];
 
-    // ======================
-    // Helpers
-    // ======================
     const fmtEUR = (n) => n.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
     const clampInt = (val, min=1, max=999) => {
       const n = parseInt(val, 10);
@@ -476,9 +502,6 @@
       return Math.max(min, Math.min(max, n));
     };
 
-    // ======================
-    // I18N
-    // ======================
     const I18N = {
       de: {
         brandSubtitle: "einfach bestellen · weltweit versendet",
@@ -493,48 +516,19 @@
         shipName:{DE:"deutschland", EU:"europa", WW:"weltweit"},
         unitLine:"t-shirt",
         lbImp:"impressum", lbDs:"datenschutz", lbWd:"widerruf", lbShip:"versand & zahlung", lbSize:"größentabelle", lbDelivery:"lieferzeiten",
-        colors:{
-          blue:"blau", yellow:"gelb", khaki:"khaki", grey:"grau", white:"weiß", red:"rot", green:"grün"
-        },
-        txtImp: `
-<h2>Impressum</h2>
-<p>Angaben gemäß § 5 TMG</p>
-<p>Thorsten Tenzer, Carlos Torres Rivas<br>hüxtraße 72<br>23552 lübeck<br>Deutschland</p>
-<p>E-Mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>
-<p>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>thorsten tenzer / carlos torres rivas</p>`,
-        txtDs: `
-<h2>Datenschutzerklärung</h2>
-<p>Diese Website wird über GitHub Pages gehostet (GitHub Inc., USA). Dabei werden technisch notwendige Zugriffsdaten verarbeitet.</p>
-<p>Zahlungsabwicklung via PayPal (Europe) S.à r.l. et Cie, S.C.A., Luxemburg.</p>`,
-        txtWd: `
-<h2>Widerrufsbelehrung</h2>
-<h3>Widerrufsrecht</h3>
-<p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p>
-<h3>Widerruf ausüben</h3>
-<p>Widerruf per E-Mail an <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a>.</p>
-<h3>Rücksendekosten</h3>
-<p>Die Kosten der Rücksendung der Waren tragen Sie.</p>`,
-        txtShip: `
-<h2>Versand & Zahlung</h2>
-<p>Wir versenden nach Deutschland, in die EU sowie weltweit. Versandkosten pauschal je Zone.</p>
-<p>Zahlung erfolgt über PayPal.</p>`,
-        txtSize: `
-<h2>Größentabelle & Passform</h2>
-<p>Normale Unisex-Passform. Wenn du zwischen zwei Größen liegst, nimm die größere.</p>`,
-        txtDelivery: `
-<h2>Lieferzeiten</h2>
-<ul>
-  <li>Deutschland: ca. 3–5 Werktage</li>
-  <li>Europa (EU): ca. 5–8 Werktage</li>
-  <li>Weltweit: ca. 8–14 Werktage</li>
-</ul>`
+        colors:{blue:"blau", yellow:"gelb", khaki:"khaki", grey:"grau", white:"weiß", red:"rot", green:"grün"},
+        txtImp:`<h2>Impressum</h2><p>Angaben gemäß § 5 TMG</p><p>Thorsten Tenzer, Carlos Torres Rivas<br>hüxtraße 72<br>23552 lübeck<br>Deutschland</p><p>E-Mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>`,
+        txtDs:`<h2>Datenschutzerklärung</h2><p>Hosting über GitHub Pages (GitHub Inc., USA). Technisch notwendige Zugriffsdaten werden verarbeitet.</p><p>Zahlungsabwicklung via PayPal (Europe), Luxemburg.</p>`,
+        txtWd:`<h2>Widerrufsbelehrung</h2><p>Sie haben das Recht, binnen 14 Tagen ohne Angabe von Gründen zu widerrufen.</p><p>Widerruf per E-Mail an <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a>.</p><p>Rücksendekosten trägt der Käufer.</p>`,
+        txtShip:`<h2>Versand & Zahlung</h2><p>Versand nach Deutschland, EU, weltweit. Versandkosten pauschal je Zone.</p><p>Zahlung via PayPal.</p>`,
+        txtSize:`<h2>Größentabelle & Passform</h2><p>Normale Unisex-Passform. Bei Zwischengrößen: größere Größe wählen.</p>`,
+        txtDelivery:`<h2>Lieferzeiten</h2><ul><li>Deutschland: 3–5 Werktage</li><li>EU: 5–8 Werktage</li><li>Weltweit: 8–14 Werktage</li></ul>`
       },
-
       en: {
         brandSubtitle: "simple checkout · worldwide shipping",
         langLabel: "language",
         pill1:"unisex", pill2:"front print", pill3:"blank back (collection)", pill4:"pay with paypal",
-        lblSize:"size", lblColor:"color", lblShip:"shipping", lblQty:"quantity",
+        lblSize:"size", lblColor:"color", lblShip:"shipping zone", lblQty:"quantity",
         pay:"pay", copy:"copy order data", wd:"withdrawal",
         support:`support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
         legal:"note: flat shipping fees by zone.",
@@ -543,22 +537,19 @@
         shipName:{DE:"germany", EU:"europe", WW:"worldwide"},
         unitLine:"t-shirt",
         lbImp:"imprint", lbDs:"privacy", lbWd:"withdrawal", lbShip:"shipping & payment", lbSize:"size chart", lbDelivery:"delivery times",
-        colors:{
-          blue:"blue", yellow:"yellow", khaki:"khaki", grey:"grey", white:"white", red:"red", green:"green"
-        },
+        colors:{blue:"blue", yellow:"yellow", khaki:"khaki", grey:"grey", white:"white", red:"red", green:"green"},
         txtImp:`<h2>Imprint</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Germany</p><p>Email: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>`,
         txtDs:`<h2>Privacy</h2><p>Hosted via GitHub Pages. Payments via PayPal (Europe).</p>`,
         txtWd:`<h2>Right of Withdrawal</h2><p>You may withdraw within 14 days. Email: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>You bear return shipping costs.</p>`,
-        txtShip:`<h2>Shipping & Payment</h2><p>We ship to Germany, the EU and worldwide. Flat shipping by zone. Pay via PayPal.</p>`,
+        txtShip:`<h2>Shipping & Payment</h2><p>Germany / EU / worldwide. Flat shipping by zone. Pay via PayPal.</p>`,
         txtSize:`<h2>Size Chart & Fit</h2><p>Regular unisex fit. If between sizes, choose the larger one.</p>`,
         txtDelivery:`<h2>Delivery Times</h2><ul><li>Germany: 3–5 business days</li><li>EU: 5–8 business days</li><li>Worldwide: 8–14 business days</li></ul>`
       },
-
       es: {
         brandSubtitle: "pedido fácil · envío mundial",
         langLabel: "idioma",
         pill1:"unisex", pill2:"impresión frontal", pill3:"espalda libre (colección)", pill4:"pago con paypal",
-        lblSize:"talla", lblColor:"color", lblShip:"envío", lblQty:"cantidad",
+        lblSize:"talla", lblColor:"color", lblShip:"zona de envío", lblQty:"cantidad",
         pay:"pagar", copy:"copiar datos", wd:"desistimiento",
         support:`soporte: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
         legal:"nota: gastos de envío fijos por zona.",
@@ -567,22 +558,19 @@
         shipName:{DE:"alemania", EU:"europa", WW:"mundial"},
         unitLine:"camiseta",
         lbImp:"aviso legal", lbDs:"privacidad", lbWd:"desistimiento", lbShip:"envío y pago", lbSize:"tallas", lbDelivery:"entrega",
-        colors:{
-          blue:"azul", yellow:"amarillo", khaki:"caqui", grey:"gris", white:"blanco", red:"rojo", green:"verde"
-        },
+        colors:{blue:"azul", yellow:"amarillo", khaki:"caqui", grey:"gris", white:"blanco", red:"rojo", green:"verde"},
         txtImp:`<h2>Aviso legal</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Alemania</p><p>E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>`,
         txtDs:`<h2>Privacidad</h2><p>Alojado en GitHub Pages. Pagos mediante PayPal (Europe).</p>`,
-        txtWd:`<h2>Derecho de desistimiento</h2><p>Derecho de desistir en 14 días. E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Coste de devolución a cargo del comprador.</p>`,
-        txtShip:`<h2>Envío y pago</h2><p>Enviamos a Alemania, UE y mundial. Coste fijo por zona. Pago con PayPal.</p>`,
-        txtSize:`<h2>Tallas</h2><p>Ajuste unisex normal. Entre dos tallas, elige la mayor.</p>`,
+        txtWd:`<h2>Derecho de desistimiento</h2><p>14 días. E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Coste de devolución a cargo del comprador.</p>`,
+        txtShip:`<h2>Envío y pago</h2><p>Alemania / UE / mundial. Coste fijo por zona. Pago con PayPal.</p>`,
+        txtSize:`<h2>Tallas</h2><p>Ajuste unisex normal. Entre dos tallas: elige la mayor.</p>`,
         txtDelivery:`<h2>Entrega</h2><ul><li>Alemania: 3–5 días</li><li>UE: 5–8 días</li><li>Mundial: 8–14 días</li></ul>`
       },
-
       fr: {
         brandSubtitle: "commande simple · livraison mondiale",
         langLabel: "langue",
         pill1:"unisexe", pill2:"impression avant", pill3:"dos vierge (collection)", pill4:"paiement paypal",
-        lblSize:"taille", lblColor:"couleur", lblShip:"livraison", lblQty:"quantité",
+        lblSize:"taille", lblColor:"couleur", lblShip:"zone de livraison", lblQty:"quantité",
         pay:"payer", copy:"copier", wd:"rétractation",
         support:`support : <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
         legal:"note : frais de livraison fixes par zone.",
@@ -591,22 +579,19 @@
         shipName:{DE:"allemagne", EU:"europe", WW:"monde"},
         unitLine:"t-shirt",
         lbImp:"mentions légales", lbDs:"confidentialité", lbWd:"rétractation", lbShip:"livraison & paiement", lbSize:"tailles", lbDelivery:"délais",
-        colors:{
-          blue:"bleu", yellow:"jaune", khaki:"kaki", grey:"gris", white:"blanc", red:"rouge", green:"vert"
-        },
+        colors:{blue:"bleu", yellow:"jaune", khaki:"kaki", grey:"gris", white:"blanc", red:"rouge", green:"vert"},
         txtImp:`<h2>Mentions légales</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Allemagne</p><p>E-mail : <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>`,
         txtDs:`<h2>Confidentialité</h2><p>Hébergement via GitHub Pages. Paiements via PayPal.</p>`,
         txtWd:`<h2>Droit de rétractation</h2><p>14 jours. E-mail : <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Frais de retour à votre charge.</p>`,
-        txtShip:`<h2>Livraison & paiement</h2><p>Allemagne/UE/Monde. Forfait par zone. Paiement via PayPal.</p>`,
+        txtShip:`<h2>Livraison & paiement</h2><p>Allemagne / UE / Monde. Forfait par zone. Paiement via PayPal.</p>`,
         txtSize:`<h2>Tailles</h2><p>Coupe unisexe normale. Entre deux tailles : choisir la plus grande.</p>`,
         txtDelivery:`<h2>Délais</h2><ul><li>Allemagne : 3–5 jours</li><li>UE : 5–8 jours</li><li>Monde : 8–14 jours</li></ul>`
       },
-
       it: {
         brandSubtitle: "ordine semplice · spedizione mondiale",
         langLabel: "lingua",
         pill1:"unisex", pill2:"stampa frontale", pill3:"retro vuoto (collezione)", pill4:"paga con paypal",
-        lblSize:"taglia", lblColor:"colore", lblShip:"spedizione", lblQty:"quantità",
+        lblSize:"taglia", lblColor:"colore", lblShip:"zona spedizione", lblQty:"quantità",
         pay:"pagare", copy:"copia dati", wd:"recesso",
         support:`supporto: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`,
         legal:"nota: costi di spedizione fissi per zona.",
@@ -615,21 +600,16 @@
         shipName:{DE:"germania", EU:"europa", WW:"mondo"},
         unitLine:"t-shirt",
         lbImp:"note legali", lbDs:"privacy", lbWd:"recesso", lbShip:"spedizione & pagamento", lbSize:"taglie", lbDelivery:"tempi",
-        colors:{
-          blue:"blu", yellow:"giallo", khaki:"khaki", grey:"grigio", white:"bianco", red:"rosso", green:"verde"
-        },
+        colors:{blue:"blu", yellow:"giallo", khaki:"khaki", grey:"grigio", white:"bianco", red:"rosso", green:"verde"},
         txtImp:`<h2>Note legali</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Germania</p><p>E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>`,
         txtDs:`<h2>Privacy</h2><p>Hosting via GitHub Pages. Pagamenti via PayPal.</p>`,
         txtWd:`<h2>Diritto di recesso</h2><p>14 giorni. E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Spese di restituzione a tuo carico.</p>`,
-        txtShip:`<h2>Spedizione & pagamento</h2><p>Germania/UE/Mondo. Forfait per zona. Pagamento tramite PayPal.</p>`,
+        txtShip:`<h2>Spedizione & pagamento</h2><p>Germania / UE / Mondo. Forfait per zona. Pagamento tramite PayPal.</p>`,
         txtSize:`<h2>Taglie</h2><p>Vestibilità unisex regolare. Tra due taglie, scegli la più grande.</p>`,
         txtDelivery:`<h2>Tempi di consegna</h2><ul><li>Germania: 3–5 giorni</li><li>UE: 5–8 giorni</li><li>Mondo: 8–14 giorni</li></ul>`
       }
     };
 
-    // ======================
-    // Init
-    // ======================
     document.addEventListener("DOMContentLoaded", () => {
       const langEl = document.getElementById("langSel");
       const sizeEl = document.getElementById("size");
@@ -662,13 +642,10 @@
       const legalNote = document.getElementById("legalNote");
 
       const previewLabel = document.getElementById("previewLabel");
-      const previewHint = document.getElementById("previewHint");
-
       const b1 = document.getElementById("b1");
       const b2 = document.getElementById("b2");
       const b3 = document.getElementById("b3");
 
-      // Legal bar labels
       const lbImp = document.getElementById("lbImp");
       const lbDs = document.getElementById("lbDs");
       const lbWd = document.getElementById("lbWd");
@@ -676,7 +653,6 @@
       const lbSize = document.getElementById("lbSize");
       const lbDelivery = document.getElementById("lbDelivery");
 
-      // Modal
       const modal = document.getElementById("legalModal");
       const modalTitle = document.getElementById("legalTitle");
       const modalBody  = document.getElementById("legalBody");
@@ -731,9 +707,9 @@
         document.body.style.overflow = "";
       }
 
-      // ✅ Farben neu aufbauen je Sprache
+      /* ✅ Rebuild translated color options every time */
       function renderColors(t){
-        const current = colorEl.value || "yellow";
+        const currentKey = colorEl.value || "yellow";
         colorEl.innerHTML = "";
         for (const key of COLOR_KEYS){
           const opt = document.createElement("option");
@@ -741,11 +717,10 @@
           opt.textContent = (t.colors && t.colors[key]) ? t.colors[key] : key;
           colorEl.appendChild(opt);
         }
-        // restore selection if possible
-        colorEl.value = COLOR_KEYS.includes(current) ? current : "yellow";
+        colorEl.value = COLOR_KEYS.includes(currentKey) ? currentKey : "yellow";
       }
 
-      // ✅ Versandzonen Labels je Sprache
+      /* ✅ Rebuild translated shipping zone labels every time */
       function renderShipZones(t){
         const current = shipEl.value || "DE";
         const zones = ["DE","EU","WW"];
@@ -776,10 +751,8 @@
         lblQty.textContent = t.lblQty;
 
         previewLabel.textContent = t.previewLabel;
-        previewHint.textContent = "";
 
         // badges
-        // b1 zeigt "gelb + khaki" -> dynamisch aus Farben
         const yellow = t.colors?.yellow || "yellow";
         const khaki  = t.colors?.khaki  || "khaki";
         b1.textContent = `${yellow} + ${khaki}`;
@@ -789,7 +762,6 @@
         supportNote.innerHTML = t.support;
         legalNote.textContent = t.legal;
 
-        // legal bar buttons
         lbImp.textContent = t.lbImp;
         lbDs.textContent = t.lbDs;
         lbWd.textContent = t.lbWd;
@@ -797,7 +769,7 @@
         lbSize.textContent = t.lbSize;
         lbDelivery.textContent = t.lbDelivery;
 
-        // ✅ rebuild selects (translations)
+        // ✅ critical: translate selects
         renderColors(t);
         renderShipZones(t);
 
@@ -806,10 +778,10 @@
         const zoneName = (t.shipName && t.shipName[zone]) ? t.shipName[zone] : zone;
         breakdownLine.textContent = `${t.unitLine}: ${fmtEUR(UNIT_PRICE_EUR)} · shipping: ${fmtEUR(getShipCost())} (${zoneName}) · total: item + shipping`;
 
-        // buttons
+        // ✅ buttons: fixed equal size via CSS; update labels
         buyBtn.textContent = `${t.pay} · ${totalPrice.textContent}`;
-        wdBtn.textContent = t.wd;
-        copyBtn.textContent = t.copy;
+        wdBtn.textContent  = t.wd;
+        copyBtn.textContent= t.copy;
       }
 
       function buildOrderNote(){
@@ -822,8 +794,8 @@
         return `order: la vida da vuelta t-shirt | size: ${size} | color: ${colorLabel} | zone: ${zone} | qty: ${qty} | shipping: ${ship.toFixed(2)} EUR | total: ${total.toFixed(2)} EUR | contact: ${SUPPORT_EMAIL}`;
       }
 
-      // Events: pricing
-      [sizeEl, colorEl, shipEl, qtyEl].forEach(el => el.addEventListener("change", () => {
+      // Events
+      [sizeEl, shipEl, qtyEl].forEach(el => el.addEventListener("change", () => {
         refreshTotals();
         applyLang(langEl.value);
       }));
@@ -831,13 +803,15 @@
         refreshTotals();
         applyLang(langEl.value);
       });
+
+      // ✅ when color changes, keep totals (no change) but keep UI stable
+      colorEl.addEventListener("change", () => applyLang(langEl.value));
+
       langEl.addEventListener("change", () => {
-        // language switch should keep totals and rebuild labels
         refreshTotals();
         applyLang(langEl.value);
       });
 
-      // Copy
       copyBtn.addEventListener("click", async () => {
         const note = buildOrderNote();
         try{
@@ -850,17 +824,14 @@
         }
       });
 
-      // Widerruf button opens modal (no scroll)
       wdBtn.addEventListener("click", () => openLegal("wd"));
 
-      // Legal bar click -> modal
       document.addEventListener("click", (e) => {
         const btn = e.target.closest("[data-legal]");
         if (!btn) return;
         openLegal(btn.getAttribute("data-legal"));
       });
 
-      // Modal close
       modalClose.addEventListener("click", closeLegal);
       modal.addEventListener("click", (e) => { if (e.target === modal) closeLegal(); });
       document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLegal(); });
