@@ -17,68 +17,64 @@
       --accent:#ffd200; --accentText:#0b0b0b;
       --danger:#d62828; --dangerText:#ffffff;
       --pad: 22px;
-      --max: 1880px;
-
-      /* viewport layout */
-      --headerH: 56px;
+      --max: 1920px;
       --gap: 16px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background: linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 42%, var(--bg3) 100%);
       color: var(--text);
-      overflow: hidden; /* ✅ desktop: no scroll */
+      line-height:1.45;
     }
     a{color:inherit}
-
     .wrap{
       width:min(var(--max), calc(100vw - (var(--pad)*2)));
       margin:0 auto;
-      padding: 14px var(--pad);
-      height: 100vh;                 /* ✅ fills screen */
+      padding: 16px var(--pad) 18px;
+      min-height: 100vh;
       display:flex;
       flex-direction:column;
       gap: var(--gap);
     }
 
     header{
-      height: var(--headerH);
-      display:flex; justify-content:space-between; align-items:center;
+      display:flex; align-items:center; justify-content:space-between;
       gap:12px;
-      flex: 0 0 auto;
     }
-    .brand{display:flex; flex-direction:column; gap:2px; min-width:260px}
+    .brand{display:flex; flex-direction:column; gap:2px;}
     .brand strong{font-size:18px; letter-spacing:.2px; text-transform:lowercase;}
     .brand span{font-size:13px; color:var(--muted); text-transform:lowercase;}
 
-    .lang{display:flex; align-items:center; gap:10px}
+    .lang{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
     .lang label{font-size:12px; color:var(--muted); font-weight:800; text-transform:lowercase;}
     .lang select{
-      padding:8px 10px; border-radius:12px; border:1px solid var(--line);
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
       background: rgba(255,255,255,.85);
-      font-weight:800; text-transform:lowercase;
+      font-weight:800;
+      text-transform:lowercase;
     }
 
+    /* ===== Layout (fills screen nicely, but NEVER blank) ===== */
     .hero{
-      flex: 1 1 auto;
-      min-height: 0;
       display:grid;
       grid-template-columns: 1.05fr .95fr;
       gap: var(--gap);
       align-items:stretch;
+      flex: 1 1 auto;
+      min-height: 0;
     }
     @media (max-width: 980px){
-      body{overflow:auto} /* mobile: allow scroll */
-      .wrap{height:auto; min-height:100vh}
-      .hero{grid-template-columns:1fr}
+      .hero{grid-template-columns:1fr;}
     }
 
     .card{
       background: var(--card);
-      border:1px solid var(--line);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
@@ -93,12 +89,19 @@
       min-height:0;
     }
 
-    h1{margin:0; font-size:44px; line-height:1.03; text-transform:lowercase; letter-spacing:-.6px}
-    .sub{margin:0; color:var(--muted); text-transform:lowercase}
+    h1{
+      margin:0;
+      font-size: clamp(34px, 3.2vw, 46px);
+      line-height:1.03;
+      text-transform:lowercase;
+      letter-spacing:-.6px;
+    }
+    .sub{margin:0; color:var(--muted); text-transform:lowercase;}
 
-    .trustRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:4px}
+    .trustRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;}
     .pill{
-      font-size:12px; color:var(--muted);
+      font-size:12px;
+      color: var(--muted);
       border:1px solid var(--line);
       padding:7px 10px;
       border-radius:999px;
@@ -113,48 +116,62 @@
       border:1px dashed rgba(0,0,0,.18);
       background: rgba(255,255,255,.72);
     }
-    .priceTop{display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap}
-    .unit{color:var(--muted); text-transform:lowercase; font-weight:700}
-    .unit strong{color:var(--text); font-weight:950}
-    .total{font-size:28px; font-weight:950}
-    .breakdown{font-size:12px; color:var(--muted); text-transform:lowercase; margin-top:6px}
+    .priceTop{display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap;}
+    .unit{font-size:15px; color:var(--muted); text-transform:lowercase; font-weight:700;}
+    .unit strong{color:var(--text); font-weight:950;}
+    .total{font-size:28px; font-weight:950;}
+    .breakdown{font-size:12px; color:var(--muted); text-transform:lowercase; margin-top:6px;}
 
-    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    @media (max-width:520px){ .grid2{grid-template-columns:1fr} }
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+    @media (max-width:520px){ .grid2{grid-template-columns:1fr;} }
 
-    label.field{display:block; font-size:12px; color:var(--muted); font-weight:800; text-transform:lowercase; margin:0 0 6px}
-    select,input{
+    label.field{
+      display:block;
+      font-size:12px;
+      color: var(--muted);
+      margin: 0 0 6px;
+      font-weight: 800;
+      text-transform:lowercase;
+    }
+    select, input{
       width:100%;
-      padding: 12px;
+      padding: 12px 12px;
       border-radius: 14px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.82);
+      color: var(--text);
+      outline:none;
       font-size: 15px;
       text-transform:lowercase;
-      outline:none;
     }
 
-    /* ✅ 3 buttons: same size */
-    .ctaRow{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px}
-    @media (max-width:760px){ .ctaRow{grid-template-columns:1fr} }
+    /* ✅ 3 Buttons exakt gleich groß (immer) */
+    .ctaRow{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:6px;}
+    @media (max-width:760px){ .ctaRow{grid-template-columns:1fr;} }
     .btn{
-      height: 48px;
-      width: 100%;
-      display:flex; align-items:center; justify-content:center;
-      border-radius:14px;
-      font-weight:950;
-      text-transform:lowercase;
+      height:48px;
+      width:100%;
+      appearance:none;
       border:0;
       cursor:pointer;
+      padding: 0 14px;
+      border-radius: 14px;
+      font-weight: 950;
+      letter-spacing:.2px;
       text-decoration:none;
-      user-select:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-transform:lowercase;
       overflow:hidden;
       text-overflow:ellipsis;
       white-space:nowrap;
+      user-select:none;
     }
-    .btnPrimary{background: var(--accent); color: var(--accentText); box-shadow: 0 10px 22px rgba(0,0,0,.25)}
-    .btnDanger{background: var(--danger); color: var(--dangerText); box-shadow: 0 10px 22px rgba(0,0,0,.18)}
-    .btnGhost{background: rgba(255,255,255,.85); border:1px solid var(--line); color: var(--text)}
+    .btnPrimary{background: var(--accent); color: var(--accentText); box-shadow: 0 10px 22px rgba(0,0,0,.25);}
+    .btnDanger{background: var(--danger); color: var(--dangerText); box-shadow: 0 10px 22px rgba(0,0,0,.18);}
+    .btnGhost{background: rgba(255,255,255,.85); border: 1px solid var(--line); color: var(--text);}
+    .btn:active{transform: translateY(1px);}
 
     .noteRow{
       display:flex;
@@ -164,12 +181,13 @@
       align-items:center;
       margin-top: 2px;
     }
-    .note{margin:0; font-size:12px; color:var(--muted); text-transform:lowercase}
+    .note{margin:0; font-size: 12px; color: var(--muted); text-transform:lowercase;}
 
-    /* legal pills */
-    .legalBar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:2px}
+    /* legal pills (compact, no long page) */
+    .legalBar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:4px;}
     .legalBtn{
-      appearance:none; border:1px solid var(--line);
+      appearance:none;
+      border:1px solid var(--line);
       background: rgba(255,255,255,.72);
       border-radius: 999px;
       padding: 9px 12px;
@@ -185,20 +203,19 @@
       color:#7a0d0d;
     }
 
-    /* right side preview */
+    /* RIGHT: preview area sized harmonically */
     .imgWrap{
-      height:100%;
-      background: rgba(255,255,255,.55);
       padding: 16px;
+      background: rgba(255,255,255,.55);
       display:flex;
       align-items:center;
       justify-content:center;
-      min-height:0;
+      min-height: 0;
     }
     .imgInner{
       width: 100%;
       height: 100%;
-      max-height: calc(100vh - var(--headerH) - (var(--gap) * 2) - 28px);
+      min-height: 420px;
       border-radius: 20px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.75);
@@ -226,8 +243,7 @@
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
-      max-width: 60%;
-      opacity:.95;
+      max-width: 62%;
     }
     .imgBody{
       padding: 12px;
@@ -239,13 +255,13 @@
     }
     .imgStage{
       flex: 1 1 auto;
-      min-height:0;
+      min-height: 0;
       display:flex;
       align-items:center;
       justify-content:center;
       background: rgba(255,255,255,.35);
-      border-radius: 16px;
       border: 1px solid rgba(0,0,0,.08);
+      border-radius: 16px;
       overflow:hidden;
     }
     .productImg{
@@ -256,7 +272,7 @@
       display:block;
       background:#f4f4f4;
     }
-    .badges{display:flex; gap:8px; flex-wrap:wrap}
+    .badges{display:flex; gap:8px; flex-wrap:wrap;}
     .badge{
       font-size:12px;
       color: var(--muted);
@@ -268,7 +284,7 @@
       white-space:nowrap;
     }
 
-    /* modal */
+    /* Modal (legal) */
     .modal{
       position:fixed; inset:0;
       background: rgba(0,0,0,.45);
@@ -317,6 +333,32 @@
     .modalBody h3{margin: 12px 0 6px; color: var(--text);}
     .modalBody p{margin: 8px 0;}
     .modalBody ul{margin: 8px 0 0 18px;}
+
+    /* On-page error overlay (so you NEVER get “just background”) */
+    .err{
+      position:fixed; left:12px; right:12px; bottom:12px;
+      background:#fff; border:1px solid #000;
+      padding:10px 12px; border-radius:12px;
+      font: 12px/1.25 system-ui;
+      z-index: 99999;
+      display:none;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .err strong{display:block; margin-bottom:4px;}
+    .err code{white-space:pre-wrap}
+    .err.show{display:block;}
+
+    noscript{
+      display:block;
+      padding: 10px 12px;
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 12px;
+      margin: 10px 0 0;
+      font: 12px/1.2 system-ui;
+    }
   </style>
 </head>
 
@@ -330,7 +372,7 @@
 
       <div class="lang">
         <label for="langSel" id="langLabel">sprache</label>
-        <select id="langSel">
+        <select id="langSel" aria-label="sprache">
           <option value="de" selected>de</option>
           <option value="en">en</option>
           <option value="es">es</option>
@@ -361,7 +403,7 @@
               <div class="unit" id="unitLine">t-shirt: <strong id="unitPrice">21,95 €</strong></div>
               <div class="total" id="totalPrice">26,90 €</div>
             </div>
-            <div class="breakdown" id="breakdownLine">shipping: 4,95 € (deutschland) · total: item + shipping</div>
+            <div class="breakdown" id="breakdownLine">item: 21,95 € · shipping: 4,95 € (deutschland) · total: item + shipping</div>
           </div>
 
           <div class="grid2">
@@ -378,14 +420,29 @@
             </div>
             <div>
               <label class="field" for="color" id="lblColor">farbe</label>
-              <select id="color"></select>
+              <!-- ✅ default options exist even without JS -->
+              <select id="color">
+                <option value="white" selected>weiß</option>
+                <option value="grey">grau</option>
+                <option value="black">schwarz</option><!-- harmless, ignored if not mapped -->
+                <option value="yellow">gelb</option>
+                <option value="khaki">khaki</option>
+                <option value="red">rot</option>
+                <option value="green">grün</option>
+                <option value="blue">blau</option>
+              </select>
             </div>
           </div>
 
           <div class="grid2">
             <div>
               <label class="field" for="ship" id="lblShip">versandzone</label>
-              <select id="ship"></select>
+              <!-- ✅ default options exist even without JS -->
+              <select id="ship">
+                <option value="DE" selected>deutschland</option>
+                <option value="EU">europa</option>
+                <option value="WW">weltweit</option>
+              </select>
             </div>
             <div>
               <label class="field" for="qty" id="lblQty">menge</label>
@@ -394,7 +451,7 @@
           </div>
 
           <div class="ctaRow">
-            <a class="btn btnPrimary" id="buyBtn" href="#" target="_blank" rel="noopener">bezahlen</a>
+            <a class="btn btnPrimary" id="buyBtn" href="#" target="_blank" rel="noopener">bezahlen · 26,90 €</a>
             <button class="btn btnDanger" id="wdBtn" type="button">widerruf</button>
             <button class="btn btnGhost" id="copyBtn" type="button">bestelldaten kopieren</button>
           </div>
@@ -412,6 +469,10 @@
             <button class="legalBtn" data-legal="size" type="button" id="lbSize">größentabelle</button>
             <button class="legalBtn" data-legal="delivery" type="button" id="lbDelivery">lieferzeiten</button>
           </div>
+
+          <noscript>
+            JavaScript ist deaktiviert. Die Seite bleibt sichtbar, aber Preis/PayPal-Link, Sprachen und Vorschau-Wechsel funktionieren nur mit JavaScript.
+          </noscript>
         </div>
       </div>
 
@@ -420,14 +481,16 @@
         <div class="imgInner">
           <div class="imgHeader">
             <div id="previewLabel">produktvorschau</div>
-            <small id="previewFile">…</small>
+            <small id="previewFile">shirt-weiss.png</small>
           </div>
           <div class="imgBody">
             <div class="imgStage">
-              <img class="productImg" id="productImg" alt="t-shirt preview" />
+              <!-- ✅ default image shows even if JS fails -->
+              <img class="productImg" id="productImg" src="shirt-weiss.png" alt="t-shirt preview" />
             </div>
+
             <div class="badges">
-              <div class="badge" id="b1">—</div>
+              <div class="badge" id="b1">weiß</div>
               <div class="badge" id="b2">kollektion: rücken frei</div>
               <div class="badge" id="b3">versand: de/eu/ww</div>
             </div>
@@ -448,366 +511,456 @@
     </div>
   </div>
 
+  <div class="err" id="errBox">
+    <strong>Seite lädt, aber ein Script-Fehler ist passiert.</strong>
+    <div>Bitte Screenshot davon schicken – dann ist es sofort fix.</div>
+    <code id="errMsg"></code>
+  </div>
+
 <script>
-(() => {
-  const PAYPAL_ME = "https://www.paypal.me/konstrukteure@gmx.de";
-  const UNIT_PRICE_EUR = 21.95;
-  const SHIPPING = { DE: 4.95, EU: 9.95, WW: 14.95 };
-  const SUPPORT_EMAIL = "konstrukture@gmx.de";
-
-  // ✅ internal keys (stable across languages)
-  const COLOR_KEYS = ["blue","yellow","khaki","grey","white","red","green"];
-
-  // ✅ tries your repo filenames (png → png.png → jpg)
-  const COLOR_CANDIDATES = {
-    blue:   ["shirt-blau.png", "shirt-blau.png.png"],
-    yellow: ["shirt-gelb.png", "shirt-gelb.png.png", "shirt-front-yellow.png", "shirt-gelb-front.png", "shirt-gelb-front.png.png"],
-    khaki:  ["shirt-khaki.png", "shirt-gelb-khaki.png", "shirt-gelb-khaki.png.png"],
-    grey:   ["shirt-grau.jpg", "shirt-grau.png", "shirt-grau.png.jpg"],
-    white:  ["shirt-weiss.png"],
-    red:    ["shirt-rot.png", "shirt-rot.png.png"],
-    green:  ["shirt-gruen.png", "shirt-gruen.png.png"]
-  };
-
-  const I18N = {
-    de:{
-      brandSubtitle:"einfach bestellen · weltweit versendet",
-      langLabel:"sprache",
-      pill1:"unisex", pill2:"frontprint", pill3:"rücken frei (kollektion)", pill4:"zahlung via paypal",
-      lblSize:"größe", lblColor:"farbe", lblShip:"versandzone", lblQty:"menge",
-      pay:"bezahlen", wd:"widerruf", copy:"bestelldaten kopieren",
-      legalNote:"hinweis: versandkosten sind pauschal je zone.",
-      preview:"produktvorschau",
-      b2:"kollektion: rücken frei", b3:"versand: de/eu/ww",
-      shipName:{DE:"deutschland", EU:"europa", WW:"weltweit"},
-      colors:{blue:"blau", yellow:"gelb", khaki:"khaki", grey:"grau", white:"weiß", red:"rot", green:"grün"},
-      lbImp:"impressum", lbDs:"datenschutz", lbWd:"widerruf", lbShip:"versand & zahlung", lbSize:"größentabelle", lbDelivery:"lieferzeiten",
-      txtImp:`<h2>Impressum</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Deutschland</p><p>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
-      txtDs:`<h2>Datenschutz</h2><p>Hosting über GitHub Pages (GitHub Inc., USA). Technisch notwendige Zugriffsdaten werden verarbeitet.</p><p>Zahlungsabwicklung via PayPal (Europe), Luxemburg.</p>`,
-      txtWd:`<h2>Widerruf</h2><p>Sie haben das Recht, binnen 14 Tagen ohne Angabe von Gründen zu widerrufen.</p><p>Widerruf per E-Mail an <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p><p>Rücksendekosten trägt der Käufer.</p>`,
-      txtShip:`<h2>Versand & Zahlung</h2><p>Versand nach Deutschland, EU, weltweit. Versandkosten pauschal je Zone.</p><p>Zahlung via PayPal.</p>`,
-      txtSize:`<h2>Größentabelle</h2><p>Normale Unisex-Passform. Bei Zwischengrößen: größere Größe wählen.</p>`,
-      txtDelivery:`<h2>Lieferzeiten</h2><ul><li>Deutschland: 3–5 Werktage</li><li>EU: 5–8 Werktage</li><li>Weltweit: 8–14 Werktage</li></ul>`
-    },
-    en:{
-      brandSubtitle:"simple checkout · worldwide shipping",
-      langLabel:"language",
-      pill1:"unisex", pill2:"front print", pill3:"blank back (collection)", pill4:"pay with paypal",
-      lblSize:"size", lblColor:"color", lblShip:"shipping zone", lblQty:"quantity",
-      pay:"pay", wd:"withdrawal", copy:"copy order data",
-      legalNote:"note: flat shipping fees by zone.",
-      preview:"preview",
-      b2:"collection: blank back", b3:"shipping: de/eu/ww",
-      shipName:{DE:"germany", EU:"europe", WW:"worldwide"},
-      colors:{blue:"blue", yellow:"yellow", khaki:"khaki", grey:"grey", white:"white", red:"red", green:"green"},
-      lbImp:"imprint", lbDs:"privacy", lbWd:"withdrawal", lbShip:"shipping & payment", lbSize:"size chart", lbDelivery:"delivery times",
-      txtImp:`<h2>Imprint</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Germany</p><p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
-      txtDs:`<h2>Privacy</h2><p>Hosted via GitHub Pages (GitHub Inc., USA). Technical access data may be processed.</p><p>Payments via PayPal (Europe), Luxembourg.</p>`,
-      txtWd:`<h2>Right of Withdrawal</h2><p>You can withdraw within 14 days without giving any reason.</p><p>Contact: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p><p>Return shipping costs are borne by the buyer.</p>`,
-      txtShip:`<h2>Shipping & Payment</h2><p>Shipping to Germany, EU and worldwide. Flat fees by zone.</p><p>Payment via PayPal.</p>`,
-      txtSize:`<h2>Size Chart</h2><p>Regular unisex fit. Between sizes: choose the larger one.</p>`,
-      txtDelivery:`<h2>Delivery Times</h2><ul><li>Germany: 3–5 business days</li><li>EU: 5–8 business days</li><li>Worldwide: 8–14 business days</li></ul>`
-    },
-    es:{
-      brandSubtitle:"pedido fácil · envío mundial",
-      langLabel:"idioma",
-      pill1:"unisex", pill2:"impresión frontal", pill3:"espalda libre (colección)", pill4:"pago con paypal",
-      lblSize:"talla", lblColor:"color", lblShip:"zona de envío", lblQty:"cantidad",
-      pay:"pagar", wd:"desistimiento", copy:"copiar datos",
-      legalNote:"nota: gastos de envío fijos por zona.",
-      preview:"vista previa",
-      b2:"colección: espalda libre", b3:"envío: de/eu/ww",
-      shipName:{DE:"alemania", EU:"europa", WW:"mundial"},
-      colors:{blue:"azul", yellow:"amarillo", khaki:"caqui", grey:"gris", white:"blanco", red:"rojo", green:"verde"},
-      lbImp:"aviso legal", lbDs:"privacidad", lbWd:"desistimiento", lbShip:"envío y pago", lbSize:"tallas", lbDelivery:"plazos",
-      txtImp:`<h2>Aviso legal</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Alemania</p><p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
-      txtDs:`<h2>Privacidad</h2><p>Alojado en GitHub Pages (GitHub Inc., EE. UU.). Se pueden procesar datos técnicos.</p><p>Pagos vía PayPal (Europe), Luxemburgo.</p>`,
-      txtWd:`<h2>Desistimiento</h2><p>Puede desistir en 14 días sin indicar motivo.</p><p>Contacto: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p><p>Los gastos de devolución corren a cargo del comprador.</p>`,
-      txtShip:`<h2>Envío y pago</h2><p>Envío a Alemania, UE y mundial. Tarifas fijas por zona.</p><p>Pago vía PayPal.</p>`,
-      txtSize:`<h2>Tallas</h2><p>Ajuste unisex normal. Entre tallas: elija la mayor.</p>`,
-      txtDelivery:`<h2>Plazos</h2><ul><li>Alemania: 3–5 días hábiles</li><li>UE: 5–8 días hábiles</li><li>Mundial: 8–14 días hábiles</li></ul>`
-    },
-    fr:{
-      brandSubtitle:"commande simple · livraison mondiale",
-      langLabel:"langue",
-      pill1:"unisexe", pill2:"impression avant", pill3:"dos vierge (collection)", pill4:"paiement paypal",
-      lblSize:"taille", lblColor:"couleur", lblShip:"zone de livraison", lblQty:"quantité",
-      pay:"payer", wd:"rétractation", copy:"copier",
-      legalNote:"note : frais fixes par zone.",
-      preview:"aperçu",
-      b2:"collection : dos vierge", b3:"livraison : de/eu/ww",
-      shipName:{DE:"allemagne", EU:"europe", WW:"monde"},
-      colors:{blue:"bleu", yellow:"jaune", khaki:"kaki", grey:"gris", white:"blanc", red:"rouge", green:"vert"},
-      lbImp:"mentions légales", lbDs:"confidentialité", lbWd:"rétractation", lbShip:"livraison & paiement", lbSize:"tailles", lbDelivery:"délais",
-      txtImp:`<h2>Mentions légales</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Allemagne</p><p>Email : <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
-      txtDs:`<h2>Confidentialité</h2><p>Hébergé via GitHub Pages (GitHub Inc., USA). Données techniques possibles.</p><p>Paiements via PayPal (Europe), Luxembourg.</p>`,
-      txtWd:`<h2>Rétractation</h2><p>Vous pouvez vous rétracter sous 14 jours sans motif.</p><p>Contact : <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p><p>Frais de retour à la charge de l’acheteur.</p>`,
-      txtShip:`<h2>Livraison & paiement</h2><p>Livraison Allemagne, UE, monde. Frais fixes par zone.</p><p>Paiement via PayPal.</p>`,
-      txtSize:`<h2>Tailles</h2><p>Coupe unisexe normale. Entre deux tailles : prendre la plus grande.</p>`,
-      txtDelivery:`<h2>Délais</h2><ul><li>Allemagne : 3–5 jours ouvrés</li><li>UE : 5–8 jours ouvrés</li><li>Monde : 8–14 jours ouvrés</li></ul>`
-    },
-    it:{
-      brandSubtitle:"ordine semplice · spedizione mondiale",
-      langLabel:"lingua",
-      pill1:"unisex", pill2:"stampa frontale", pill3:"retro vuoto (collezione)", pill4:"paga con paypal",
-      lblSize:"taglia", lblColor:"colore", lblShip:"zona spedizione", lblQty:"quantità",
-      pay:"pagare", wd:"recesso", copy:"copia dati",
-      legalNote:"nota: costi fissi per zona.",
-      preview:"anteprima",
-      b2:"collezione: retro vuoto", b3:"spedizione: de/eu/ww",
-      shipName:{DE:"germania", EU:"europa", WW:"mondo"},
-      colors:{blue:"blu", yellow:"giallo", khaki:"khaki", grey:"grigio", white:"bianco", red:"rosso", green:"verde"},
-      lbImp:"note legali", lbDs:"privacy", lbWd:"recesso", lbShip:"spedizione & pagamento", lbSize:"taglie", lbDelivery:"tempi",
-      txtImp:`<h2>Note legali</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Germania</p><p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
-      txtDs:`<h2>Privacy</h2><p>Ospitato via GitHub Pages (GitHub Inc., USA). Possibili dati tecnici.</p><p>Pagamenti via PayPal (Europe), Lussemburgo.</p>`,
-      txtWd:`<h2>Recesso</h2><p>Puoi recedere entro 14 giorni senza motivo.</p><p>Contatto: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p><p>Spese di reso a carico dell’acquirente.</p>`,
-      txtShip:`<h2>Spedizione & pagamento</h2><p>Spedizione in Germania, UE e mondo. Tariffe fisse per zona.</p><p>Pagamento via PayPal.</p>`,
-      txtSize:`<h2>Taglie</h2><p>Vestibilità unisex regolare. Tra due taglie: scegliere la più grande.</p>`,
-      txtDelivery:`<h2>Tempi</h2><ul><li>Germania: 3–5 giorni lavorativi</li><li>UE: 5–8 giorni lavorativi</li><li>Mondo: 8–14 giorni lavorativi</li></ul>`
-    }
-  };
-
-  const $ = (id)=>document.getElementById(id);
-
-  const fmtEUR=(n)=>n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
-  const clampInt=(v)=>{ const n=parseInt(v,10); return Number.isNaN(n)?1:Math.max(1,Math.min(999,n)); };
-
-  // elements
-  const langEl = $("langSel");
-  const sizeEl = $("size");
-  const colorEl = $("color");
-  const shipEl  = $("ship");
-  const qtyEl   = $("qty");
-
-  const buyBtn  = $("buyBtn");
-  const wdBtn   = $("wdBtn");
-  const copyBtn = $("copyBtn");
-
-  const unitPriceEl = $("unitPrice");
-  const totalPriceEl= $("totalPrice");
-  const breakdownEl = $("breakdownLine");
-
-  const brandSubtitle = $("brandSubtitle");
-  const langLabel = $("langLabel");
-
-  const pill1 = $("pill1"), pill2 = $("pill2"), pill3 = $("pill3"), pill4 = $("pill4");
-  const lblSize = $("lblSize"), lblColor = $("lblColor"), lblShip = $("lblShip"), lblQty = $("lblQty");
-  const supportNote = $("supportNote"), legalNote = $("legalNote");
-
-  const previewLabel = $("previewLabel");
-  const previewFile  = $("previewFile");
-  const productImg   = $("productImg");
-
-  const b1 = $("b1"), b2 = $("b2"), b3 = $("b3");
-
-  const lbImp=$("lbImp"), lbDs=$("lbDs"), lbWd=$("lbWd"), lbShip=$("lbShip"), lbSize=$("lbSize"), lbDelivery=$("lbDelivery");
-
-  const modal=$("legalModal"), modalTitle=$("legalTitle"), modalBody=$("legalBody"), modalClose=$("legalClose");
-
-  // state (keeps selection across language)
-  const state = {
-    colorKey: "white",   // default
-  };
-
-  function getShipCost(){
-    return SHIPPING[shipEl.value] ?? SHIPPING.DE;
-  }
-
-  function buildPayPalUrl(){
-    const qty = clampInt(qtyEl.value);
-    const ship = getShipCost();
-    const total = (UNIT_PRICE_EUR * qty) + ship;
-    return `${PAYPAL_ME}/${total.toFixed(2)}`;
-  }
-
-  function refreshTotals(){
-    const qty=clampInt(qtyEl.value); qtyEl.value=qty;
-    const ship=getShipCost();
-    const total=(UNIT_PRICE_EUR*qty)+ship;
-    unitPriceEl.textContent = fmtEUR(UNIT_PRICE_EUR);
-    totalPriceEl.textContent = fmtEUR(total);
-    buyBtn.href = buildPayPalUrl();
-  }
-
-  function setImgTryList(files){
-    const v = Date.now();
-    const list = (files || []).filter(Boolean);
-    let i = 0;
-
-    const tryNext = () => {
-      if (i >= list.length){
-        previewFile.textContent = (list[0] || "file") + " (not found)";
-        productImg.onerror = null;
-        return;
-      }
-      const f = list[i++];
-      previewFile.textContent = f;
-      productImg.onerror = tryNext;
-      productImg.src = `./${f}?v=${v}`;
-    };
-
-    tryNext();
-  }
-
-  function updatePreview(t){
-    const key = state.colorKey;
-    const files = COLOR_CANDIDATES[key] || COLOR_CANDIDATES.white;
-    setImgTryList(files);
-    b1.textContent = (t.colors && t.colors[key]) ? t.colors[key] : key;
-  }
-
-  function renderColorOptions(t){
-    const keep = state.colorKey;
-    colorEl.innerHTML = "";
-    for(const key of COLOR_KEYS){
-      const opt = document.createElement("option");
-      opt.value = key;
-      opt.textContent = (t.colors && t.colors[key]) ? t.colors[key] : key;
-      colorEl.appendChild(opt);
-    }
-    colorEl.value = COLOR_KEYS.includes(keep) ? keep : "white";
-  }
-
-  function renderShipOptions(t){
-    const keep = shipEl.value || "DE";
-    shipEl.innerHTML = "";
-    ["DE","EU","WW"].forEach(z=>{
-      const opt = document.createElement("option");
-      opt.value = z;
-      opt.textContent = (t.shipName && t.shipName[z]) ? t.shipName[z] : z;
-      shipEl.appendChild(opt);
-    });
-    shipEl.value = ["DE","EU","WW"].includes(keep) ? keep : "DE";
-  }
-
-  function applyLang(){
-    const t = I18N[langEl.value] || I18N.de;
-
-    brandSubtitle.textContent = t.brandSubtitle;
-    langLabel.textContent = t.langLabel;
-
-    pill1.textContent = t.pill1;
-    pill2.textContent = t.pill2;
-    pill3.textContent = t.pill3;
-    pill4.textContent = t.pill4;
-
-    lblSize.textContent = t.lblSize;
-    lblColor.textContent = t.lblColor;
-    lblShip.textContent = t.lblShip;
-    lblQty.textContent = t.lblQty;
-
-    supportNote.innerHTML = `support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`;
-    legalNote.textContent = t.legalNote;
-
-    previewLabel.textContent = t.preview;
-
-    b2.textContent = t.b2;
-    b3.textContent = t.b3;
-
-    lbImp.textContent = t.lbImp;
-    lbDs.textContent = t.lbDs;
-    lbWd.textContent = t.lbWd;
-    lbShip.textContent = t.lbShip;
-    lbSize.textContent = t.lbSize;
-    lbDelivery.textContent = t.lbDelivery;
-
-    // keep selections, but translate labels
-    renderShipOptions(t);
-    renderColorOptions(t);
-
-    // breakdown
-    const zone = shipEl.value;
-    const zoneName = (t.shipName && t.shipName[zone]) ? t.shipName[zone] : zone;
-    breakdownEl.textContent = `item: ${fmtEUR(UNIT_PRICE_EUR)} · shipping: ${fmtEUR(getShipCost())} (${zoneName}) · total: item + shipping`;
-
-    // buttons (with total)
-    buyBtn.textContent = `${t.pay} · ${totalPriceEl.textContent}`;
-    wdBtn.textContent  = t.wd;
-    copyBtn.textContent= t.copy;
-
-    updatePreview(t);
-  }
-
-  function openLegal(key){
-    const t = I18N[langEl.value] || I18N.de;
-    const map = {
-      imp: { title: t.lbImp, html: t.txtImp },
-      ds:  { title: t.lbDs,  html: t.txtDs  },
-      wd:  { title: t.lbWd,  html: t.txtWd  },
-      ship:{ title: t.lbShip,html: t.txtShip},
-      size:{ title: t.lbSize,html: t.txtSize},
-      delivery:{ title: t.lbDelivery, html: t.txtDelivery}
-    };
-    const item = map[key] || map.wd;
-    modalTitle.textContent = item.title || "legal";
-    modalBody.innerHTML = item.html || "";
-    modal.classList.add("isOpen");
-    modal.setAttribute("aria-hidden","false");
-    document.body.style.overflow = "hidden";
-  }
-  function closeLegal(){
-    modal.classList.remove("isOpen");
-    modal.setAttribute("aria-hidden","true");
-    document.body.style.overflow = "";
-  }
-
-  function buildOrderNote(){
-    const t = I18N[langEl.value] || I18N.de;
-    const size = sizeEl.value;
-    const colorLabel = t.colors?.[state.colorKey] || state.colorKey;
-    const zone = shipEl.value;
-    const qty = clampInt(qtyEl.value);
-    const ship = getShipCost();
-    const total = (UNIT_PRICE_EUR * qty) + ship;
-    return `order: la vida da vuelta t-shirt | size: ${size} | color: ${colorLabel} | zone: ${zone} | qty: ${qty} | shipping: ${ship.toFixed(2)} EUR | total: ${total.toFixed(2)} EUR | contact: ${SUPPORT_EMAIL}`;
-  }
-
-  // events
-  colorEl.addEventListener("change", ()=>{
-    state.colorKey = colorEl.value;
-    refreshTotals();
-    applyLang();
-  });
-  shipEl.addEventListener("change", ()=>{ refreshTotals(); applyLang(); });
-  qtyEl.addEventListener("input", ()=>{ refreshTotals(); applyLang(); });
-  sizeEl.addEventListener("change", ()=>{ refreshTotals(); applyLang(); });
-  langEl.addEventListener("change", ()=>{ refreshTotals(); applyLang(); });
-
-  copyBtn.addEventListener("click", async ()=>{
-    const note = buildOrderNote();
+(function(){
+  // ✅ show any JS error ON the page (so you never get “only background” again)
+  const errBox = document.getElementById("errBox");
+  const errMsg = document.getElementById("errMsg");
+  window.addEventListener("error", (e) => {
     try{
-      await navigator.clipboard.writeText(note);
-      const old = copyBtn.textContent;
-      copyBtn.textContent = "✓";
-      setTimeout(()=> copyBtn.textContent = old, 900);
-    }catch(e){
-      alert(note);
+      errMsg.textContent = String(e && (e.message || e.error) ? (e.message || e.error) : "Unknown error");
+      errBox.classList.add("show");
+    }catch(_){}
+  });
+
+  try{
+    // ======================
+    // CONFIG
+    // ======================
+    const PAYPAL_ME = "https://www.paypal.me/konstrukteure@gmx.de";
+    const UNIT_PRICE_EUR = 21.95;
+    const SHIPPING = { DE: 4.95, EU: 9.95, WW: 14.95 };
+    const SUPPORT_EMAIL = "konstrukture@gmx.de";
+
+    // ✅ internal keys (stable) + your repo filenames
+    const COLOR_KEYS = ["blue","yellow","khaki","grey","white","red","green"];
+
+    const COLOR_CANDIDATES = {
+      blue:   ["shirt-blau.png", "shirt-blau.png.png"],
+      yellow: ["shirt-gelb.png", "shirt-gelb.png.png", "shirt-front-yellow.png", "shirt-gelb-front.png", "shirt-gelb-front.png.png"],
+      khaki:  ["shirt-khaki.png", "shirt-gelb-khaki.png", "shirt-gelb-khaki.png.png"],
+      grey:   ["shirt-grau.jpg", "shirt-grau.png", "shirt-grau.png.jpg"],
+      white:  ["shirt-weiss.png"],
+      red:    ["shirt-rot.png", "shirt-rot.png.png"],
+      green:  ["shirt-gruen.png", "shirt-gruen.png.png"]
+    };
+
+    const I18N = {
+      de:{
+        brandSubtitle:"einfach bestellen · weltweit versendet",
+        langLabel:"sprache",
+        pill1:"unisex", pill2:"frontprint", pill3:"rücken frei (kollektion)", pill4:"zahlung via paypal",
+        lblSize:"größe", lblColor:"farbe", lblShip:"versandzone", lblQty:"menge",
+        pay:"bezahlen", wd:"widerruf", copy:"bestelldaten kopieren",
+        legalNote:"hinweis: versandkosten sind pauschal je zone.",
+        preview:"produktvorschau",
+        b2:"kollektion: rücken frei", b3:"versand: de/eu/ww",
+        shipName:{DE:"deutschland", EU:"europa", WW:"weltweit"},
+        colors:{blue:"blau", yellow:"gelb", khaki:"khaki", grey:"grau", white:"weiß", red:"rot", green:"grün"},
+        lbImp:"impressum", lbDs:"datenschutz", lbWd:"widerruf", lbShip:"versand & zahlung", lbSize:"größentabelle", lbDelivery:"lieferzeiten",
+        txtImp:`<h2>Impressum</h2>
+<p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Deutschland</p>
+<p>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
+        txtDs:`<h2>Datenschutz</h2>
+<p>Hosting über GitHub Pages (GitHub Inc., USA). Technisch notwendige Zugriffsdaten werden verarbeitet.</p>
+<p>Zahlungsabwicklung via PayPal (Europe), Luxemburg.</p>`,
+        txtWd:`<h2>Widerruf</h2>
+<p>Sie haben das Recht, binnen 14 Tagen ohne Angabe von Gründen zu widerrufen.</p>
+<p>Widerruf per E-Mail an <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p>
+<p>Rücksendekosten trägt der Käufer.</p>`,
+        txtShip:`<h2>Versand & Zahlung</h2>
+<p>Versand nach Deutschland, EU, weltweit. Versandkosten pauschal je Zone.</p>
+<p>Zahlung via PayPal.</p>`,
+        txtSize:`<h2>Größentabelle</h2><p>Normale Unisex-Passform. Bei Zwischengrößen: größere Größe wählen.</p>`,
+        txtDelivery:`<h2>Lieferzeiten</h2>
+<ul><li>Deutschland: 3–5 Werktage</li><li>EU: 5–8 Werktage</li><li>Weltweit: 8–14 Werktage</li></ul>`
+      },
+      en:{
+        brandSubtitle:"simple checkout · worldwide shipping",
+        langLabel:"language",
+        pill1:"unisex", pill2:"front print", pill3:"blank back (collection)", pill4:"pay with paypal",
+        lblSize:"size", lblColor:"color", lblShip:"shipping zone", lblQty:"quantity",
+        pay:"pay", wd:"withdrawal", copy:"copy order data",
+        legalNote:"note: flat shipping fees by zone.",
+        preview:"preview",
+        b2:"collection: blank back", b3:"shipping: de/eu/ww",
+        shipName:{DE:"germany", EU:"europe", WW:"worldwide"},
+        colors:{blue:"blue", yellow:"yellow", khaki:"khaki", grey:"grey", white:"white", red:"red", green:"green"},
+        lbImp:"imprint", lbDs:"privacy", lbWd:"withdrawal", lbShip:"shipping & payment", lbSize:"size chart", lbDelivery:"delivery times",
+        txtImp:`<h2>Imprint</h2>
+<p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Germany</p>
+<p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
+        txtDs:`<h2>Privacy</h2>
+<p>Hosted via GitHub Pages (GitHub Inc., USA). Technical access data may be processed.</p>
+<p>Payments via PayPal (Europe), Luxembourg.</p>`,
+        txtWd:`<h2>Right of Withdrawal</h2>
+<p>You can withdraw within 14 days without giving any reason.</p>
+<p>Contact: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p>
+<p>Return shipping costs are borne by the buyer.</p>`,
+        txtShip:`<h2>Shipping & Payment</h2>
+<p>Shipping to Germany, EU and worldwide. Flat fees by zone.</p>
+<p>Payment via PayPal.</p>`,
+        txtSize:`<h2>Size Chart</h2><p>Regular unisex fit. Between sizes: choose the larger one.</p>`,
+        txtDelivery:`<h2>Delivery Times</h2>
+<ul><li>Germany: 3–5 business days</li><li>EU: 5–8 business days</li><li>Worldwide: 8–14 business days</li></ul>`
+      },
+      es:{
+        brandSubtitle:"pedido fácil · envío mundial",
+        langLabel:"idioma",
+        pill1:"unisex", pill2:"impresión frontal", pill3:"espalda libre (colección)", pill4:"pago con paypal",
+        lblSize:"talla", lblColor:"color", lblShip:"zona de envío", lblQty:"cantidad",
+        pay:"pagar", wd:"desistimiento", copy:"copiar datos",
+        legalNote:"nota: gastos de envío fijos por zona.",
+        preview:"vista previa",
+        b2:"colección: espalda libre", b3:"envío: de/eu/ww",
+        shipName:{DE:"alemania", EU:"europa", WW:"mundial"},
+        colors:{blue:"azul", yellow:"amarillo", khaki:"caqui", grey:"gris", white:"blanco", red:"rojo", green:"verde"},
+        lbImp:"aviso legal", lbDs:"privacidad", lbWd:"desistimiento", lbShip:"envío y pago", lbSize:"tallas", lbDelivery:"plazos",
+        txtImp:`<h2>Aviso legal</h2>
+<p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Alemania</p>
+<p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
+        txtDs:`<h2>Privacidad</h2>
+<p>Alojado en GitHub Pages (GitHub Inc., EE. UU.). Se pueden procesar datos técnicos.</p>
+<p>Pagos vía PayPal (Europe), Luxemburgo.</p>`,
+        txtWd:`<h2>Desistimiento</h2>
+<p>Puede desistir en 14 días sin indicar motivo.</p>
+<p>Contacto: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p>
+<p>Los gastos de devolución corren a cargo del comprador.</p>`,
+        txtShip:`<h2>Envío y pago</h2>
+<p>Envío a Alemania, UE y mundial. Tarifas fijas por zona.</p>
+<p>Pago vía PayPal.</p>`,
+        txtSize:`<h2>Tallas</h2><p>Ajuste unisex normal. Entre tallas: elija la mayor.</p>`,
+        txtDelivery:`<h2>Plazos</h2>
+<ul><li>Alemania: 3–5 días hábiles</li><li>UE: 5–8 días hábiles</li><li>Mundial: 8–14 días hábiles</li></ul>`
+      },
+      fr:{
+        brandSubtitle:"commande simple · livraison mondiale",
+        langLabel:"langue",
+        pill1:"unisexe", pill2:"impression avant", pill3:"dos vierge (collection)", pill4:"paiement paypal",
+        lblSize:"taille", lblColor:"couleur", lblShip:"zone de livraison", lblQty:"quantité",
+        pay:"payer", wd:"rétractation", copy:"copier",
+        legalNote:"note : frais fixes par zone.",
+        preview:"aperçu",
+        b2:"collection : dos vierge", b3:"livraison : de/eu/ww",
+        shipName:{DE:"allemagne", EU:"europe", WW:"monde"},
+        colors:{blue:"bleu", yellow:"jaune", khaki:"kaki", grey:"gris", white:"blanc", red:"rouge", green:"vert"},
+        lbImp:"mentions légales", lbDs:"confidentialité", lbWd:"rétractation", lbShip:"livraison & paiement", lbSize:"tailles", lbDelivery:"délais",
+        txtImp:`<h2>Mentions légales</h2>
+<p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Allemagne</p>
+<p>Email : <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
+        txtDs:`<h2>Confidentialité</h2>
+<p>Hébergé via GitHub Pages (GitHub Inc., USA). Données techniques possibles.</p>
+<p>Paiements via PayPal (Europe), Luxembourg.</p>`,
+        txtWd:`<h2>Rétractation</h2>
+<p>Vous pouvez vous rétracter sous 14 jours sans motif.</p>
+<p>Contact : <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p>
+<p>Frais de retour à la charge de l’acheteur.</p>`,
+        txtShip:`<h2>Livraison & paiement</h2>
+<p>Livraison Allemagne, UE, monde. Frais fixes par zone.</p>
+<p>Paiement via PayPal.</p>`,
+        txtSize:`<h2>Tailles</h2><p>Coupe unisexe normale. Entre deux tailles : prendre la plus grande.</p>`,
+        txtDelivery:`<h2>Délais</h2>
+<ul><li>Allemagne : 3–5 jours ouvrés</li><li>UE : 5–8 jours ouvrés</li><li>Monde : 8–14 jours ouvrés</li></ul>`
+      },
+      it:{
+        brandSubtitle:"ordine semplice · spedizione mondiale",
+        langLabel:"lingua",
+        pill1:"unisex", pill2:"stampa frontale", pill3:"retro vuoto (collezione)", pill4:"paga con paypal",
+        lblSize:"taglia", lblColor:"colore", lblShip:"zona spedizione", lblQty:"quantità",
+        pay:"pagare", wd:"recesso", copy:"copia dati",
+        legalNote:"nota: costi fissi per zona.",
+        preview:"anteprima",
+        b2:"collezione: retro vuoto", b3:"spedizione: de/eu/ww",
+        shipName:{DE:"germania", EU:"europa", WW:"mondo"},
+        colors:{blue:"blu", yellow:"giallo", khaki:"khaki", grey:"grigio", white:"bianco", red:"rosso", green:"verde"},
+        lbImp:"note legali", lbDs:"privacy", lbWd:"recesso", lbShip:"spedizione & pagamento", lbSize:"taglie", lbDelivery:"tempi",
+        txtImp:`<h2>Note legali</h2>
+<p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Germania</p>
+<p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>`,
+        txtDs:`<h2>Privacy</h2>
+<p>Ospitato via GitHub Pages (GitHub Inc., USA). Possibili dati tecnici.</p>
+<p>Pagamenti via PayPal (Europe), Lussemburgo.</p>`,
+        txtWd:`<h2>Recesso</h2>
+<p>Puoi recedere entro 14 giorni senza motivo.</p>
+<p>Contatto: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p>
+<p>Spese di reso a carico dell’acquirente.</p>`,
+        txtShip:`<h2>Spedizione & pagamento</h2>
+<p>Spedizione in Germania, UE e mondo. Tariffe fisse per zona.</p>
+<p>Pagamento via PayPal.</p>`,
+        txtSize:`<h2>Taglie</h2><p>Vestibilità unisex regolare. Tra due taglie: scegliere la più grande.</p>`,
+        txtDelivery:`<h2>Tempi</h2>
+<ul><li>Germania: 3–5 giorni lavorativi</li><li>UE: 5–8 giorni lavorativi</li><li>Mondo: 8–14 giorni lavorativi</li></ul>`
+      }
+    };
+
+    // ======================
+    // Helpers
+    // ======================
+    const $ = (id)=>document.getElementById(id);
+    const fmtEUR = (n)=>n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
+    const clampInt = (val, min=1, max=999) => {
+      const n = parseInt(val, 10);
+      if (Number.isNaN(n)) return min;
+      return Math.max(min, Math.min(max, n));
+    };
+
+    // ======================
+    // Elements
+    // ======================
+    const langEl = $("langSel");
+    const sizeEl = $("size");
+    const colorEl = $("color");
+    const shipEl = $("ship");
+    const qtyEl  = $("qty");
+
+    const buyBtn = $("buyBtn");
+    const wdBtn  = $("wdBtn");
+    const copyBtn= $("copyBtn");
+
+    const unitPriceEl = $("unitPrice");
+    const totalPriceEl= $("totalPrice");
+    const breakdownEl = $("breakdownLine");
+
+    const brandSubtitle = $("brandSubtitle");
+    const langLabel = $("langLabel");
+
+    const pill1=$("pill1"), pill2=$("pill2"), pill3=$("pill3"), pill4=$("pill4");
+    const lblSize=$("lblSize"), lblColor=$("lblColor"), lblShip=$("lblShip"), lblQty=$("lblQty");
+    const supportNote=$("supportNote"), legalNote=$("legalNote");
+
+    const previewLabel=$("previewLabel");
+    const previewFile=$("previewFile");
+    const productImg=$("productImg");
+
+    const b1=$("b1"), b2=$("b2"), b3=$("b3");
+
+    const lbImp=$("lbImp"), lbDs=$("lbDs"), lbWd=$("lbWd"), lbShip=$("lbShip"), lbSize=$("lbSize"), lbDelivery=$("lbDelivery");
+    const modal=$("legalModal"), modalTitle=$("legalTitle"), modalBody=$("legalBody"), modalClose=$("legalClose");
+
+    // ======================
+    // State
+    // ======================
+    const state = {
+      colorKey: (colorEl && colorEl.value) ? colorEl.value : "white"
+    };
+
+    // ======================
+    // Core functions
+    // ======================
+    const getShipCost = () => SHIPPING[shipEl.value] ?? SHIPPING.DE;
+
+    function buildPayPalUrl(){
+      const qty = clampInt(qtyEl.value);
+      const ship = getShipCost();
+      const total = (UNIT_PRICE_EUR * qty) + ship;
+      return `${PAYPAL_ME}/${total.toFixed(2)}`;
     }
-  });
 
-  wdBtn.addEventListener("click", ()=> openLegal("wd"));
-  document.addEventListener("click", (e)=>{
-    const btn = e.target.closest("[data-legal]");
-    if(!btn) return;
-    openLegal(btn.getAttribute("data-legal"));
-  });
+    function refreshTotals(){
+      const qty = clampInt(qtyEl.value);
+      qtyEl.value = qty;
+      const shipCost = getShipCost();
+      const total = (UNIT_PRICE_EUR * qty) + shipCost;
 
-  modalClose.addEventListener("click", closeLegal);
-  modal.addEventListener("click", (e)=>{ if(e.target === modal) closeLegal(); });
-  document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeLegal(); });
+      unitPriceEl.textContent = fmtEUR(UNIT_PRICE_EUR);
+      totalPriceEl.textContent = fmtEUR(total);
+      buyBtn.href = buildPayPalUrl();
+    }
 
-  // init
-  function init(){
-    // ship default options (will be translated in applyLang)
-    shipEl.innerHTML = `<option value="DE" selected>deutschland</option><option value="EU">europa</option><option value="WW">weltweit</option>`;
+    function setImgTryList(files){
+      const v = Date.now();
+      const list = (files || []).filter(Boolean);
+      let i = 0;
 
-    // pick a safe default color that exists in your repo (white does)
-    state.colorKey = "white";
+      const tryNext = () => {
+        if(i >= list.length){
+          previewFile.textContent = (list[0] || "file") + " (not found)";
+          productImg.onerror = null;
+          return;
+        }
+        const f = list[i++];
+        previewFile.textContent = f;
+        productImg.onerror = tryNext;
+        productImg.src = `./${f}?v=${v}`;
+      };
 
-    refreshTotals();
-    applyLang();
+      tryNext();
+    }
+
+    function updatePreview(t){
+      const key = state.colorKey;
+      const files = COLOR_CANDIDATES[key] || COLOR_CANDIDATES.white;
+      setImgTryList(files);
+      b1.textContent = (t.colors && t.colors[key]) ? t.colors[key] : key;
+    }
+
+    function renderColorOptions(t){
+      // keep selected key across language switches
+      const keep = state.colorKey;
+      colorEl.innerHTML = "";
+      for(const key of COLOR_KEYS){
+        const opt = document.createElement("option");
+        opt.value = key;
+        opt.textContent = (t.colors && t.colors[key]) ? t.colors[key] : key;
+        colorEl.appendChild(opt);
+      }
+      colorEl.value = COLOR_KEYS.includes(keep) ? keep : "white";
+    }
+
+    function renderShipOptions(t){
+      const keep = shipEl.value || "DE";
+      shipEl.innerHTML = "";
+      ["DE","EU","WW"].forEach(z=>{
+        const opt = document.createElement("option");
+        opt.value = z;
+        opt.textContent = (t.shipName && t.shipName[z]) ? t.shipName[z] : z;
+        shipEl.appendChild(opt);
+      });
+      shipEl.value = ["DE","EU","WW"].includes(keep) ? keep : "DE";
+    }
+
+    function applyLang(){
+      const t = I18N[langEl.value] || I18N.de;
+
+      brandSubtitle.textContent = t.brandSubtitle;
+      langLabel.textContent = t.langLabel;
+
+      pill1.textContent = t.pill1;
+      pill2.textContent = t.pill2;
+      pill3.textContent = t.pill3;
+      pill4.textContent = t.pill4;
+
+      lblSize.textContent = t.lblSize;
+      lblColor.textContent = t.lblColor;
+      lblShip.textContent = t.lblShip;
+      lblQty.textContent = t.lblQty;
+
+      supportNote.innerHTML = `support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`;
+      legalNote.textContent = t.legalNote;
+
+      previewLabel.textContent = t.preview;
+      b2.textContent = t.b2;
+      b3.textContent = t.b3;
+
+      lbImp.textContent = t.lbImp;
+      lbDs.textContent = t.lbDs;
+      lbWd.textContent = t.lbWd;
+      lbShip.textContent = t.lbShip;
+      lbSize.textContent = t.lbSize;
+      lbDelivery.textContent = t.lbDelivery;
+
+      // translate selects (keep choices)
+      renderShipOptions(t);
+      renderColorOptions(t);
+
+      // breakdown
+      const zone = shipEl.value;
+      const zoneName = (t.shipName && t.shipName[zone]) ? t.shipName[zone] : zone;
+      breakdownEl.textContent = `item: ${fmtEUR(UNIT_PRICE_EUR)} · shipping: ${fmtEUR(getShipCost())} (${zoneName}) · total: item + shipping`;
+
+      // buttons (always with total)
+      buyBtn.textContent = `${t.pay} · ${totalPriceEl.textContent}`;
+      wdBtn.textContent  = t.wd;
+      copyBtn.textContent= t.copy;
+
+      updatePreview(t);
+    }
+
+    function openLegal(key){
+      const t = I18N[langEl.value] || I18N.de;
+      const map = {
+        imp: { title: t.lbImp, html: t.txtImp },
+        ds:  { title: t.lbDs,  html: t.txtDs  },
+        wd:  { title: t.lbWd,  html: t.txtWd  },
+        ship:{ title: t.lbShip,html: t.txtShip},
+        size:{ title: t.lbSize,html: t.txtSize},
+        delivery:{ title: t.lbDelivery, html: t.txtDelivery}
+      };
+      const item = map[key] || map.wd;
+      modalTitle.textContent = item.title || "legal";
+      modalBody.innerHTML = item.html || "";
+      modal.classList.add("isOpen");
+      modal.setAttribute("aria-hidden","false");
+    }
+    function closeLegal(){
+      modal.classList.remove("isOpen");
+      modal.setAttribute("aria-hidden","true");
+    }
+
+    function buildOrderNote(){
+      const t = I18N[langEl.value] || I18N.de;
+      const size = sizeEl.value;
+      const colorLabel = t.colors?.[state.colorKey] || state.colorKey;
+      const zone = shipEl.value;
+      const qty = clampInt(qtyEl.value);
+      const ship = getShipCost();
+      const total = (UNIT_PRICE_EUR * qty) + ship;
+      return `order: la vida da vuelta t-shirt | size: ${size} | color: ${colorLabel} | zone: ${zone} | qty: ${qty} | shipping: ${ship.toFixed(2)} EUR | total: ${total.toFixed(2)} EUR | contact: ${SUPPORT_EMAIL}`;
+    }
+
+    // ======================
+    // Events
+    // ======================
+    colorEl.addEventListener("change", ()=>{
+      state.colorKey = colorEl.value;
+      refreshTotals();
+      applyLang();
+    });
+    shipEl.addEventListener("change", ()=>{ refreshTotals(); applyLang(); });
+    qtyEl.addEventListener("input", ()=>{ refreshTotals(); applyLang(); });
+    sizeEl.addEventListener("change", ()=>{ refreshTotals(); applyLang(); });
+    langEl.addEventListener("change", ()=>{ refreshTotals(); applyLang(); });
+
+    copyBtn.addEventListener("click", async ()=>{
+      const note = buildOrderNote();
+      try{
+        await navigator.clipboard.writeText(note);
+        const old = copyBtn.textContent;
+        copyBtn.textContent = "✓";
+        setTimeout(()=> copyBtn.textContent = old, 900);
+      }catch(e){
+        alert(note);
+      }
+    });
+
+    wdBtn.addEventListener("click", ()=> openLegal("wd"));
+
+    document.addEventListener("click", (e)=>{
+      const btn = e.target.closest("[data-legal]");
+      if(!btn) return;
+      openLegal(btn.getAttribute("data-legal"));
+    });
+
+    modalClose.addEventListener("click", closeLegal);
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeLegal(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeLegal(); });
+
+    // ======================
+    // Init (safe defaults)
+    // ======================
+    function init(){
+      // Normalize any “unknown” default option to mapped keys:
+      if(!COLOR_KEYS.includes(state.colorKey)) state.colorKey = "white";
+      refreshTotals();
+      applyLang();
+    }
+    init();
+
+  }catch(e){
+    // if anything goes wrong: show it on-page
+    try{
+      const errBox = document.getElementById("errBox");
+      const errMsg = document.getElementById("errMsg");
+      errMsg.textContent = String(e && e.message ? e.message : e);
+      errBox.classList.add("show");
+    }catch(_){}
   }
-  init();
 })();
 </script>
 </body>
