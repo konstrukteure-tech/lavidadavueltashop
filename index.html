@@ -148,4 +148,73 @@
       align-items:stretch;
       margin-top: 2px;
     }
-    @media (max-width: 760px){ .ctaRow
+    @media (max-width: 760px){ .ctaRow{grid-template-columns:1fr;} }
+
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      height: 48px;
+      padding: 0 10px;
+      border-radius: 14px;
+      font-weight: 950;
+      letter-spacing:.2px;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      min-width:0;
+      text-transform:lowercase;
+      user-select:none;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 14px;
+      line-height: 1;
+    }
+    .btnPrimary{
+      background: var(--accent);
+      color: var(--accentText);
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+    }
+    .btnGhost{
+      background: rgba(255,255,255,.85);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-weight: 900;
+    }
+    .btnDanger{
+      background: var(--danger);
+      color: var(--dangerText);
+      box-shadow: 0 10px 22px rgba(0,0,0,.18);
+    }
+    .btn:active{transform: translateY(1px);}
+
+    .noteRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .note{margin:0; font-size: 12px; color: var(--muted); text-transform:lowercase;}
+
+    .legalBar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-start;
+      margin-top: 2px;
+    }
+    .legalBtn{
+      appearance:none;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform:lower
