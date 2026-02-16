@@ -18,11 +18,9 @@
       --accent:#ffd200;
       --accentText:#0b0b0b;
 
-      /* ✅ Widerruf rot + gut lesbar */
       --danger:#d62828;
       --dangerText:#ffffff;
 
-      /* ✅ Full-width feel */
       --pad: 24px;
       --max: 1880px;
     }
@@ -38,12 +36,11 @@
     }
     a{color:inherit}
 
-    /* ✅ 16:9 / screen-fit: keeps content inside viewport as much as possible */
     .wrap{
       width: min(var(--max), calc(100vw - (var(--pad) * 2)));
       margin: 0 auto;
       padding: 18px var(--pad) 18px;
-      min-height: calc(100vh - 0px);
+      min-height: 100vh;
       display:flex;
       flex-direction:column;
       gap:14px;
@@ -72,7 +69,7 @@
       grid-template-columns: 1.05fr .95fr;
       gap: 18px;
       align-items:stretch;
-      min-height: 0; /* allows children to size correctly */
+      min-height: 0;
     }
     @media (max-width: 980px){
       .wrap{padding-bottom:28px}
@@ -148,7 +145,6 @@
       text-transform:lowercase;
     }
 
-    /* ✅ Buttons: always equal width & readable in ALL languages */
     .ctaRow{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -162,8 +158,8 @@
       appearance:none;
       border:none;
       cursor:pointer;
-      height: 48px;                 /* ✅ a bit taller: Widerruf readable */
-      padding: 0 10px;              /* ✅ tighter */
+      height: 48px;
+      padding: 0 10px;
       border-radius: 14px;
       font-weight: 950;
       letter-spacing:.2px;
@@ -175,8 +171,6 @@
       min-width:0;
       text-transform:lowercase;
       user-select:none;
-
-      /* ✅ prevent uneven button sizes due to long text */
       overflow:hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -210,7 +204,6 @@
     }
     .note{margin:0; font-size: 12px; color: var(--muted); text-transform:lowercase;}
 
-    /* ✅ Legal bar compact */
     .legalBar{
       display:flex;
       gap:10px;
@@ -239,7 +232,6 @@
       color:#7a0d0d;
     }
 
-    /* RIGHT: keep preview fitting 16:9 */
     .imgWrap{
       display:flex;
       align-items:center;
@@ -300,7 +292,7 @@
       text-transform:lowercase;
     }
 
-    /* ✅ Modal */
+    /* Modal */
     .modal{
       position:fixed; inset:0;
       background: rgba(0,0,0,.45);
@@ -427,7 +419,6 @@
             </div>
           </div>
 
-          <!-- ✅ EXACT equal buttons -->
           <div class="ctaRow">
             <a class="btn btnPrimary" id="buyBtn" href="https://www.paypal.me/konstrukteure@gmx.de/0.01" target="_blank" rel="noopener">bezahlen</a>
             <button class="btn btnDanger" id="wdBtn" type="button">widerruf</button>
@@ -458,9 +449,10 @@
             <div></div>
           </div>
           <div class="imgBody">
-            <img class="productImg" src="shirt-gelb-khaki.png" alt="t-shirt vorschau" />
+            <!-- ✅ preview image will switch by selected color -->
+            <img class="productImg" id="productImg" src="shirt-gelb.png" alt="t-shirt vorschau gelb" />
             <div class="badges">
-              <div class="badge" id="b1">gelb + khaki</div>
+              <div class="badge" id="b1">gelb</div>
               <div class="badge" id="b2">kollektion: rücken frei</div>
               <div class="badge" id="b3">versand: de/eu/ww</div>
             </div>
@@ -486,14 +478,24 @@
   </div>
 
   <script>
-    // CONFIG
     const PAYPAL_ME = "https://www.paypal.me/konstrukteure@gmx.de";
     const UNIT_PRICE_EUR = 21.95;
     const SHIPPING = { DE: 4.95, EU: 9.95, WW: 14.95 };
     const SUPPORT_EMAIL = "konstrukture@gmx.de";
 
-    // Stable keys -> always translate labels
+    // ✅ stable keys (internal)
     const COLOR_KEYS = ["blue","yellow","khaki","grey","white","red","green"];
+
+    // ✅ file mapping (must exist in same folder)
+    const COLOR_FILE = {
+      blue:  "shirt-blau.png",
+      yellow:"shirt-gelb.png",
+      khaki: "shirt-khaki.png",
+      grey:  "shirt-grau.png",
+      white: "shirt-weiss.png",
+      red:   "shirt-rot.png",
+      green: "shirt-gruen.png"
+    };
 
     const fmtEUR = (n) => n.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
     const clampInt = (val, min=1, max=999) => {
@@ -642,6 +644,8 @@
       const legalNote = document.getElementById("legalNote");
 
       const previewLabel = document.getElementById("previewLabel");
+      const productImg = document.getElementById("productImg");
+
       const b1 = document.getElementById("b1");
       const b2 = document.getElementById("b2");
       const b3 = document.getElementById("b3");
@@ -707,7 +711,6 @@
         document.body.style.overflow = "";
       }
 
-      /* ✅ Rebuild translated color options every time */
       function renderColors(t){
         const currentKey = colorEl.value || "yellow";
         colorEl.innerHTML = "";
@@ -720,7 +723,6 @@
         colorEl.value = COLOR_KEYS.includes(currentKey) ? currentKey : "yellow";
       }
 
-      /* ✅ Rebuild translated shipping zone labels every time */
       function renderShipZones(t){
         const current = shipEl.value || "DE";
         const zones = ["DE","EU","WW"];
@@ -732,6 +734,18 @@
           shipEl.appendChild(opt);
         }
         shipEl.value = zones.includes(current) ? current : "DE";
+      }
+
+      // ✅ THIS is the preview switcher
+      function updatePreviewImage(t){
+        const key = colorEl.value || "yellow";
+        const file = COLOR_FILE[key] || COLOR_FILE.yellow;
+
+        productImg.src = file;
+        productImg.alt = `t-shirt vorschau ${t.colors?.[key] || key}`;
+
+        // badge shows selected color (translated)
+        b1.textContent = t.colors?.[key] || key;
       }
 
       function applyLang(code){
@@ -752,10 +766,6 @@
 
         previewLabel.textContent = t.previewLabel;
 
-        // badges
-        const yellow = t.colors?.yellow || "yellow";
-        const khaki  = t.colors?.khaki  || "khaki";
-        b1.textContent = `${yellow} + ${khaki}`;
         b2.textContent = t.b2;
         b3.textContent = t.b3;
 
@@ -769,19 +779,19 @@
         lbSize.textContent = t.lbSize;
         lbDelivery.textContent = t.lbDelivery;
 
-        // ✅ critical: translate selects
         renderColors(t);
         renderShipZones(t);
 
-        // breakdown
         const zone = shipEl.value;
         const zoneName = (t.shipName && t.shipName[zone]) ? t.shipName[zone] : zone;
         breakdownLine.textContent = `${t.unitLine}: ${fmtEUR(UNIT_PRICE_EUR)} · shipping: ${fmtEUR(getShipCost())} (${zoneName}) · total: item + shipping`;
 
-        // ✅ buttons: fixed equal size via CSS; update labels
         buyBtn.textContent = `${t.pay} · ${totalPrice.textContent}`;
         wdBtn.textContent  = t.wd;
         copyBtn.textContent= t.copy;
+
+        // ✅ after rebuilding selects, update image again
+        updatePreviewImage(t);
       }
 
       function buildOrderNote(){
@@ -804,8 +814,11 @@
         applyLang(langEl.value);
       });
 
-      // ✅ when color changes, keep totals (no change) but keep UI stable
-      colorEl.addEventListener("change", () => applyLang(langEl.value));
+      // ✅ when color changes -> switch preview immediately
+      colorEl.addEventListener("change", () => {
+        const t = I18N[langEl.value] || I18N.de;
+        updatePreviewImage(t);
+      });
 
       langEl.addEventListener("change", () => {
         refreshTotals();
