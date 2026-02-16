@@ -152,13 +152,18 @@
       align-items:center;
       justify-content:center;
     }
+
+    /* ✅ PayPal Button: einen Tick kleiner */
     .btnPrimary{
-      min-width: 280px;
+      min-width: 250px;         /* vorher 280 */
+      padding: 12px 12px;       /* vorher 13px 14px */
+      font-size: 14px;          /* neu */
       background: var(--accent);
       color: var(--accentText);
       box-shadow: 0 10px 22px rgba(0,0,0,.25);
       text-transform:lowercase;
     }
+
     .btnGhost{
       background: rgba(255,255,255,.85);
       border: 1px solid var(--line);
@@ -234,15 +239,8 @@
       flex-wrap:wrap;
       text-transform:lowercase;
     }
-    .links a{
-      color: var(--muted);
-      text-decoration:none;
-      border-bottom:1px dotted rgba(0,0,0,.25);
-      margin-left: 8px;
-    }
-    .links a:hover{color: var(--text);}
 
-    /* Legal (no dialog, no popup) */
+    /* Legal (stable, no popup) */
     .legal{
       margin-top: 20px;
       padding: 14px;
@@ -385,102 +383,26 @@
       </div>
     </div>
 
-    <!-- LEGAL (stable, no popup) -->
+    <!-- LEGAL -->
     <section class="legal" id="legalSection">
       <details>
         <summary id="sumImp">impressum</summary>
-        <div id="txtImp">
-          <h2>Impressum</h2>
-          <p>Angaben gemäß § 5 TMG</p>
-          <p>
-            Thorsten Tenzer, Carlos Torres Rivas<br>
-            hüxtraße 72<br>
-            23552 lübeck<br>
-            Deutschland
-          </p>
-          <p>
-            E-Mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a>
-          </p>
-          <p>
-            Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>
-            thorsten tenzer / carlos torres rivas
-          </p>
-        </div>
+        <div id="txtImp"></div>
       </details>
 
       <details>
         <summary id="sumDs">datenschutz</summary>
-        <div id="txtDs">
-          <h2>Datenschutzerklärung</h2>
-          <p>
-            Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen.
-            Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.
-          </p>
-          <h3>1. Verantwortlicher</h3>
-          <p>
-            Thorsten Tenzer / Carlos Torres Rivas<br>
-            E-Mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a>
-          </p>
-          <h3>2. Hosting</h3>
-          <p>
-            Diese Website wird über GitHub Pages gehostet. Anbieter ist die GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.
-            Beim Aufruf der Website werden durch GitHub automatisch Informationen wie IP-Adresse, Browsertyp und Zeitpunkt des Zugriffs verarbeitet.
-          </p>
-          <h3>3. Zahlungsabwicklung</h3>
-          <p>
-            Für die Zahlungsabwicklung nutzen wir PayPal. Anbieter ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22–24 Boulevard Royal, L-2449 Luxemburg.
-            Bei einer Zahlung werden personenbezogene Daten an PayPal übermittelt. Es gelten die Datenschutzbestimmungen von PayPal.
-          </p>
-          <h3>4. Ihre Rechte</h3>
-          <p>
-            Sie haben jederzeit das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger sowie den Zweck der Datenverarbeitung.
-            Außerdem haben Sie ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten.
-          </p>
-        </div>
+        <div id="txtDs"></div>
       </details>
 
       <details>
         <summary id="sumWd">widerruf</summary>
-        <div id="txtWd">
-          <h2>Widerrufsbelehrung</h2>
-
-          <h3>Widerrufsrecht</h3>
-          <p>
-            Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.
-            Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter die Ware in Besitz genommen haben.
-          </p>
-
-          <h3>Widerruf ausüben</h3>
-          <p>
-            Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Thorsten Tenzer / Carlos Torres Rivas, E-Mail:
-            <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a>) mittels einer eindeutigen Erklärung (z. B. E-Mail) über Ihren Entschluss informieren.
-          </p>
-
-          <h3>Folgen des Widerrufs</h3>
-          <p>
-            Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen einschließlich der Lieferkosten unverzüglich und spätestens binnen vierzehn Tagen zurückzuzahlen.
-            Die Rückzahlung erfolgt über dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben.
-          </p>
-
-          <p>Die Kosten der Rücksendung der Waren tragen Sie.</p>
-        </div>
+        <div id="txtWd"></div>
       </details>
 
       <details>
         <summary id="sumShip">versand & zahlung</summary>
-        <div id="txtShip">
-          <h2>Versand & Zahlung</h2>
-
-          <p>
-            Wir versenden unsere Produkte nach Deutschland, in die EU sowie weltweit.
-            Die Versandkosten werden im Bestellprozess transparent angezeigt.
-          </p>
-
-          <p>
-            Die Zahlung erfolgt über PayPal.
-            Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer, sofern diese erhoben wird, zuzüglich Versandkosten.
-          </p>
-        </div>
+        <div id="txtShip"></div>
       </details>
 
       <details>
@@ -501,14 +423,11 @@
 
   <script>
     // ======================
-    // CONFIG (nur PayPal.Me-Name ändern)
+    // CONFIG
     // ======================
-    const PAYPAL_ME = "https://www.paypal.me/konstrukteure@gmx.de"; // <-- hier deinen PayPal.Me-Namen eintragen
+    const PAYPAL_ME = "https://www.paypal.me/konstrukteure@gmx.de";
     const UNIT_PRICE_EUR = 21.95;
-
-    // feste Versandpauschalen je Zone
     const SHIPPING = { DE: 4.95, EU: 9.95, WW: 14.95 };
-
     const SUPPORT_EMAIL = "konstrukture@gmx.de";
 
     // ======================
@@ -541,7 +460,6 @@
         sumShip:"versand & zahlung",
         sumSize:"größentabelle & passform",
         sumDelivery:"lieferzeiten",
-
         txtSize: `
 <h2>Größentabelle & Passform</h2>
 <p>Unsere T-Shirts haben eine normale Unisex-Passform.</p>
@@ -554,7 +472,6 @@
   <li>XXL: extra locker</li>
 </ul>
 <p>Wenn du zwischen zwei Größen liegst, empfehlen wir die größere Größe.</p>`,
-
         txtDelivery: `
 <h2>Lieferzeiten</h2>
 <ul>
@@ -563,26 +480,22 @@
   <li>Weltweit: ca. 8–14 Werktage</li>
 </ul>
 <p>Die Lieferzeit beginnt nach Zahlungseingang.</p>`,
-
         txtImp: `
 <h2>Impressum</h2>
 <p>Angaben gemäß § 5 TMG</p>
 <p>Thorsten Tenzer, Carlos Torres Rivas<br>hüxtraße 72<br>23552 lübeck<br>Deutschland</p>
 <p>E-Mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>
 <p>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br>thorsten tenzer / carlos torres rivas</p>`,
-
         txtDs: `
 <h2>Datenschutzerklärung</h2>
 <p>Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen.</p>
 <p>Diese Website wird über GitHub Pages gehostet (GitHub Inc., USA). Dabei werden technisch notwendige Zugriffsdaten verarbeitet.</p>
 <p>Zahlungsabwicklung via PayPal (Europe) S.à r.l. et Cie, S.C.A., Luxemburg.</p>`,
-
         txtWd: `
 <h2>Widerrufsbelehrung</h2>
 <p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p>
 <p>Widerruf per E-Mail an <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a>.</p>
 <p>Die Kosten der Rücksendung der Waren tragen Sie.</p>`,
-
         txtShip: `
 <h2>Versand & Zahlung</h2>
 <p>Wir versenden nach Deutschland, in die EU sowie weltweit.</p>
@@ -605,9 +518,9 @@
         sumImp:"aviso legal", sumDs:"privacidad", sumWd:"desistimiento",
         sumShip:"envio & pago",
         txtImp:`<h2>Aviso legal</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Alemania</p><p>E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>`,
-        txtDs:`<h2>Política de privacidad</h2><p>Este sitio está alojado en GitHub Pages (GitHub Inc., EE. UU.).</p><p>Pagos mediante PayPal (Europe), Luxemburgo.</p>`,
-        txtWd:`<h2>Derecho de desistimiento</h2><p>Usted tiene derecho a desistir del contrato en un plazo de 14 días.</p><p>E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Usted asume el coste directo de la devolución.</p>`,
-        txtShip:`<h2>Envío y pago</h2><p>Enviamos a Alemania, a la UE y a todo el mundo.</p><p>Pago mediante PayPal.</p>`
+        txtDs:`<h2>Política de privacidad</h2><p>Este sitio está alojado en GitHub Pages (GitHub Inc., EE. UU.). Pagos mediante PayPal (Europe).</p>`,
+        txtWd:`<h2>Derecho de desistimiento</h2><p>Derecho de desistir en 14 días. E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Coste de devolución a cargo del comprador.</p>`,
+        txtShip:`<h2>Envío y pago</h2><p>Enviamos a Alemania, UE y mundial. Pago con PayPal.</p>`
       },
 
       en: {
@@ -629,8 +542,8 @@
         txtSize:`<h2>Size Chart & Fit</h2><p>Regular unisex fit. If between sizes, choose the larger one.</p>`,
         txtDelivery:`<h2>Delivery Times</h2><ul><li>Germany: 3–5 business days</li><li>EU: 5–8 business days</li><li>Worldwide: 8–14 business days</li></ul><p>Starts after payment.</p>`,
         txtImp:`<h2>Imprint</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Germany</p><p>Email: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>`,
-        txtDs:`<h2>Privacy Policy</h2><p>Hosted via GitHub Pages (GitHub Inc., USA). Payments via PayPal (Europe), Luxembourg.</p>`,
-        txtWd:`<h2>Right of Withdrawal</h2><p>You may withdraw within 14 days.</p><p>Email: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>You bear return shipping costs.</p>`,
+        txtDs:`<h2>Privacy Policy</h2><p>Hosted via GitHub Pages. Payments via PayPal (Europe).</p>`,
+        txtWd:`<h2>Right of Withdrawal</h2><p>You may withdraw within 14 days. Email: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>You bear return shipping costs.</p>`,
         txtShip:`<h2>Shipping & Payment</h2><p>We ship to Germany, the EU and worldwide. Payment via PayPal.</p>`
       },
 
@@ -650,7 +563,7 @@
         sumShip:"livraison & paiement",
         txtImp:`<h2>Mentions légales</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Allemagne</p><p>E-mail : <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>`,
         txtDs:`<h2>Politique de confidentialité</h2><p>Hébergement via GitHub Pages. Paiements via PayPal.</p>`,
-        txtWd:`<h2>Droit de rétractation</h2><p>Vous disposez de 14 jours.</p><p>E-mail : <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Frais de retour à votre charge.</p>`,
+        txtWd:`<h2>Droit de rétractation</h2><p>Vous disposez de 14 jours. E-mail : <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Frais de retour à votre charge.</p>`,
         txtShip:`<h2>Livraison et paiement</h2><p>Livraison Allemagne/UE/Monde. Paiement via PayPal.</p>`
       },
 
@@ -670,13 +583,13 @@
         sumShip:"spedizione & pagamento",
         txtImp:`<h2>Note legali</h2><p>Thorsten Tenzer, Carlos Torres Rivas<br>Hüxstraße 72<br>23552 Lübeck<br>Germania</p><p>E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p>`,
         txtDs:`<h2>Informativa sulla privacy</h2><p>Hosting via GitHub Pages. Pagamenti via PayPal.</p>`,
-        txtWd:`<h2>Diritto di recesso</h2><p>Hai 14 giorni per recedere.</p><p>E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Spese di restituzione a tuo carico.</p>`,
-        txtShip:`<h2>Spedizione e pagamento</h2><p>Spediamo Germania/UE/Mondo. Pagamento via PayPal.</p>`
+        txtWd:`<h2>Diritto di recesso</h2><p>Hai 14 giorni. E-mail: <a href="mailto:konstrukture@gmx.de">konstrukture@gmx.de</a></p><p>Spese di restituzione a tuo carico.</p>`,
+        txtShip:`<h2>Spedizione e pagamento</h2><p>Spediamo Germania/UE/Mondo. Pagamento tramite PayPal.</p>`
       }
     };
 
     // ======================
-    // Init after DOM ready
+    // Init
     // ======================
     document.addEventListener("DOMContentLoaded", () => {
       const langEl = document.getElementById("langSel");
@@ -749,16 +662,20 @@
       function applyLang(code){
         const t = I18N[code] || I18N.de;
 
-        // legal text content
+        // Inject legal blocks
         const txtImpEl  = document.getElementById("txtImp");
         const txtDsEl   = document.getElementById("txtDs");
         const txtWdEl   = document.getElementById("txtWd");
         const txtShipEl = document.getElementById("txtShip");
+        const txtSizeEl = document.getElementById("txtSize");
+        const txtDelEl  = document.getElementById("txtDelivery");
 
         if (txtImpEl  && t.txtImp)  txtImpEl.innerHTML  = t.txtImp;
         if (txtDsEl   && t.txtDs)   txtDsEl.innerHTML   = t.txtDs;
         if (txtWdEl   && t.txtWd)   txtWdEl.innerHTML   = t.txtWd;
         if (txtShipEl && t.txtShip) txtShipEl.innerHTML = t.txtShip;
+        if (txtSizeEl && t.txtSize) txtSizeEl.innerHTML = t.txtSize;
+        if (txtDelEl  && t.txtDelivery) txtDelEl.innerHTML = t.txtDelivery;
 
         brandSubtitle.textContent = t.brandSubtitle;
         langLabel.textContent = t.langLabel;
@@ -783,7 +700,7 @@
         supportNote.innerHTML = t.support;
         legalNote.textContent = t.legal;
 
-        // Legal summaries
+        // Summaries
         sumImp.textContent = t.sumImp;
         sumDs.textContent = t.sumDs;
         sumWd.textContent = t.sumWd;
@@ -791,13 +708,8 @@
 
         const sumSize = document.getElementById("sumSize");
         const sumDelivery = document.getElementById("sumDelivery");
-        const txtSize = document.getElementById("txtSize");
-        const txtDelivery = document.getElementById("txtDelivery");
-
         if (sumSize && t.sumSize) sumSize.textContent = t.sumSize;
         if (sumDelivery && t.sumDelivery) sumDelivery.textContent = t.sumDelivery;
-        if (txtSize && t.txtSize) txtSize.innerHTML = t.txtSize;
-        if (txtDelivery && t.txtDelivery) txtDelivery.innerHTML = t.txtDelivery;
 
         // breakdown
         const zone = shipEl.value;
@@ -807,7 +719,7 @@
         // Buttons
         buyBtn.textContent = `${t.buy} · ${totalPrice.textContent}`;
         copyBtn.textContent = t.copy;
-        if (wdBtn) wdBtn.textContent = t.sumWd; // ✅ widerruf button language
+        if (wdBtn) wdBtn.textContent = t.sumWd; // ✅ widerruf button translates
       }
 
       function buildOrderNote(){
@@ -843,14 +755,12 @@
         }
       });
 
-      // ✅ WIDERRUF BUTTON: scroll + open details
+      // ✅ Widerruf Button: scroll + open details
       if (wdBtn){
         wdBtn.addEventListener("click", () => {
           const section = document.getElementById("legalSection");
           const wdDetails = document.getElementById("sumWd")?.closest("details");
-
           if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
-
           if (wdDetails) {
             document.querySelectorAll("#legalSection details").forEach(d => d.open = false);
             wdDetails.open = true;
