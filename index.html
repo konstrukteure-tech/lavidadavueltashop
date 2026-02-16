@@ -17,10 +17,8 @@
       --radius: 18px;
       --accent:#ffd200;
       --accentText:#0b0b0b;
-
       --danger:#d62828;
       --dangerText:#ffffff;
-
       --pad: 24px;
       --max: 1880px;
     }
@@ -449,7 +447,6 @@
             <div></div>
           </div>
           <div class="imgBody">
-            <!-- ✅ preview image will switch by selected color -->
             <img class="productImg" id="productImg" src="shirt-gelb.png" alt="t-shirt vorschau gelb" />
             <div class="badges">
               <div class="badge" id="b1">gelb</div>
@@ -478,15 +475,18 @@
   </div>
 
   <script>
+    // ======================
+    // CONFIG
+    // ======================
     const PAYPAL_ME = "https://www.paypal.me/konstrukteure@gmx.de";
     const UNIT_PRICE_EUR = 21.95;
     const SHIPPING = { DE: 4.95, EU: 9.95, WW: 14.95 };
     const SUPPORT_EMAIL = "konstrukture@gmx.de";
 
-    // ✅ stable keys (internal)
+    // ✅ internal stable keys
     const COLOR_KEYS = ["blue","yellow","khaki","grey","white","red","green"];
 
-    // ✅ file mapping (must exist in same folder)
+    // ✅ MUST exist in same folder as this index.html (GitHub is case-sensitive!)
     const COLOR_FILE = {
       blue:  "shirt-blau.png",
       yellow:"shirt-gelb.png",
@@ -504,6 +504,9 @@
       return Math.max(min, Math.min(max, n));
     };
 
+    // ======================
+    // I18N
+    // ======================
     const I18N = {
       de: {
         brandSubtitle: "einfach bestellen · weltweit versendet",
@@ -736,12 +739,13 @@
         shipEl.value = zones.includes(current) ? current : "DE";
       }
 
-      // ✅ THIS is the preview switcher
+      // ✅ robust preview switcher (incl. cache-busting)
       function updatePreviewImage(t){
         const key = colorEl.value || "yellow";
         const file = COLOR_FILE[key] || COLOR_FILE.yellow;
 
-        productImg.src = file;
+        // GitHub Pages caching: always force refresh while testing
+        productImg.src = `./${file}?v=${Date.now()}`;
         productImg.alt = `t-shirt vorschau ${t.colors?.[key] || key}`;
 
         // badge shows selected color (translated)
@@ -779,6 +783,7 @@
         lbSize.textContent = t.lbSize;
         lbDelivery.textContent = t.lbDelivery;
 
+        // rebuild selects translated
         renderColors(t);
         renderShipZones(t);
 
@@ -790,7 +795,7 @@
         wdBtn.textContent  = t.wd;
         copyBtn.textContent= t.copy;
 
-        // ✅ after rebuilding selects, update image again
+        // ensure preview always matches the current color
         updatePreviewImage(t);
       }
 
@@ -814,10 +819,10 @@
         applyLang(langEl.value);
       });
 
-      // ✅ when color changes -> switch preview immediately
+      // ✅ on color change: update preview + keep language stable
       colorEl.addEventListener("change", () => {
-        const t = I18N[langEl.value] || I18N.de;
-        updatePreviewImage(t);
+        refreshTotals();           // not necessary but keeps button label consistent
+        applyLang(langEl.value);   // ensures translated label + new image always
       });
 
       langEl.addEventListener("change", () => {
@@ -838,7 +843,6 @@
       });
 
       wdBtn.addEventListener("click", () => openLegal("wd"));
-
       document.addEventListener("click", (e) => {
         const btn = e.target.closest("[data-legal]");
         if (!btn) return;
