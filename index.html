@@ -40,7 +40,6 @@
       flex-direction:column;
       gap: var(--gap);
     }
-
     header{
       display:flex; align-items:center; justify-content:space-between;
       gap:12px;
@@ -48,7 +47,6 @@
     .brand{display:flex; flex-direction:column; gap:2px;}
     .brand strong{font-size:18px; letter-spacing:.2px; text-transform:lowercase;}
     .brand span{font-size:13px; color:var(--muted); text-transform:lowercase;}
-
     .lang{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
     .lang label{font-size:12px; color:var(--muted); font-weight:800; text-transform:lowercase;}
     .lang select{
@@ -68,9 +66,7 @@
       flex: 1 1 auto;
       min-height: 0;
     }
-    @media (max-width: 980px){
-      .hero{grid-template-columns:1fr;}
-    }
+    @media (max-width: 980px){ .hero{grid-template-columns:1fr;} }
 
     .card{
       background: var(--card);
@@ -172,22 +168,29 @@
     .btnGhost{background: rgba(255,255,255,.85); border: 1px solid var(--line); color: var(--text);}
     .btn:active{transform: translateY(1px);}
 
+    /* PayPal slot + placeholder */
     .paypalSlot{
       height:46px;
       width:100%;
       border-radius: 14px;
       overflow:hidden;
       box-shadow: 0 10px 22px rgba(0,0,0,.25);
-      background: var(--accent);
+      background: var(--accent);              /* ALWAYS yellow */
       display:flex;
       align-items:center;
       justify-content:center;
       position:relative;
+      border: 1px solid rgba(0,0,0,.10);
     }
     .paypalSlot.isDisabled{
       opacity:.55;
       filter: grayscale(1);
       pointer-events:none;
+    }
+    #paypal-button-container{
+      width:100%;
+      height:46px;
+      display:none; /* shown only when real paypal is active */
     }
     .paypalFallback{
       height:46px; width:100%;
@@ -463,7 +466,7 @@
 
           <div class="priceBox" aria-label="preisübersicht">
             <div class="priceTop">
-              <div class="unit" id="unitLine"><span id="tShirtLabel">t-shirt</span>: <strong id="unitPrice">21,95 €</strong> <span id="vatNote">inkl. mwst.</span></div>
+              <div class="unit"><span id="tShirtLabel">t-shirt</span>: <strong id="unitPrice">21,95 €</strong> <span id="vatNote">inkl. mwst.</span></div>
               <div class="total" id="totalPrice">26,90 €</div>
             </div>
             <div class="breakdown" id="breakdownLine">item: 21,95 € · shipping: 4,95 € (deutschland) · total: item + shipping</div>
@@ -522,15 +525,17 @@
             </div>
 
             <div class="payNote" id="payNote">mit klick auf den paypal-button gibst du eine zahlungspflichtige bestellung ab.</div>
-            <div class="checkline"><div><span id="chkHint">hinweis: die lieferadresse wird im rahmen der zahlungsabwicklung durch paypal übermittelt.</span></div></div>
+            <div class="checkline">
+              <div><span id="chkHint">hinweis: die lieferadresse wird im rahmen der zahlungsabwicklung durch paypal übermittelt.</span></div>
+            </div>
           </div>
 
           <div class="warn" id="warnBox"></div>
 
           <div class="ctaRow">
             <div class="paypalSlot isDisabled" id="paypalSlot" aria-label="paypal checkout">
-              <div id="paypal-button-container" style="width:100%; height:46px;"></div>
-              <button class="paypalFallback" id="paypalFallback" type="button" disabled>bezahlen</button>
+              <div id="paypal-button-container"></div>
+              <button class="paypalFallback" id="paypalFallback" type="button" disabled>bezahlen · 26,90 €</button>
             </div>
 
             <button class="btn btnDanger" id="wdBtn" type="button">widerruf</button>
@@ -604,29 +609,32 @@
   });
 
   try{
+    // ========= CONFIG =========
     const SHOP_NAME = "La vida da vuelta shop";
     const OWNER_LINE = "Inhaber: C.T.R. / T.T.";
     const ADDRESS_LINE = "Hüxstraße 75, 23552 Lübeck, Deutschland";
     const VAT_ID = "USt-IdNr.: [PLATZHALTER]";
     const SUPPORT_EMAIL = "konstrukture@gmx.de";
 
+    // PayPal (replace when ready)
     const PAYPAL_CLIENT_ID = "PAYPAL_CLIENT_ID_PLATZHALTER";
     const CURRENCY = "EUR";
 
     const UNIT_PRICE_EUR = 21.95;
     const SHIPPING = { DE: 4.95, EU: 9.95, WW: 14.95 };
 
-    const COLOR_KEYS = ["blue","yellow","khaki","grey","white","red","green"];
+    const COLOR_KEYS = ["white","grey","yellow","khaki","red","green","blue"];
     const COLOR_CANDIDATES = {
       blue:   ["shirt-blau.png", "shirt-blau.png.png"],
       yellow: ["shirt-gelb.png", "shirt-gelb.png.png", "shirt-front-yellow.png", "shirt-gelb-front.png", "shirt-gelb-front.png.png"],
       khaki:  ["shirt-khaki.png", "shirt-gelb-khaki.png", "shirt-gelb-khaki.png.png"],
-      grey:   ["shirt-grau.jpg", "shirt-grau.png", "shirt-grau.png.jpg"],
-      white:  ["shirt-weiss.png"],
+      grey:   ["shirt-grau.png", "shirt-grau.jpg", "shirt-grau.png.jpg"],
+      white:  ["shirt-weiss.png", "shirt-weiß.png", "shirt-weiss.jpg"],
       red:    ["shirt-rot.png", "shirt-rot.png.png"],
-      green:  ["shirt-gruen.png", "shirt-gruen.png.png"]
+      green:  ["shirt-gruen.png", "shirt-gruen.png.png", "shirt-grün.png"]
     };
 
+    // ========= I18N (FULL per language) =========
     const I18N = {
       de:{
         brandSubtitle:"einfach bestellen · weltweit versendet",
@@ -641,7 +649,7 @@
         preview:"produktvorschau",
         b2:"kollektion: rücken frei", b3:"versand: de/eu/ww",
         shipName:{DE:"deutschland", EU:"europa", WW:"weltweit"},
-        colors:{blue:"blau", yellow:"gelb", khaki:"khaki", grey:"grau", white:"weiß", red:"rot", green:"grün"},
+        colors:{white:"weiß", grey:"grau", yellow:"gelb", khaki:"khaki", red:"rot", green:"grün", blue:"blau"},
         lbImp:"impressum", lbDs:"datenschutz", lbAgb:"agb", lbWd:"widerruf", lbShip:"versand & zahlung", lbSize:"größentabelle", lbDelivery:"lieferzeiten",
         chkA:"ich habe die agb gelesen und akzeptiere sie.",
         chkW:"ich habe die widerrufsbelehrung zur kenntnis genommen.",
@@ -650,7 +658,15 @@
         chkHint:"hinweis: die lieferadresse wird im rahmen der zahlungsabwicklung durch paypal übermittelt.",
         missingPrefix:"bitte ergänzen: ",
         totalLine:(item, ship, zone)=>`item: ${item} · shipping: ${ship} (${zone}) · total: item + shipping`,
-        legal:{impTitle:"impressum", dsTitle:"datenschutz", agbTitle:"agb", wdTitle:"widerruf", shipTitle:"versand & zahlung", sizeTitle:"größentabelle", deliveryTitle:"lieferzeiten"}
+        legal:{
+          impTitle:"impressum",
+          dsTitle:"datenschutz",
+          agbTitle:"agb",
+          wdTitle:"widerruf",
+          shipTitle:"versand & zahlung",
+          sizeTitle:"größentabelle",
+          deliveryTitle:"lieferzeiten"
+        }
       },
       en:{
         brandSubtitle:"simple checkout · worldwide shipping",
@@ -662,19 +678,27 @@
         pay:"pay",
         wd:"withdrawal", copy:"copy order data",
         legalNote:"note: flat shipping fees by zone.",
-        preview:"preview",
+        preview:"product preview",
         b2:"collection: blank back", b3:"shipping: de/eu/ww",
         shipName:{DE:"germany", EU:"europe", WW:"worldwide"},
-        colors:{blue:"blue", yellow:"yellow", khaki:"khaki", grey:"grey", white:"white", red:"red", green:"green"},
+        colors:{white:"white", grey:"grey", yellow:"yellow", khaki:"khaki", red:"red", green:"green", blue:"blue"},
         lbImp:"imprint", lbDs:"privacy", lbAgb:"terms", lbWd:"withdrawal", lbShip:"shipping & payment", lbSize:"size chart", lbDelivery:"delivery times",
         chkA:"i have read and accept the terms.",
         chkW:"i have taken note of the withdrawal policy.",
         chkD:"i have read the privacy policy.",
-        payNote:"by clicking the paypal button, you place a legally binding order with obligation to pay.",
+        payNote:"by clicking the paypal button you place a binding order with obligation to pay.",
         chkHint:"note: shipping address is provided by paypal during checkout.",
         missingPrefix:"please complete: ",
         totalLine:(item, ship, zone)=>`item: ${item} · shipping: ${ship} (${zone}) · total: item + shipping`,
-        legal:{impTitle:"imprint", dsTitle:"privacy", agbTitle:"terms", wdTitle:"withdrawal", shipTitle:"shipping & payment", sizeTitle:"size chart", deliveryTitle:"delivery times"}
+        legal:{
+          impTitle:"imprint",
+          dsTitle:"privacy policy",
+          agbTitle:"terms & conditions",
+          wdTitle:"right of withdrawal",
+          shipTitle:"shipping & payment",
+          sizeTitle:"size chart",
+          deliveryTitle:"delivery times"
+        }
       },
       es:{
         brandSubtitle:"pedido fácil · envío mundial",
@@ -684,13 +708,13 @@
         pill1:"unisex", pill2:"impresión frontal", pill3:"espalda libre (colección)", pill4:"pago con paypal",
         lblSize:"talla", lblColor:"color", lblShip:"zona de envío", lblQty:"cantidad",
         pay:"pagar",
-        wd:"desistimiento", copy:"copiar datos",
+        wd:"desistimiento", copy:"copiar datos del pedido",
         legalNote:"nota: gastos fijos por zona.",
         preview:"vista previa",
         b2:"colección: espalda libre", b3:"envío: de/eu/ww",
         shipName:{DE:"alemania", EU:"europa", WW:"mundial"},
-        colors:{blue:"azul", yellow:"amarillo", khaki:"caqui", grey:"gris", white:"blanco", red:"rojo", green:"verde"},
-        lbImp:"aviso legal", lbDs:"privacidad", lbAgb:"términos", lbWd:"desistimiento", lbShip:"envío y pago", lbSize:"tallas", lbDelivery:"plazos",
+        colors:{white:"blanco", grey:"gris", yellow:"amarillo", khaki:"caqui", red:"rojo", green:"verde", blue:"azul"},
+        lbImp:"aviso legal", lbDs:"privacidad", lbAgb:"términos", lbWd:"desistimiento", lbShip:"envío y pago", lbSize:"tallas", lbDelivery:"plazos de entrega",
         chkA:"he leído y acepto los términos.",
         chkW:"he tomado nota del desistimiento.",
         chkD:"he leído la política de privacidad.",
@@ -698,7 +722,15 @@
         chkHint:"nota: paypal proporciona la dirección de envío durante el pago.",
         missingPrefix:"por favor completa: ",
         totalLine:(item, ship, zone)=>`artículo: ${item} · envío: ${ship} (${zone}) · total: artículo + envío`,
-        legal:{impTitle:"aviso legal", dsTitle:"privacidad", agbTitle:"términos", wdTitle:"desistimiento", shipTitle:"envío y pago", sizeTitle:"tallas", deliveryTitle:"plazos"}
+        legal:{
+          impTitle:"aviso legal",
+          dsTitle:"política de privacidad",
+          agbTitle:"términos y condiciones",
+          wdTitle:"derecho de desistimiento",
+          shipTitle:"envío y pago",
+          sizeTitle:"tallas",
+          deliveryTitle:"plazos de entrega"
+        }
       },
       fr:{
         brandSubtitle:"commande simple · livraison mondiale",
@@ -708,21 +740,29 @@
         pill1:"unisexe", pill2:"impression avant", pill3:"dos vierge (collection)", pill4:"paiement paypal",
         lblSize:"taille", lblColor:"couleur", lblShip:"zone", lblQty:"quantité",
         pay:"payer",
-        wd:"rétractation", copy:"copier",
+        wd:"rétractation", copy:"copier les données",
         legalNote:"note : frais fixes par zone.",
-        preview:"aperçu",
+        preview:"aperçu produit",
         b2:"collection : dos vierge", b3:"livraison : de/eu/ww",
         shipName:{DE:"allemagne", EU:"europe", WW:"monde"},
-        colors:{blue:"bleu", yellow:"jaune", khaki:"kaki", grey:"gris", white:"blanc", red:"rouge", green:"vert"},
-        lbImp:"mentions", lbDs:"confidentialité", lbAgb:"conditions", lbWd:"rétractation", lbShip:"livraison & paiement", lbSize:"tailles", lbDelivery:"délais",
+        colors:{white:"blanc", grey:"gris", yellow:"jaune", khaki:"kaki", red:"rouge", green:"vert", blue:"bleu"},
+        lbImp:"mentions légales", lbDs:"confidentialité", lbAgb:"conditions", lbWd:"rétractation", lbShip:"livraison & paiement", lbSize:"tailles", lbDelivery:"délais",
         chkA:"j'ai lu et j'accepte les conditions.",
-        chkW:"j'ai pris connaissance de la rétractation.",
+        chkW:"j'ai pris connaissance du droit de rétractation.",
         chkD:"j'ai lu la politique de confidentialité.",
         payNote:"en cliquant sur paypal, tu passes une commande avec obligation de paiement.",
-        chkHint:"note : l’adresse de livraison est fournie par paypal lors du paiement.",
+        chkHint:"note : l'adresse de livraison est fournie par paypal lors du paiement.",
         missingPrefix:"merci de compléter : ",
         totalLine:(item, ship, zone)=>`article : ${item} · livraison : ${ship} (${zone}) · total : article + livraison`,
-        legal:{impTitle:"mentions légales", dsTitle:"confidentialité", agbTitle:"conditions", wdTitle:"rétractation", shipTitle:"livraison & paiement", sizeTitle:"tailles", deliveryTitle:"délais"}
+        legal:{
+          impTitle:"mentions légales",
+          dsTitle:"politique de confidentialité",
+          agbTitle:"conditions générales",
+          wdTitle:"droit de rétractation",
+          shipTitle:"livraison & paiement",
+          sizeTitle:"tailles",
+          deliveryTitle:"délais de livraison"
+        }
       },
       it:{
         brandSubtitle:"ordine semplice · spedizione mondiale",
@@ -732,24 +772,33 @@
         pill1:"unisex", pill2:"stampa frontale", pill3:"retro vuoto (collezione)", pill4:"paga con paypal",
         lblSize:"taglia", lblColor:"colore", lblShip:"zona", lblQty:"quantità",
         pay:"paga",
-        wd:"recesso", copy:"copia dati",
+        wd:"recesso", copy:"copia dati ordine",
         legalNote:"nota: costi fissi per zona.",
-        preview:"anteprima",
+        preview:"anteprima prodotto",
         b2:"collezione: retro vuoto", b3:"spedizione: de/eu/ww",
         shipName:{DE:"germania", EU:"europa", WW:"mondo"},
-        colors:{blue:"blu", yellow:"giallo", khaki:"khaki", grey:"grigio", white:"bianco", red:"rosso", green:"verde"},
+        colors:{white:"bianco", grey:"grigio", yellow:"giallo", khaki:"khaki", red:"rosso", green:"verde", blue:"blu"},
         lbImp:"note legali", lbDs:"privacy", lbAgb:"termini", lbWd:"recesso", lbShip:"spedizione & pagamento", lbSize:"taglie", lbDelivery:"tempi",
         chkA:"ho letto e accetto i termini.",
         chkW:"ho preso visione del recesso.",
-        chkD:"ho letto la privacy policy.",
+        chkD:"ho letto l'informativa privacy.",
         payNote:"cliccando paypal invii un ordine con obbligo di pagamento.",
         chkHint:"nota: l’indirizzo di spedizione viene fornito da paypal durante il pagamento.",
         missingPrefix:"per favore completa: ",
         totalLine:(item, ship, zone)=>`articolo: ${item} · spedizione: ${ship} (${zone}) · totale: articolo + spedizione`,
-        legal:{impTitle:"note legali", dsTitle:"privacy", agbTitle:"termini", wdTitle:"recesso", shipTitle:"spedizione & pagamento", sizeTitle:"taglie", deliveryTitle:"tempi"}
+        legal:{
+          impTitle:"note legali",
+          dsTitle:"informativa privacy",
+          agbTitle:"termini e condizioni",
+          wdTitle:"diritto di recesso",
+          shipTitle:"spedizione & pagamento",
+          sizeTitle:"tabella taglie",
+          deliveryTitle:"tempi di consegna"
+        }
       }
     };
 
+    // ========= helpers =========
     const $ = (id)=>document.getElementById(id);
     const fmtEUR = (n)=>n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
     const money = (n)=> (Math.round(n*100)/100).toFixed(2);
@@ -758,7 +807,9 @@
       if (Number.isNaN(n)) return min;
       return Math.max(min, Math.min(max, n));
     };
+    const getLang = ()=> (I18N[$("langSel").value] || I18N.de);
 
+    // ========= elements =========
     const langEl = $("langSel");
     const sizeEl = $("size");
     const colorEl = $("color");
@@ -801,10 +852,12 @@
     const warnBox = $("warnBox");
 
     const paypalSlot = $("paypalSlot");
+    const paypalContainer = $("paypal-button-container");
     const paypalFallback = $("paypalFallback");
 
     const state = { colorKey: "white", paypalRendered: false };
 
+    // ========= pricing =========
     const getShipCost = () => SHIPPING[shipEl.value] ?? SHIPPING.DE;
 
     function totals(){
@@ -822,13 +875,16 @@
       unitPriceEl.textContent = fmtEUR(UNIT_PRICE_EUR);
       totalPriceEl.textContent = fmtEUR(t.total);
 
-      const lang = I18N[langEl.value] || I18N.de;
+      const lang = getLang();
       const zone = shipEl.value;
       const zoneName = (lang.shipName && lang.shipName[zone]) ? lang.shipName[zone] : zone;
       breakdownEl.textContent = lang.totalLine(fmtEUR(UNIT_PRICE_EUR), fmtEUR(t.shipCost), zoneName);
+
+      // Placeholder label always updated in selected language
       paypalFallback.textContent = `${lang.pay} · ${fmtEUR(t.total)}`;
     }
 
+    // ========= preview =========
     function setImgTryList(files){
       const v = Date.now();
       const list = (files || []).filter(Boolean);
@@ -853,17 +909,18 @@
       const key = state.colorKey;
       const files = COLOR_CANDIDATES[key] || COLOR_CANDIDATES.white;
       setImgTryList(files);
-      const lang = I18N[langEl.value] || I18N.de;
+      const lang = getLang();
       b1.textContent = (lang.colors && lang.colors[key]) ? lang.colors[key] : key;
     }
 
+    // ========= consent =========
     function validateConsentUI(){
       const missing = [];
       if(!agreeA.checked) missing.push("agb");
       if(!agreeW.checked) missing.push("widerruf");
       if(!agreeD.checked) missing.push("datenschutz");
 
-      const lang = I18N[langEl.value] || I18N.de;
+      const lang = getLang();
 
       if(missing.length){
         warnBox.textContent = `${lang.missingPrefix}${missing.join(", ")}.`;
@@ -876,76 +933,478 @@
       return true;
     }
 
+    // ========= legal texts (FULL per language) =========
     function legalTexts(langKey){
       const lang = I18N[langKey] || I18N.de;
 
-      const imp = `
-        <h2>${lang.legal.impTitle}</h2>
-        <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
-        <p>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
-        <p><b>Unternehmensform:</b> Einzelunternehmer</p>
-      `;
+      const disclaimer = (langKey !== "de")
+        ? `<p><i>Hinweis: Die deutsche Fassung ist maßgeblich. Übersetzungen dienen der Information.</i></p>`
+        : "";
 
-      const ds_de = `
-        <h2>Datenschutzerklärung</h2>
-        <p><b>Verantwortlicher</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
-        <p><b>Hosting</b><br>Diese Website wird über GitHub Pages bereitgestellt. Dabei können technisch erforderliche Zugriffsdaten verarbeitet werden.</p>
-        <p><b>PayPal</b><br>Bei PayPal-Zahlung werden zur Abwicklung und Lieferung Daten (Name, Adresse, E-Mail, Zahlungsstatus) übermittelt (Vertragserfüllung).</p>
-      `;
-      const ds_tx = `
-        <h2>${lang.legal.dsTitle} (translation)</h2>
-        <p>Hosted via GitHub Pages. Technical access data may be processed for delivery/security. PayPal transmits payment and shipping details to fulfill the contract. (German version controls.)</p>
-      `;
-      const ds = (langKey==="de") ? ds_de : ds_tx;
+      const IMP = {
+        de:`
+          <h2>Impressum</h2>
+          <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
+          <p>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <p><b>Unternehmensform:</b> Einzelunternehmer</p>
+        `,
+        en:`
+          <h2>Imprint</h2>
+          ${disclaimer}
+          <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
+          <p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <p><b>Business type:</b> Sole proprietor</p>
+        `,
+        es:`
+          <h2>Aviso legal</h2>
+          ${disclaimer}
+          <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
+          <p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <p><b>Forma jurídica:</b> Autónomo</p>
+        `,
+        fr:`
+          <h2>Mentions légales</h2>
+          ${disclaimer}
+          <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
+          <p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <p><b>Forme:</b> Entrepreneur individuel</p>
+        `,
+        it:`
+          <h2>Note legali</h2>
+          ${disclaimer}
+          <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
+          <p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <p><b>Forma:</b> Ditta individuale</p>
+        `
+      };
 
-      const widerruf_de = `
-        <h2>Widerrufsbelehrung</h2>
-        <p>Widerruf binnen 14 Tagen möglich. Erklärung per E-Mail an <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>. Rücksendekosten trägt der Kunde.</p>
-        <hr>
-        <h3>Muster-Widerrufsformular</h3>
-        <p>An: ${SHOP_NAME}, ${ADDRESS_LINE}, E-Mail: ${SUPPORT_EMAIL}<br><br>
-        Hiermit widerrufe ich den von mir abgeschlossenen Vertrag über den Kauf der folgenden Waren (*):<br>
-        ___________________________<br><br>
-        Bestellt am (*) / erhalten am (*): _______________________<br>
-        Name: ____________________________<br>
-        Anschrift: ________________________<br><br>
-        Unterschrift (nur auf Papier): _______________________<br>
-        Datum: _______________________<br>
-        (*) Unzutreffendes streichen.</p>
-      `;
-      const widerruf_tx = `
-        <h2>${lang.legal.wdTitle} (translation)</h2>
-        <p>You may withdraw within 14 days. Notify us by email. Return shipping costs are borne by the customer. (German version controls.)</p>
-      `;
+      const DS = {
+        de:`
+          <h2>Datenschutzerklärung</h2>
+          <p><b>1. Verantwortlicher</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>2. Hosting</b><br>
+          Diese Website wird über GitHub Pages bereitgestellt. Beim Aufruf verarbeitet der Hosting-Anbieter technisch erforderliche Zugriffsdaten (z. B. IP-Adresse, Zeitpunkt, User-Agent) in Server-Logfiles, um die Website auszuliefern und die Sicherheit zu gewährleisten.</p>
+          <p><b>3. Zahlungsabwicklung über PayPal</b><br>
+          Wenn du mit PayPal bezahlst, erfolgt die Zahlungsabwicklung über PayPal. Dabei werden zur Durchführung der Zahlung und zur Versandabwicklung Daten (z. B. Name, Lieferadresse, E-Mail-Adresse, Zahlungsstatus) an uns übermittelt.
+          Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).</p>
+          <p><b>4. Kontaktaufnahme</b><br>
+          Wenn du uns per E-Mail kontaktierst, verarbeiten wir deine Angaben zur Bearbeitung der Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO bzw. Art. 6 Abs. 1 lit. f DSGVO.</p>
+          <p><b>5. Speicherdauer</b><br>
+          Wir speichern personenbezogene Daten nur so lange, wie es erforderlich ist und gesetzliche Aufbewahrungspflichten bestehen.</p>
+          <p><b>6. Deine Rechte</b><br>
+          Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch sowie Beschwerderecht bei einer Aufsichtsbehörde.</p>
+        `,
+        en:`
+          <h2>Privacy Policy</h2>
+          ${disclaimer}
+          <p><b>1. Controller</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>2. Hosting</b><br>
+          This website is delivered via GitHub Pages. When you access the site, the hosting provider may process technical access data (e.g., IP address, timestamp, user-agent) in server logs to deliver the website and maintain security.</p>
+          <p><b>3. PayPal payments</b><br>
+          If you pay via PayPal, PayPal processes the payment. For payment execution and shipping, data may be transmitted to us (e.g., name, shipping address, email address, payment status). The legal basis is performance of a contract.</p>
+          <p><b>4. Contact</b><br>
+          If you contact us by email, we process your data to handle the request. Legal basis: contract performance and/or legitimate interests.</p>
+          <p><b>5. Retention</b><br>
+          We store personal data only as long as necessary and as required by statutory retention obligations.</p>
+          <p><b>6. Your rights</b><br>
+          Access, rectification, erasure, restriction, portability, objection, and the right to lodge a complaint with a supervisory authority.</p>
+        `,
+        es:`
+          <h2>Política de privacidad</h2>
+          ${disclaimer}
+          <p><b>1. Responsable</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>2. Hosting</b><br>
+          Este sitio se ofrece a través de GitHub Pages. Al acceder, el proveedor puede tratar datos técnicos (IP, fecha/hora, user-agent) en registros para entregar el sitio y garantizar la seguridad.</p>
+          <p><b>3. Pagos con PayPal</b><br>
+          Si pagas con PayPal, PayPal procesa el pago. Para el pago y el envío se nos pueden transmitir datos (nombre, dirección de envío, email, estado del pago). Base legal: ejecución del contrato.</p>
+          <p><b>4. Contacto</b><br>
+          Si nos contactas por email, tratamos tus datos para responder. Base legal: contrato y/o interés legítimo.</p>
+          <p><b>5. Conservación</b><br>
+          Guardamos los datos solo el tiempo necesario y según obligaciones legales.</p>
+          <p><b>6. Derechos</b><br>
+          Acceso, rectificación, supresión, limitación, portabilidad, oposición y reclamación ante la autoridad competente.</p>
+        `,
+        fr:`
+          <h2>Politique de confidentialité</h2>
+          ${disclaimer}
+          <p><b>1. Responsable</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>2. Hébergement</b><br>
+          Le site est fourni via GitHub Pages. Lors de l’accès, le fournisseur peut traiter des données techniques (IP, horodatage, user-agent) dans des journaux pour l’affichage et la sécurité.</p>
+          <p><b>3. Paiement PayPal</b><br>
+          En cas de paiement PayPal, PayPal traite le paiement. Des données peuvent nous être transmises pour exécuter le paiement et l’expédition (nom, adresse, email, statut). Base juridique: exécution du contrat.</p>
+          <p><b>4. Contact</b><br>
+          Si vous nous contactez par email, nous traitons vos données pour répondre. Base: contrat et/ou intérêt légitime.</p>
+          <p><b>5. Durée</b><br>
+          Conservation uniquement le temps nécessaire et selon les obligations légales.</p>
+          <p><b>6. Vos droits</b><br>
+          Accès, rectification, effacement, limitation, portabilité, opposition et réclamation auprès d’une autorité.</p>
+        `,
+        it:`
+          <h2>Informativa privacy</h2>
+          ${disclaimer}
+          <p><b>1. Titolare</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>2. Hosting</b><br>
+          Il sito è fornito tramite GitHub Pages. All’accesso, il provider può trattare dati tecnici (IP, data/ora, user-agent) nei log per erogazione e sicurezza.</p>
+          <p><b>3. Pagamenti PayPal</b><br>
+          Se paghi con PayPal, PayPal gestisce il pagamento. Dati possono essere trasmessi a noi per pagamento e spedizione (nome, indirizzo, email, stato). Base giuridica: esecuzione del contratto.</p>
+          <p><b>4. Contatto</b><br>
+          Se ci contatti via email, trattiamo i dati per rispondere. Base: contratto e/o legittimo interesse.</p>
+          <p><b>5. Conservazione</b><br>
+          Conserviamo i dati solo quanto necessario e secondo obblighi di legge.</p>
+          <p><b>6. Diritti</b><br>
+          Accesso, rettifica, cancellazione, limitazione, portabilità, opposizione e reclamo all’autorità competente.</p>
+        `
+      };
 
-      const agb_de = `
-        <h2>AGB (Verbraucher)</h2>
-        <p><b>Vertragsschluss</b><br>Der Vertrag kommt zustande, wenn du im PayPal-Checkout die zahlungspflichtige Bestellung bestätigst und die Zahlung autorisiert wird.</p>
-        <p><b>Lieferung</b><br>Lieferung an die im PayPal-Checkout übermittelte Adresse.</p>
-        <p><b>Gewährleistung</b><br>Es gilt das gesetzliche Mängelhaftungsrecht.</p>
-      `;
-      const agb_tx = `
-        <h2>${lang.legal.agbTitle} (translation)</h2>
-        <p>Contract is concluded in PayPal checkout when you confirm and authorize payment. Delivery to PayPal shipping address. Statutory warranty applies. (German version controls.)</p>
-      `;
+      const WD = {
+        de:`
+          <h2>Widerrufsbelehrung</h2>
+          <p><b>Widerrufsrecht</b><br>Du hast das Recht, binnen 14 Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p>
+          <p><b>Widerrufsfrist</b><br>Die Widerrufsfrist beträgt 14 Tage ab dem Tag, an dem du oder ein von dir benannter Dritter die Waren in Besitz genommen hat.</p>
+          <p><b>Ausübung des Widerrufs</b><br>
+          Widerruf per eindeutiger Erklärung (z. B. E-Mail) an: ${SHOP_NAME}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>Folgen des Widerrufs</b><br>
+          Erstattung aller Zahlungen inkl. Standard-Lieferkosten (Ausnahmen siehe Gesetz) binnen 14 Tagen ab Eingang der Widerrufserklärung; Rückzahlung kann bis Warenerhalt/Nachweis verweigert werden.</p>
+          <p><b>Rücksendung</b><br>Du trägst die unmittelbaren Kosten der Rücksendung.</p>
+          <hr>
+          <h3>Muster-Widerrufsformular</h3>
+          <p>(Wenn du den Vertrag widerrufen willst, dann fülle bitte dieses Formular aus und sende es zurück.)</p>
+          <p>
+            An: ${SHOP_NAME}, ${ADDRESS_LINE}, E-Mail: ${SUPPORT_EMAIL}<br><br>
+            Hiermit widerrufe ich den von mir abgeschlossenen Vertrag über den Kauf der folgenden Waren (*):<br>
+            ___________________________________________<br><br>
+            Bestellt am (*) / erhalten am (*): _______________________<br>
+            Name des/der Verbraucher(s): ____________________________<br>
+            Anschrift des/der Verbraucher(s): ________________________<br><br>
+            Unterschrift (nur bei Mitteilung auf Papier): _______________________<br>
+            Datum: _______________________<br>
+            (*) Unzutreffendes streichen.
+          </p>
+        `,
+        en:`
+          <h2>Right of Withdrawal</h2>
+          ${disclaimer}
+          <p><b>Right to withdraw</b><br>You have the right to withdraw from this contract within 14 days without giving any reason.</p>
+          <p><b>Withdrawal period</b><br>The withdrawal period is 14 days from the day on which you or a third party appointed by you takes possession of the goods.</p>
+          <p><b>How to withdraw</b><br>
+          To exercise the right of withdrawal, you must inform us by a clear statement (e.g., email) to: ${SHOP_NAME}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>Effects of withdrawal</b><br>
+          We will reimburse all payments received from you, including standard delivery costs (exceptions apply under law), within 14 days from the day we receive the withdrawal notice. We may withhold reimbursement until we have received the goods back or you have supplied evidence of having sent back the goods.</p>
+          <p><b>Return shipping</b><br>You bear the direct cost of returning the goods.</p>
+          <hr>
+          <h3>Model withdrawal form</h3>
+          <p>To: ${SHOP_NAME}, ${ADDRESS_LINE}, Email: ${SUPPORT_EMAIL}<br><br>
+          I hereby withdraw from the contract concluded by me for the purchase of the following goods (*):<br>
+          ___________________________________________<br><br>
+          Ordered on (*) / received on (*): _______________________<br>
+          Name: ____________________________<br>
+          Address: ________________________<br><br>
+          Signature (only if on paper): _______________________<br>
+          Date: _______________________<br>
+          (*) Delete as appropriate.</p>
+        `,
+        es:`
+          <h2>Derecho de desistimiento</h2>
+          ${disclaimer}
+          <p><b>Derecho</b><br>Tienes derecho a desistir del contrato en un plazo de 14 días sin indicar el motivo.</p>
+          <p><b>Plazo</b><br>El plazo de desistimiento es de 14 días desde el día en que tú o un tercero indicado por ti recibe la mercancía.</p>
+          <p><b>Ejercicio</b><br>Para ejercerlo, notifícanos una declaración inequívoca (p. ej. email) a: ${SHOP_NAME}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>Efectos</b><br>Reembolsaremos los pagos recibidos, incluidos los gastos estándar de envío (salvo excepciones legales), en 14 días desde la notificación. Podemos retener el reembolso hasta recibir la mercancía o prueba de devolución.</p>
+          <p><b>Devolución</b><br>Asumes el coste directo de la devolución.</p>
+          <hr>
+          <h3>Formulario modelo</h3>
+          <p>Para: ${SHOP_NAME}, ${ADDRESS_LINE}, Email: ${SUPPORT_EMAIL}<br><br>
+          Por la presente desisto del contrato de compra de los siguientes bienes (*):<br>
+          ___________________________________________<br><br>
+          Pedido el (*) / recibido el (*): _______________________<br>
+          Nombre: ____________________________<br>
+          Dirección: ________________________<br><br>
+          Firma (solo en papel): _______________________<br>
+          Fecha: _______________________<br>
+          (*) Táchese lo que no proceda.</p>
+        `,
+        fr:`
+          <h2>Droit de rétractation</h2>
+          ${disclaimer}
+          <p><b>Droit</b><br>Vous avez le droit de vous rétracter de ce contrat dans un délai de 14 jours sans donner de motif.</p>
+          <p><b>Délai</b><br>Le délai expire 14 jours après le jour où vous (ou un tiers désigné) prenez possession des biens.</p>
+          <p><b>Exercice</b><br>Pour exercer ce droit, informez-nous par une déclaration claire (email) à: ${SHOP_NAME}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>Effets</b><br>Nous rembourserons les paiements reçus, y compris les frais de livraison standard (exceptions légales), dans les 14 jours suivant la notification. Nous pouvons différer le remboursement jusqu’à la réception des biens ou preuve d’envoi.</p>
+          <p><b>Retour</b><br>Vous supportez les frais directs de renvoi.</p>
+          <hr>
+          <h3>Formulaire type</h3>
+          <p>À: ${SHOP_NAME}, ${ADDRESS_LINE}, Email: ${SUPPORT_EMAIL}<br><br>
+          Je vous notifie par la présente ma rétractation du contrat portant sur la vente du bien suivant (*):<br>
+          ___________________________________________<br><br>
+          Commandé le (*) / reçu le (*): _______________________<br>
+          Nom: ____________________________<br>
+          Adresse: ________________________<br><br>
+          Signature (papier uniquement): _______________________<br>
+          Date: _______________________<br>
+          (*) Rayez la mention inutile.</p>
+        `,
+        it:`
+          <h2>Diritto di recesso</h2>
+          ${disclaimer}
+          <p><b>Diritto</b><br>Hai il diritto di recedere dal contratto entro 14 giorni senza indicarne le ragioni.</p>
+          <p><b>Termine</b><br>Il termine è di 14 giorni dal giorno in cui tu o un terzo da te indicato entra in possesso dei beni.</p>
+          <p><b>Esercizio</b><br>Per esercitare il recesso, informaci con una dichiarazione esplicita (email) a: ${SHOP_NAME}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>Effetti</b><br>Rimborseremo i pagamenti ricevuti, inclusi i costi standard di consegna (salvo eccezioni di legge), entro 14 giorni dalla comunicazione. Possiamo trattenere il rimborso fino alla ricezione dei beni o prova di spedizione.</p>
+          <p><b>Reso</b><br>I costi diretti del reso sono a carico del cliente.</p>
+          <hr>
+          <h3>Modulo tipo</h3>
+          <p>A: ${SHOP_NAME}, ${ADDRESS_LINE}, Email: ${SUPPORT_EMAIL}<br><br>
+          Con la presente recedo dal contratto di acquisto dei seguenti beni (*):<br>
+          ___________________________________________<br><br>
+          Ordinato il (*) / ricevuto il (*): _______________________<br>
+          Nome: ____________________________<br>
+          Indirizzo: ________________________<br><br>
+          Firma (solo su carta): _______________________<br>
+          Data: _______________________<br>
+          (*) Cancellare la voce non pertinente.</p>
+        `
+      };
 
-      const ship = `
-        <h2>${lang.legal.shipTitle}</h2>
-        <ul>
-          <li>DE: ${fmtEUR(SHIPPING.DE)}</li>
-          <li>EU: ${fmtEUR(SHIPPING.EU)}</li>
-          <li>WW: ${fmtEUR(SHIPPING.WW)}</li>
-        </ul>
-        <p>Payment via PayPal. Shipping address comes from PayPal.</p>
-      `;
+      const AGB = {
+        de:`
+          <h2>AGB (Verbraucher)</h2>
+          <p><b>1. Geltungsbereich</b><br>Diese AGB gelten für Bestellungen von Verbrauchern (§ 13 BGB).</p>
+          <p><b>2. Vertragspartner</b><br>${SHOP_NAME}, ${OWNER_LINE}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>3. Vertragsschluss</b><br>Der Vertrag kommt zustande, wenn du im PayPal-Checkout die zahlungspflichtige Bestellung bestätigst und die Zahlung autorisiert wird.</p>
+          <p><b>4. Preise/Versand</b><br>Endpreise in EUR inkl. MwSt. (sofern anfällt). Versandkosten pauschal je Zone und vor Bestellung angezeigt.</p>
+          <p><b>5. Zahlung</b><br>PayPal.</p>
+          <p><b>6. Lieferung</b><br>Lieferung an die im PayPal-Checkout übermittelte Adresse.</p>
+          <p><b>7. Eigentumsvorbehalt</b><br>Bis zur vollständigen Zahlung bleibt die Ware unser Eigentum.</p>
+          <p><b>8. Gewährleistung</b><br>Es gilt das gesetzliche Mängelhaftungsrecht.</p>
+          <p><b>9. Streitbeilegung</b><br>Wir sind nicht verpflichtet und nicht bereit, an einem Streitbeilegungsverfahren teilzunehmen.</p>
+        `,
+        en:`
+          <h2>Terms &amp; Conditions (Consumers)</h2>
+          ${disclaimer}
+          <p><b>1. Scope</b><br>These terms apply to consumer orders.</p>
+          <p><b>2. Seller</b><br>${SHOP_NAME}, ${OWNER_LINE}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>3. Contract formation</b><br>The contract is concluded when you confirm the order with obligation to pay in the PayPal checkout and authorize payment.</p>
+          <p><b>4. Prices &amp; shipping</b><br>Prices in EUR incl. VAT where applicable. Flat shipping fees by zone are shown before ordering.</p>
+          <p><b>5. Payment</b><br>PayPal.</p>
+          <p><b>6. Delivery</b><br>Delivery to the address provided in the PayPal checkout.</p>
+          <p><b>7. Retention of title</b><br>Goods remain our property until full payment.</p>
+          <p><b>8. Warranty</b><br>Statutory warranty rights apply.</p>
+          <p><b>9. Dispute resolution</b><br>We are not obliged or willing to participate in dispute resolution proceedings.</p>
+        `,
+        es:`
+          <h2>Términos y condiciones (Consumidores)</h2>
+          ${disclaimer}
+          <p><b>1. Ámbito</b><br>Estos términos se aplican a pedidos de consumidores.</p>
+          <p><b>2. Vendedor</b><br>${SHOP_NAME}, ${OWNER_LINE}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>3. Perfección del contrato</b><br>El contrato se celebra cuando confirmas el pedido con obligación de pago en PayPal y autorizas el pago.</p>
+          <p><b>4. Precios y envío</b><br>Precios en EUR con IVA cuando aplique. Gastos fijos por zona, mostrados antes de comprar.</p>
+          <p><b>5. Pago</b><br>PayPal.</p>
+          <p><b>6. Entrega</b><br>Entrega a la dirección indicada en PayPal.</p>
+          <p><b>7. Reserva de dominio</b><br>La mercancía sigue siendo nuestra hasta el pago completo.</p>
+          <p><b>8. Garantía</b><br>Se aplican los derechos legales de garantía.</p>
+          <p><b>9. Resolución de disputas</b><br>No estamos obligados ni dispuestos a participar en procedimientos de resolución de disputas.</p>
+        `,
+        fr:`
+          <h2>Conditions générales (Consommateurs)</h2>
+          ${disclaimer}
+          <p><b>1. Champ</b><br>Ces conditions s’appliquent aux commandes de consommateurs.</p>
+          <p><b>2. Vendeur</b><br>${SHOP_NAME}, ${OWNER_LINE}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>3. Conclusion du contrat</b><br>Le contrat est conclu lorsque vous confirmez la commande avec obligation de paiement sur PayPal et autorisez le paiement.</p>
+          <p><b>4. Prix &amp; livraison</b><br>Prix en EUR TVA incluse si applicable. Frais fixes par zone affichés avant la commande.</p>
+          <p><b>5. Paiement</b><br>PayPal.</p>
+          <p><b>6. Livraison</b><br>Livraison à l’adresse fournie via PayPal.</p>
+          <p><b>7. Réserve de propriété</b><br>Les biens restent notre propriété jusqu’au paiement intégral.</p>
+          <p><b>8. Garantie</b><br>Les droits légaux de garantie s’appliquent.</p>
+          <p><b>9. Règlement des litiges</b><br>Nous ne sommes ni obligés ni disposés à participer à une procédure de règlement des litiges.</p>
+        `,
+        it:`
+          <h2>Termini e condizioni (Consumatori)</h2>
+          ${disclaimer}
+          <p><b>1. Ambito</b><br>Questi termini si applicano agli ordini dei consumatori.</p>
+          <p><b>2. Venditore</b><br>${SHOP_NAME}, ${OWNER_LINE}, ${ADDRESS_LINE}, <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>3. Conclusione del contratto</b><br>Il contratto è concluso quando confermi l’ordine con obbligo di pagamento in PayPal e autorizzi il pagamento.</p>
+          <p><b>4. Prezzi &amp; spedizione</b><br>Prezzi in EUR IVA inclusa se applicabile. Costi fissi per zona mostrati prima dell’ordine.</p>
+          <p><b>5. Pagamento</b><br>PayPal.</p>
+          <p><b>6. Consegna</b><br>Consegna all’indirizzo fornito in PayPal.</p>
+          <p><b>7. Riserva di proprietà</b><br>I beni restano nostri fino al pagamento completo.</p>
+          <p><b>8. Garanzia</b><br>Valgono i diritti di garanzia previsti dalla legge.</p>
+          <p><b>9. Risoluzione controversie</b><br>Non siamo obbligati né disponibili a partecipare a procedure di risoluzione delle controversie.</p>
+        `
+      };
 
-      const size = `<h2>${lang.legal.sizeTitle}</h2><p>Regular unisex fit. Between sizes: choose larger.</p>`;
-      const delivery = `<h2>${lang.legal.deliveryTitle}</h2><ul><li>DE: 3–5</li><li>EU: 5–8</li><li>WW: 8–14</li></ul>`;
+      const SHIP = {
+        de:`
+          <h2>Versand &amp; Zahlung</h2>
+          <p><b>Versandkosten (pauschal)</b></p>
+          <ul>
+            <li>Deutschland (DE): ${fmtEUR(SHIPPING.DE)}</li>
+            <li>Europa (EU): ${fmtEUR(SHIPPING.EU)}</li>
+            <li>Weltweit (WW): ${fmtEUR(SHIPPING.WW)}</li>
+          </ul>
+          <p><b>Zahlung</b><br>PayPal.</p>
+          <p><b>Lieferadresse</b><br>Die Lieferadresse wird im PayPal-Checkout erfasst und an uns übermittelt.</p>
+        `,
+        en:`
+          <h2>Shipping &amp; Payment</h2>
+          <p><b>Flat shipping fees</b></p>
+          <ul>
+            <li>Germany (DE): ${fmtEUR(SHIPPING.DE)}</li>
+            <li>Europe (EU): ${fmtEUR(SHIPPING.EU)}</li>
+            <li>Worldwide (WW): ${fmtEUR(SHIPPING.WW)}</li>
+          </ul>
+          <p><b>Payment</b><br>PayPal.</p>
+          <p><b>Shipping address</b><br>The shipping address is collected in the PayPal checkout and transmitted to us.</p>
+        `,
+        es:`
+          <h2>Envío y pago</h2>
+          <p><b>Gastos fijos</b></p>
+          <ul>
+            <li>Alemania (DE): ${fmtEUR(SHIPPING.DE)}</li>
+            <li>Europa (EU): ${fmtEUR(SHIPPING.EU)}</li>
+            <li>Mundial (WW): ${fmtEUR(SHIPPING.WW)}</li>
+          </ul>
+          <p><b>Pago</b><br>PayPal.</p>
+          <p><b>Dirección</b><br>La dirección se recoge en PayPal y se nos transmite.</p>
+        `,
+        fr:`
+          <h2>Livraison &amp; paiement</h2>
+          <p><b>Frais fixes</b></p>
+          <ul>
+            <li>Allemagne (DE): ${fmtEUR(SHIPPING.DE)}</li>
+            <li>Europe (EU): ${fmtEUR(SHIPPING.EU)}</li>
+            <li>Monde (WW): ${fmtEUR(SHIPPING.WW)}</li>
+          </ul>
+          <p><b>Paiement</b><br>PayPal.</p>
+          <p><b>Adresse</b><br>L’adresse est saisie dans PayPal et transmise.</p>
+        `,
+        it:`
+          <h2>Spedizione &amp; pagamento</h2>
+          <p><b>Costi fissi</b></p>
+          <ul>
+            <li>Germania (DE): ${fmtEUR(SHIPPING.DE)}</li>
+            <li>Europa (EU): ${fmtEUR(SHIPPING.EU)}</li>
+            <li>Mondo (WW): ${fmtEUR(SHIPPING.WW)}</li>
+          </ul>
+          <p><b>Pagamento</b><br>PayPal.</p>
+          <p><b>Indirizzo</b><br>L’indirizzo viene inserito in PayPal e trasmesso a noi.</p>
+        `
+      };
 
-      const wd = (langKey==="de") ? widerruf_de : widerruf_tx;
-      const agb = (langKey==="de") ? agb_de : agb_tx;
+      const SIZE = {
+        de:`
+          <h2>Größentabelle</h2>
+          <p>Unisex Regular Fit. Wenn du zwischen zwei Größen liegst: nimm die größere.</p>
+          <ul>
+            <li>XS – sehr schmal</li>
+            <li>S – schmal</li>
+            <li>M – normal</li>
+            <li>L – leicht locker</li>
+            <li>XL/XXL – locker</li>
+          </ul>
+        `,
+        en:`
+          <h2>Size chart</h2>
+          <p>Unisex regular fit. Between sizes: choose the larger one.</p>
+          <ul>
+            <li>XS – very slim</li>
+            <li>S – slim</li>
+            <li>M – regular</li>
+            <li>L – relaxed</li>
+            <li>XL/XXL – loose</li>
+          </ul>
+        `,
+        es:`
+          <h2>Tallas</h2>
+          <p>Corte unisex regular. Entre tallas: elige la mayor.</p>
+          <ul>
+            <li>XS – muy ajustada</li>
+            <li>S – ajustada</li>
+            <li>M – normal</li>
+            <li>L – holgada</li>
+            <li>XL/XXL – muy holgada</li>
+          </ul>
+        `,
+        fr:`
+          <h2>Tailles</h2>
+          <p>Coupe unisexe regular. Entre deux tailles: choisissez la plus grande.</p>
+          <ul>
+            <li>XS – très près du corps</li>
+            <li>S – près du corps</li>
+            <li>M – standard</li>
+            <li>L – ample</li>
+            <li>XL/XXL – très ample</li>
+          </ul>
+        `,
+        it:`
+          <h2>Tabella taglie</h2>
+          <p>Vestibilità unisex regular. Tra due taglie: scegli la più grande.</p>
+          <ul>
+            <li>XS – molto slim</li>
+            <li>S – slim</li>
+            <li>M – regolare</li>
+            <li>L – comoda</li>
+            <li>XL/XXL – larga</li>
+          </ul>
+        `
+      };
 
-      return { imp, ds, wd, agb, ship, size, delivery };
+      const DEL = {
+        de:`
+          <h2>Lieferzeiten</h2>
+          <ul>
+            <li>Deutschland: 3–5 Werktage</li>
+            <li>Europa: 5–8 Werktage</li>
+            <li>Weltweit: 8–14 Werktage</li>
+          </ul>
+          <p>Hinweis: Zeiten sind Richtwerte und können je nach Logistik/Feiertagen variieren.</p>
+        `,
+        en:`
+          <h2>Delivery times</h2>
+          <ul>
+            <li>Germany: 3–5 business days</li>
+            <li>Europe: 5–8 business days</li>
+            <li>Worldwide: 8–14 business days</li>
+          </ul>
+          <p>Note: Estimates may vary due to logistics/holidays.</p>
+        `,
+        es:`
+          <h2>Plazos de entrega</h2>
+          <ul>
+            <li>Alemania: 3–5 días laborables</li>
+            <li>Europa: 5–8 días laborables</li>
+            <li>Mundial: 8–14 días laborables</li>
+          </ul>
+          <p>Nota: son estimaciones y pueden variar.</p>
+        `,
+        fr:`
+          <h2>Délais de livraison</h2>
+          <ul>
+            <li>Allemagne: 3–5 jours ouvrés</li>
+            <li>Europe: 5–8 jours ouvrés</li>
+            <li>Monde: 8–14 jours ouvrés</li>
+          </ul>
+          <p>Note: estimations pouvant varier.</p>
+        `,
+        it:`
+          <h2>Tempi di consegna</h2>
+          <ul>
+            <li>Germania: 3–5 giorni lavorativi</li>
+            <li>Europa: 5–8 giorni lavorativi</li>
+            <li>Mondo: 8–14 giorni lavorativi</li>
+          </ul>
+          <p>Nota: stime soggette a variazioni.</p>
+        `
+      };
+
+      return {
+        imp: IMP[langKey] || IMP.de,
+        ds:  DS[langKey]  || DS.de,
+        wd:  WD[langKey]  || WD.de,
+        agb: AGB[langKey] || AGB.de,
+        ship: SHIP[langKey] || SHIP.de,
+        size: SIZE[langKey] || SIZE.de,
+        delivery: DEL[langKey] || DEL.de
+      };
     }
 
     function openLegal(key){
@@ -973,7 +1432,7 @@
     }
 
     function buildOrderNote(){
-      const lang = I18N[langEl.value] || I18N.de;
+      const lang = getLang();
       const t = totals();
       const size = sizeEl.value;
       const colorLabel = lang.colors?.[state.colorKey] || state.colorKey;
@@ -981,8 +1440,10 @@
       return `order: la vida da vuelta t-shirt | size: ${size} | color: ${colorLabel} | zone: ${zone} | qty: ${t.qty} | shipping: ${money(t.shipCost)} EUR | total: ${money(t.total)} EUR | contact: ${SUPPORT_EMAIL}`;
     }
 
+    // ========= language apply =========
     function applyLang(){
-      const lang = I18N[langEl.value] || I18N.de;
+      const langKey = langEl.value || "de";
+      const lang = I18N[langKey] || I18N.de;
 
       brandSubtitle.textContent = lang.brandSubtitle;
       langLabel.textContent = lang.langLabel;
@@ -1022,6 +1483,7 @@
       payNote.textContent = lang.payNote;
       chkHint.textContent = lang.chkHint;
 
+      // Shipping options translated
       const keepZ = shipEl.value || "DE";
       shipEl.innerHTML = "";
       ["DE","EU","WW"].forEach(z=>{
@@ -1032,6 +1494,7 @@
       });
       shipEl.value = keepZ;
 
+      // Color options translated
       const keepC = state.colorKey || "white";
       colorEl.innerHTML = "";
       COLOR_KEYS.forEach(k=>{
@@ -1048,9 +1511,25 @@
       validateConsentUI();
     }
 
+    // ========= PayPal =========
+    function hasRealPayPal(){
+      return PAYPAL_CLIENT_ID && PAYPAL_CLIENT_ID !== "PAYPAL_CLIENT_ID_PLATZHALTER";
+    }
+
+    function showPayPalPlaceholder(){
+      // Always yellow, always visible
+      paypalContainer.style.display = "none";
+      paypalFallback.style.display = "block";
+    }
+
+    function showPayPalRealSlot(){
+      paypalFallback.style.display = "none";
+      paypalContainer.style.display = "block";
+    }
+
     function loadPayPalSdk(){
       return new Promise((resolve, reject) => {
-        if(!PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID === "PAYPAL_CLIENT_ID_PLATZHALTER"){
+        if(!hasRealPayPal()){
           reject(new Error("PayPal Client-ID fehlt (Platzhalter)."));
           return;
         }
@@ -1069,26 +1548,36 @@
     async function ensurePayPalRendered(){
       if(state.paypalRendered) return;
 
-      if(!PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID === "PAYPAL_CLIENT_ID_PLATZHALTER"){
-        paypalFallback.style.display = "block";
+      if(!hasRealPayPal()){
+        showPayPalPlaceholder();
         return;
       }
 
-      await loadPayPalSdk();
-      paypalFallback.style.display = "none";
+      try{
+        await loadPayPalSdk();
+        showPayPalRealSlot();
+      }catch(_){
+        showPayPalPlaceholder();
+        return;
+      }
 
       window.paypal.Buttons({
         style: { layout: "horizontal", tagline: false, height: 46 },
+
         onClick: (data, actions) => {
-          if(!validateConsentUI()) return actions.reject();
+          if(!validateConsentUI()){
+            return actions.reject();
+          }
           return actions.resolve();
         },
+
         createOrder: (data, actions) => {
-          const lang = I18N[langEl.value] || I18N.de;
+          const lang = getLang();
           const t = totals();
           const size = sizeEl.value;
           const colorLabel = lang.colors?.[state.colorKey] || state.colorKey;
           const zone = shipEl.value;
+
           const itemName = `La Vida da vuelta T-Shirt (${colorLabel}, ${lang.lblSize} ${size})`;
 
           return actions.order.create({
@@ -1112,11 +1601,14 @@
             application_context: { shipping_preference: "GET_FROM_FILE" }
           });
         },
+
         onApprove: async (data, actions) => {
           const details = await actions.order.capture();
           alert("Danke! Zahlung bestätigt.\n\nTransaktion: " + (details && details.id ? details.id : ""));
         },
+
         onError: () => {
+          showPayPalPlaceholder();
           warnBox.textContent = "paypal fehler. bitte später erneut versuchen.";
           warnBox.classList.add("show");
         }
@@ -1125,11 +1617,20 @@
       state.paypalRendered = true;
     }
 
-    colorEl.addEventListener("change", ()=>{ state.colorKey = colorEl.value; refreshTotals(); updatePreview(); });
+    // ========= events =========
+    colorEl.addEventListener("change", ()=>{
+      state.colorKey = colorEl.value;
+      refreshTotals();
+      updatePreview();
+    });
     shipEl.addEventListener("change", refreshTotals);
     qtyEl.addEventListener("input", refreshTotals);
     sizeEl.addEventListener("change", refreshTotals);
-    langEl.addEventListener("change", applyLang);
+    langEl.addEventListener("change", ()=>{
+      applyLang();
+      // ensure placeholder label updates language immediately
+      if(!hasRealPayPal()) showPayPalPlaceholder();
+    });
 
     [agreeA, agreeW, agreeD].forEach(el=> el.addEventListener("change", validateConsentUI));
 
@@ -1155,15 +1656,20 @@
     });
 
     modalClose.addEventListener("click", closeLegal);
-    $("legalModal").addEventListener("click", (e)=>{ if(e.target === $("legalModal")) closeLegal(); });
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeLegal(); });
     document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeLegal(); });
 
+    // ========= init =========
     function init(){
       state.colorKey = "white";
       supportNote.innerHTML = `support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`;
+
       applyLang();
       validateConsentUI();
-      ensurePayPalRendered().catch(()=>{});
+
+      // Force placeholder visible immediately (prevents "not yellow" moment)
+      showPayPalPlaceholder();
+      ensurePayPalRendered().catch(()=>showPayPalPlaceholder());
     }
     init();
 
