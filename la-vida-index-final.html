@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>La Vida da vuelta shop</title>
+  <meta name="description" content="La vida da vuelta – T-Shirt Shop. Einfach bestellen, weltweit versendet." />
+
+  <style>
+    :root{
+      --bg1:#86a6b8; --bg2:#b9c9d3; --bg3:#e6e6e6;
+      --card: rgba(255,255,255,.90);
+      --line: rgba(0,0,0,.10);
+      --text:#151515; --muted:#4a4a4a;
+      --shadow: 0 14px 40px rgba(0,0,0,.18);
+      --radius: 18px;
+      --accent:#ffd200; --accentText:#0b0b0b;
+      --danger:#d62828; --dangerText:#ffffff;
+      --pad: 22px;
+      --max: 1920px;
+      --gap: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 42%, var(--bg3) 100%);
+      color: var(--text);
+      line-height:1.45;
+      min-height:100dvh;
+    }
+    a{color:inherit}
+    .wrap{
+      width:min(var(--max), calc(100vw - (var(--pad)*2)));
+      margin:0 auto;
+      padding: 14px var(--pad) 14px;
+      min-height: 100dvh;
+      display:flex;
+      flex-direction:column;
+      gap: var(--gap);
+    }
+
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+    }
+    .brand{display:flex; flex-direction:column; gap:2px;}
+    .brand strong{font-size:18px; letter-spacing:.2px; text-transform:lowercase;}
+    .brand span{font-size:13px; color:var(--muted); text-transform:lowercase;}
+
+    .lang{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .lang label{font-size:12px; color:var(--muted); font-weight:800; text-transform:lowercase;}
+    .lang select{
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      font-weight:800;
+      text-transform:lowercase;
+    }
+
+    /* ===== Layout (fit one screen on desktop) ===== */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: var(--gap);
+      align-items:stretch;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr;}
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      min-height:0;
+    }
+    .inner{
+      padding: 14px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      min-height:0;
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(32px, 3.0vw, 44px);
+      line-height:1.03;
+      text-transform:lowercase;
+      letter-spacing:-.6px;
+    }
+    .sub{margin:0; color:var(--muted); text-transform:lowercase;}
+
+    .trustRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;}
+    .pill{
+      font-size:12px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.70);
+      text-transform:lowercase;
+      white-space:nowrap;
+    }
+
+    .priceBox{
+      padding: 10px 12px;
+      border-radius: 16px;
+      border:1px dashed rgba(0,0,0,.18);
+      background: rgba(255,255,255,.72);
+    }
+    .priceTop{display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap;}
+    .unit{font-size:14px; color:var(--muted); text-transform:lowercase; font-weight:700;}
+    .unit strong{color:var(--text); font-weight:950;}
+    .total{font-size:26px; font-weight:950;}
+    .breakdown{font-size:12px; color:var(--muted); text-transform:lowercase; margin-top:6px;}
+
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:10px;}
+    @media (max-width:520px){ .grid2{grid-template-columns:1fr;} }
+
+    label.field{
+      display:block;
+      font-size:12px;
+      color: var(--muted);
+      margin: 0 0 6px;
+      font-weight: 800;
+      text-transform:lowercase;
+    }
+    select, input{
+      width:100%;
+      padding: 10px 10px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.82);
+      color: var(--text);
+      outline:none;
+      font-size: 15px;
+      text-transform:lowercase;
+    }
+
+    /* CTA row */
+    .ctaRow{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; margin-top:4px;}
+    @media (max-width:760px){ .ctaRow{grid-template-columns:1fr;} }
+
+    .btn{
+      height:46px;
+      width:100%;
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      padding: 0 14px;
+      border-radius: 14px;
+      font-weight: 950;
+      letter-spacing:.2px;
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-transform:lowercase;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      user-select:none;
+    }
+    .btnPrimary{background: var(--accent); color: var(--accentText); box-shadow: 0 10px 22px rgba(0,0,0,.25);}
+    .btnDanger{background: var(--danger); color: var(--dangerText); box-shadow: 0 10px 22px rgba(0,0,0,.18);}
+    .btnGhost{background: rgba(255,255,255,.85); border: 1px solid var(--line); color: var(--text);}
+    .btn:active{transform: translateY(1px);}
+
+    /* PayPal slot */
+    .paypalSlot{
+      height:46px;
+      width:100%;
+      border-radius: 14px;
+      overflow:hidden;
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+      background: var(--accent);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+    .paypalSlot.isDisabled{
+      opacity:.55;
+      filter: grayscale(1);
+      pointer-events:none;
+    }
+    .paypalFallback{
+      height:46px; width:100%;
+      border:0; border-radius:14px;
+      background: var(--accent);
+      color: var(--accentText);
+      font-weight:950;
+      text-transform:lowercase;
+      cursor:not-allowed;
+    }
+
+    /* Consent block */
+    .checks{
+      display:grid;
+      gap:8px;
+      margin-top:4px;
+      padding:10px 12px;
+      border:1px solid rgba(0,0,0,.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,.70);
+    }
+    .checkline{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      font-size:12px;
+      color: var(--muted);
+      text-transform:lowercase;
+    }
+    .checkline input{
+      width:auto;
+      margin-top:2px;
+      accent-color: #111;
+    }
+    .checkline a{ text-decoration:underline; }
+    .payNote{
+      font-size:12px;
+      color: var(--text);
+      font-weight:900;
+      text-transform:lowercase;
+    }
+    .warn{
+      font-size:12px;
+      color:#7a0d0d;
+      background: rgba(214,40,40,.10);
+      border: 1px solid rgba(214,40,40,.28);
+      padding:8px 10px;
+      border-radius: 14px;
+      display:none;
+      text-transform:lowercase;
+    }
+    .warn.show{display:block;}
+
+    .noteRow{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 2px;
+    }
+    .note{margin:0; font-size: 12px; color: var(--muted); text-transform:lowercase;}
+
+    /* legal pills */
+    .legalBar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:4px;}
+    .legalBtn{
+      appearance:none;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform:lowercase;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .legalBtn.danger{
+      background: rgba(214,40,40,.12);
+      border-color: rgba(214,40,40,.35);
+      color:#7a0d0d;
+    }
+
+    /* RIGHT: preview */
+    .imgWrap{
+      padding: 14px;
+      background: rgba(255,255,255,.55);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height: 0;
+    }
+    .imgInner{
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      overflow:hidden;
+      box-shadow: 0 18px 45px rgba(0,0,0,.20);
+      display:flex;
+      flex-direction:column;
+      min-height:0; /* key for no-scroll */
+    }
+    .imgHeader{
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size:12px;
+      color:var(--muted);
+      text-transform:lowercase;
+      flex: 0 0 auto;
+    }
+    .imgHeader small{
+      font-size:11px;
+      text-transform:none;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 62%;
+    }
+    .imgBody{
+      padding: 12px;
+      flex: 1 1 auto;
+      min-height:0;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .imgStage{
+      flex: 1 1 auto;
+      min-height: 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(255,255,255,.35);
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 16px;
+      overflow:hidden;
+    }
+    .productImg{
+      max-width: 100%;
+      max-height: 100%;
+      width:auto;
+      height:auto;
+      display:block;
+      background:#f4f4f4;
+    }
+    .badges{display:flex; gap:8px; flex-wrap:wrap;}
+    .badge{
+      font-size:12px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.70);
+      text-transform:lowercase;
+      white-space:nowrap;
+    }
+
+    /* Modal (legal) */
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.45);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 9999;
+    }
+    .modal.isOpen{display:flex;}
+    .modalCard{
+      width: min(920px, 100%);
+      background: rgba(255,255,255,.97);
+      border: 1px solid rgba(0,0,0,.10);
+      border-radius: 18px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.30);
+      overflow:hidden;
+    }
+    .modalHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px 14px;
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+    .modalTitle{font-weight: 950; text-transform:lowercase; letter-spacing:.2px;}
+    .modalClose{
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: rgba(255,255,255,.95);
+      cursor:pointer;
+      font-size: 22px;
+      display:flex; align-items:center; justify-content:center;
+      line-height:0;
+    }
+    .modalBody{
+      padding: 14px 16px 16px;
+      max-height: min(78vh, 760px);
+      overflow:auto;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .modalBody h2{margin: 10px 0 8px; color: var(--text);}
+    .modalBody h3{margin: 12px 0 6px; color: var(--text);}
+    .modalBody p{margin: 8px 0;}
+    .modalBody ul{margin: 8px 0 0 18px;}
+    .modalBody hr{border:0; border-top:1px solid rgba(0,0,0,.12); margin:12px 0;}
+
+    /* On-page error overlay */
+    .err{
+      position:fixed; left:12px; right:12px; bottom:12px;
+      background:#fff; border:1px solid #000;
+      padding:10px 12px; border-radius:12px;
+      font: 12px/1.25 system-ui;
+      z-index: 99999;
+      display:none;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .err strong{display:block; margin-bottom:4px;}
+    .err code{white-space:pre-wrap}
+    .err.show{display:block;}
+
+    /* Mobile tighten */
+    @media (max-width: 520px){
+      :root{ --pad: 14px; --gap: 12px; }
+      .wrap{ padding: 12px var(--pad) 14px; }
+      h1{ font-size: 32px; }
+      .pill, .badge{ font-size:11px; padding:6px 8px; }
+      .priceBox{ padding: 9px 10px; }
+      .total{ font-size:24px; }
+      .inner{ padding: 12px; }
+      .imgWrap{ padding: 12px; }
+    }
+
+    noscript{
+      display:block;
+      padding: 10px 12px;
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 12px;
+      margin: 10px 0 0;
+      font: 12px/1.2 system-ui;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <strong id="brandTitle">la vida da vuelta shop</strong>
+        <span id="brandSubtitle">einfach bestellen · weltweit versendet</span>
+      </div>
+
+      <div class="lang">
+        <label for="langSel" id="langLabel">sprache</label>
+        <select id="langSel" aria-label="sprache">
+          <option value="de" selected>de</option>
+          <option value="en">en</option>
+          <option value="es">es</option>
+          <option value="fr">fr</option>
+          <option value="it">it</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="hero">
+      <!-- LEFT -->
+      <div class="card">
+        <div class="inner">
+          <div>
+            <h1 id="headline">la vida da vuelta</h1>
+            <p class="sub" id="subline">por fin se fue</p>
+
+            <div class="trustRow">
+              <div class="pill" id="pill1">unisex</div>
+              <div class="pill" id="pill2">frontprint</div>
+              <div class="pill" id="pill3">rücken frei (kollektion)</div>
+              <div class="pill" id="pill4">zahlung via paypal</div>
+            </div>
+          </div>
+
+          <div class="priceBox" aria-label="preisübersicht">
+            <div class="priceTop">
+              <div class="unit" id="unitLine">t-shirt: <strong id="unitPrice">21,95 €</strong> <span id="vatNote">inkl. mwst.</span></div>
+              <div class="total" id="totalPrice">26,90 €</div>
+            </div>
+            <div class="breakdown" id="breakdownLine">item: 21,95 € · shipping: 4,95 € (deutschland) · total: item + shipping</div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="field" for="size" id="lblSize">größe</label>
+              <select id="size">
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M" selected>M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+            </div>
+            <div>
+              <label class="field" for="color" id="lblColor">farbe</label>
+              <select id="color">
+                <option value="white" selected>weiß</option>
+                <option value="grey">grau</option>
+                <option value="yellow">gelb</option>
+                <option value="khaki">khaki</option>
+                <option value="red">rot</option>
+                <option value="green">grün</option>
+                <option value="blue">blau</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label class="field" for="ship" id="lblShip">versandzone</label>
+              <select id="ship">
+                <option value="DE" selected>deutschland</option>
+                <option value="EU">europa</option>
+                <option value="WW">weltweit</option>
+              </select>
+            </div>
+            <div>
+              <label class="field" for="qty" id="lblQty">menge</label>
+              <input id="qty" type="number" min="1" value="1" />
+            </div>
+          </div>
+
+          <!-- Consent -->
+          <div class="checks" aria-label="zustimmungen">
+            <div class="checkline">
+              <input id="agree_agb" type="checkbox" />
+              <div>
+                <span id="chkA">ich habe die agb gelesen und akzeptiere sie.</span>
+                <a href="#" data-legal="agb" aria-label="agb öffnen">agb</a>
+              </div>
+            </div>
+            <div class="checkline">
+              <input id="agree_wd" type="checkbox" />
+              <div>
+                <span id="chkW">ich habe die widerrufsbelehrung zur kenntnis genommen.</span>
+                <a href="#" data-legal="wd" aria-label="widerruf öffnen">widerruf</a>
+              </div>
+            </div>
+            <div class="checkline">
+              <input id="agree_ds" type="checkbox" />
+              <div>
+                <span id="chkD">ich habe die datenschutzerklärung gelesen.</span>
+                <a href="#" data-legal="ds" aria-label="datenschutz öffnen">datenschutz</a>
+              </div>
+            </div>
+
+            <div class="payNote" id="payNote">
+              mit klick auf den paypal-button gibst du eine zahlungspflichtige bestellung ab.
+            </div>
+            <div class="checkline">
+              <div>
+                <span id="chkHint">hinweis: die lieferadresse wird im rahmen der zahlungsabwicklung durch paypal übermittelt.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="warn" id="warnBox">bitte ergänzen: …</div>
+
+          <div class="ctaRow">
+            <!-- PayPal -->
+            <div class="paypalSlot isDisabled" id="paypalSlot" aria-label="paypal checkout">
+              <div id="paypal-button-container" style="width:100%; height:46px;"></div>
+              <button class="paypalFallback" id="paypalFallback" type="button" disabled>paypal checkout (platzhalter)</button>
+            </div>
+
+            <!-- Widerruf Button stays -->
+            <button class="btn btnDanger" id="wdBtn" type="button">widerruf</button>
+            <button class="btn btnGhost" id="copyBtn" type="button">bestelldaten kopieren</button>
+          </div>
+
+          <div class="noteRow">
+            <p class="note" id="supportNote">support: <a href="mailto:kontakt@livedadovuelta.shop">kontakt@livedadovuelta.shop</a></p>
+            <p class="note" id="legalNote">hinweis: versandkosten sind pauschal je zone.</p>
+          </div>
+
+          <div class="legalBar">
+            <button class="legalBtn" data-legal="imp" type="button" id="lbImp">impressum</button>
+            <button class="legalBtn" data-legal="ds" type="button" id="lbDs">datenschutz</button>
+            <button class="legalBtn" data-legal="agb" type="button" id="lbAgb">agb</button>
+            <button class="legalBtn danger" data-legal="wd" type="button" id="lbWd">widerruf</button>
+            <button class="legalBtn" data-legal="ship" type="button" id="lbShip">versand & zahlung</button>
+            <button class="legalBtn" data-legal="size" type="button" id="lbSize">größentabelle</button>
+            <button class="legalBtn" data-legal="delivery" type="button" id="lbDelivery">lieferzeiten</button>
+          </div>
+
+          <noscript>
+            JavaScript ist deaktiviert. Die Seite bleibt sichtbar, aber Checkout/Sprachen/Vorschau funktionieren nur mit JavaScript.
+          </noscript>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="card imgWrap">
+        <div class="imgInner">
+          <div class="imgHeader">
+            <div id="previewLabel">produktvorschau</div>
+            <small id="previewFile">shirt-weiss.png</small>
+          </div>
+          <div class="imgBody">
+            <div class="imgStage">
+              <img class="productImg" id="productImg" src="shirt-weiss.png" alt="t-shirt preview" />
+            </div>
+
+            <div class="badges">
+              <div class="badge" id="b1">weiß</div>
+              <div class="badge" id="b2">kollektion: rücken frei</div>
+              <div class="badge" id="b3">versand: de/eu/ww</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal" id="legalModal" aria-hidden="true">
+    <div class="modalCard" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+      <div class="modalHead">
+        <div class="modalTitle" id="legalTitle">legal</div>
+        <button class="modalClose" id="legalClose" type="button" aria-label="close">×</button>
+      </div>
+      <div class="modalBody" id="legalBody"></div>
+    </div>
+  </div>
+
+  <div class="err" id="errBox">
+    <strong>Seite lädt, aber ein Script-Fehler ist passiert.</strong>
+    <div>Bitte Screenshot davon schicken – dann ist es sofort fix.</div>
+    <code id="errMsg"></code>
+  </div>
+
+<script>
+(function(){
+  // Show any JS error on-page
+  const errBox = document.getElementById("errBox");
+  const errMsg = document.getElementById("errMsg");
+  window.addEventListener("error", (e) => {
+    try{
+      errMsg.textContent = String(e && (e.message || e.error) ? (e.message || e.error) : "Unknown error");
+      errBox.classList.add("show");
+    }catch(_){}
+  });
+
+  try{
+    // ======================
+    // CONFIG (fill placeholders when ready)
+    // ======================
+    const SHOP_NAME = "La vida da vuelta shop";
+    const OWNER_LINE = "Inhaber: C. T. R. / T. T.";
+    const ADDRESS_LINE = "Hüxstraße 75, 23552 Lübeck, Deutschland";
+    const VAT_ID = "USt-IdNr.: [PLATZHALTER]"; // replace if you have it
+    const SUPPORT_EMAIL = "kontakt@livedadovuelta.shop"; // set to your real shop mailbox
+
+    // PayPal (Sandbox first). Replace with your sandbox client-id when available.
+    const PAYPAL_CLIENT_ID = "PAYPAL_CLIENT_ID_PLATZHALTER";
+    const CURRENCY = "EUR";
+
+    const UNIT_PRICE_EUR = 21.95;
+    const SHIPPING = { DE: 4.95, EU: 9.95, WW: 14.95 };
+
+    // Preview images (repo filenames)
+    const COLOR_KEYS = ["blue","yellow","khaki","grey","white","red","green"];
+    const COLOR_CANDIDATES = {
+      blue:   ["shirt-blau.png", "shirt-blau.png.png"],
+      yellow: ["shirt-gelb.png", "shirt-gelb.png.png", "shirt-front-yellow.png", "shirt-gelb-front.png", "shirt-gelb-front.png.png"],
+      khaki:  ["shirt-khaki.png", "shirt-gelb-khaki.png", "shirt-gelb-khaki.png.png"],
+      grey:   ["shirt-grau.jpg", "shirt-grau.png", "shirt-grau.png.jpg"],
+      white:  ["shirt-weiss.png"],
+      red:    ["shirt-rot.png", "shirt-rot.png.png"],
+      green:  ["shirt-gruen.png", "shirt-gruen.png.png"]
+    };
+
+    // ======================
+    // I18N (minimal; legal texts are German only for now)
+    // ======================
+    const I18N = {
+      de:{
+        brandSubtitle:"einfach bestellen · weltweit versendet",
+        langLabel:"sprache",
+        pill1:"unisex", pill2:"frontprint", pill3:"rücken frei (kollektion)", pill4:"zahlung via paypal",
+        lblSize:"größe", lblColor:"farbe", lblShip:"versandzone", lblQty:"menge",
+        wd:"widerruf", copy:"bestelldaten kopieren",
+        legalNote:"hinweis: versandkosten sind pauschal je zone.",
+        preview:"produktvorschau",
+        b2:"kollektion: rücken frei", b3:"versand: de/eu/ww",
+        shipName:{DE:"deutschland", EU:"europa", WW:"weltweit"},
+        colors:{blue:"blau", yellow:"gelb", khaki:"khaki", grey:"grau", white:"weiß", red:"rot", green:"grün"},
+        lbImp:"impressum", lbDs:"datenschutz", lbAgb:"agb", lbWd:"widerruf", lbShip:"versand & zahlung", lbSize:"größentabelle", lbDelivery:"lieferzeiten",
+        chkA:"ich habe die agb gelesen und akzeptiere sie.",
+        chkW:"ich habe die widerrufsbelehrung zur kenntnis genommen.",
+        chkD:"ich habe die datenschutzerklärung gelesen.",
+        payNote:"mit klick auf den paypal-button gibst du eine zahlungspflichtige bestellung ab.",
+        chkHint:"hinweis: die lieferadresse wird im rahmen der zahlungsabwicklung durch paypal übermittelt."
+      }
+    };
+
+    // ======================
+    // Helpers
+    // ======================
+    const $ = (id)=>document.getElementById(id);
+    const fmtEUR = (n)=>n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});
+    const money = (n)=> (Math.round(n*100)/100).toFixed(2);
+    const clampInt = (val, min=1, max=999) => {
+      const n = parseInt(val, 10);
+      if (Number.isNaN(n)) return min;
+      return Math.max(min, Math.min(max, n));
+    };
+
+    // ======================
+    // Elements
+    // ======================
+    const langEl = $("langSel");
+    const sizeEl = $("size");
+    const colorEl = $("color");
+    const shipEl = $("ship");
+    const qtyEl  = $("qty");
+
+    const wdBtn  = $("wdBtn");
+    const copyBtn= $("copyBtn");
+
+    const unitPriceEl = $("unitPrice");
+    const totalPriceEl= $("totalPrice");
+    const breakdownEl = $("breakdownLine");
+
+    const brandSubtitle = $("brandSubtitle");
+    const langLabel = $("langLabel");
+
+    const pill1=$("pill1"), pill2=$("pill2"), pill3=$("pill3"), pill4=$("pill4");
+    const lblSize=$("lblSize"), lblColor=$("lblColor"), lblShip=$("lblShip"), lblQty=$("lblQty");
+    const supportNote=$("supportNote"), legalNote=$("legalNote");
+
+    const previewLabel=$("previewLabel");
+    const previewFile=$("previewFile");
+    const productImg=$("productImg");
+
+    const b1=$("b1"), b2=$("b2"), b3=$("b3");
+
+    const lbImp=$("lbImp"), lbDs=$("lbDs"), lbAgb=$("lbAgb"), lbWd=$("lbWd"), lbShip=$("lbShip"), lbSize=$("lbSize"), lbDelivery=$("lbDelivery");
+    const modal=$("legalModal"), modalTitle=$("legalTitle"), modalBody=$("legalBody"), modalClose=$("legalClose");
+
+    // Checkboxes
+    const agreeA = $("agree_agb");
+    const agreeW = $("agree_wd");
+    const agreeD = $("agree_ds");
+    const chkA = $("chkA");
+    const chkW = $("chkW");
+    const chkD = $("chkD");
+    const payNote = $("payNote");
+    const chkHint = $("chkHint");
+    const warnBox = $("warnBox");
+
+    // PayPal Slot
+    const paypalSlot = $("paypalSlot");
+    const paypalFallback = $("paypalFallback");
+
+    // ======================
+    // State
+    // ======================
+    const state = {
+      colorKey: (colorEl && colorEl.value) ? colorEl.value : "white",
+      paypalRendered: false
+    };
+
+    // ======================
+    // Pricing
+    // ======================
+    const getShipCost = () => SHIPPING[shipEl.value] ?? SHIPPING.DE;
+
+    function totals(){
+      const qty = clampInt(qtyEl.value);
+      const shipCost = getShipCost();
+      const itemTotal = UNIT_PRICE_EUR * qty;
+      const total = itemTotal + shipCost;
+      return { qty, shipCost, itemTotal, total };
+    }
+
+    function refreshTotals(){
+      const t = totals();
+      qtyEl.value = t.qty;
+
+      unitPriceEl.textContent = fmtEUR(UNIT_PRICE_EUR);
+      totalPriceEl.textContent = fmtEUR(t.total);
+
+      const lang = I18N.de;
+      const zone = shipEl.value;
+      const zoneName = (lang.shipName && lang.shipName[zone]) ? lang.shipName[zone] : zone;
+      breakdownEl.textContent = `item: ${fmtEUR(UNIT_PRICE_EUR)} · shipping: ${fmtEUR(t.shipCost)} (${zoneName}) · total: item + shipping`;
+    }
+
+    // ======================
+    // Preview image
+    // ======================
+    function setImgTryList(files){
+      const v = Date.now();
+      const list = (files || []).filter(Boolean);
+      let i = 0;
+
+      const tryNext = () => {
+        if(i >= list.length){
+          previewFile.textContent = (list[0] || "file") + " (not found)";
+          productImg.onerror = null;
+          return;
+        }
+        const f = list[i++];
+        previewFile.textContent = f;
+        productImg.onerror = tryNext;
+        productImg.src = `./${f}?v=${v}`;
+      };
+
+      tryNext();
+    }
+
+    function updatePreview(){
+      const key = state.colorKey;
+      const files = COLOR_CANDIDATES[key] || COLOR_CANDIDATES.white;
+      setImgTryList(files);
+      b1.textContent = (I18N.de.colors && I18N.de.colors[key]) ? I18N.de.colors[key] : key;
+    }
+
+    // ======================
+    // Consent gating
+    // ======================
+    function validateConsentUI(){
+      const missing = [];
+      if(!agreeA.checked) missing.push("agb");
+      if(!agreeW.checked) missing.push("widerruf");
+      if(!agreeD.checked) missing.push("datenschutz");
+
+      if(missing.length){
+        warnBox.textContent = `bitte ergänzen: ${missing.join(", ")}.`;
+        warnBox.classList.add("show");
+        paypalSlot.classList.add("isDisabled");
+        return false;
+      }
+      warnBox.classList.remove("show");
+      paypalSlot.classList.remove("isDisabled");
+      return true;
+    }
+
+    // ======================
+    // Legal texts (German)
+    // ======================
+    function legalTexts(){
+      const t = totals();
+      const shipZone = shipEl.value;
+
+      const imp = `
+        <h2>Impressum</h2>
+        <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
+        <p>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+        <p><b>Unternehmensform:</b> Einzelunternehmer</p>
+      `;
+
+      const ds = `
+        <h2>Datenschutzerklärung</h2>
+        <p><b>1. Verantwortlicher</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+
+        <p><b>2. Hosting</b><br>
+        Diese Website wird über GitHub Pages (GitHub, Inc., USA) bereitgestellt. Beim Aufruf verarbeitet GitHub technisch erforderliche Zugriffsdaten (z. B. IP-Adresse, Zeitpunkt, User-Agent) in Server-Logfiles, um die Website auszuliefern und die Sicherheit zu gewährleisten.</p>
+
+        <p><b>3. Zahlungsabwicklung über PayPal</b><br>
+        Wenn du mit PayPal bezahlst, erfolgt die Zahlungsabwicklung über PayPal. Dabei werden zur Durchführung der Zahlung und zur Versandabwicklung Daten (z. B. Name, Lieferadresse, E-Mail-Adresse, Zahlungsstatus) an uns übermittelt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).</p>
+
+        <p><b>4. Kontaktaufnahme</b><br>
+        Wenn du uns per E-Mail kontaktierst, verarbeiten wir deine Angaben zur Bearbeitung der Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen/Vertrag) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Kommunikation).</p>
+
+        <p><b>5. Speicherdauer</b><br>
+        Wir speichern personenbezogene Daten nur so lange, wie es für die genannten Zwecke erforderlich ist und gesetzliche Aufbewahrungspflichten bestehen (z. B. Handels- und Steuerrecht).</p>
+
+        <p><b>6. Deine Rechte</b><br>
+        Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch. Außerdem kannst du dich bei einer Aufsichtsbehörde beschweren.</p>
+
+        <p><b>7. Hinweis zur OS-Plattform</b><br>
+        Die frühere EU-Online-Streitbeilegungsplattform (OS-Plattform) wurde zum 20.07.2025 eingestellt. Wir verlinken daher nicht auf eine nicht mehr existente Plattform.</p>
+      `;
+
+      const widerruf = `
+        <h2>Widerrufsbelehrung</h2>
+        <p><b>Widerrufsrecht</b><br>
+        Du hast das Recht, binnen 14 Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.</p>
+
+        <p><b>Widerrufsfrist</b><br>
+        Die Widerrufsfrist beträgt 14 Tage ab dem Tag, an dem du oder ein von dir benannter Dritter (der nicht der Beförderer ist) die Waren in Besitz genommen hat.</p>
+
+        <p><b>Ausübung des Widerrufs</b><br>
+        Um dein Widerrufsrecht auszuüben, musst du uns (${SHOP_NAME}, ${ADDRESS_LINE}, E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>) mittels einer eindeutigen Erklärung (z. B. E-Mail) über deinen Entschluss informieren.</p>
+
+        <p><b>Folgen des Widerrufs</b><br>
+        Wenn du diesen Vertrag widerrufst, erstatten wir dir alle Zahlungen, die wir von dir erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass du eine andere Art der Lieferung als die von uns angebotene günstigste Standardlieferung gewählt hast). Die Rückzahlung erfolgt unverzüglich und spätestens binnen 14 Tagen ab dem Tag, an dem die Mitteilung über deinen Widerruf bei uns eingegangen ist.</p>
+
+        <p>Wir können die Rückzahlung verweigern, bis wir die Waren wieder zurückerhalten haben oder bis du den Nachweis erbracht hast, dass du die Waren zurückgesandt hast, je nachdem, welches der frühere Zeitpunkt ist.</p>
+
+        <p><b>Rücksendung</b><br>
+        Du hast die Waren unverzüglich und in jedem Fall spätestens binnen 14 Tagen ab dem Tag, an dem du uns über den Widerruf unterrichtest, an uns zurückzusenden oder zu übergeben. Die Frist ist gewahrt, wenn du die Waren vor Ablauf der Frist absendest.</p>
+
+        <p><b>Du trägst die unmittelbaren Kosten der Rücksendung der Waren.</b></p>
+
+        <p><b>Wertverlust</b><br>
+        Du musst für einen etwaigen Wertverlust der Waren nur aufkommen, wenn dieser Wertverlust auf einen zur Prüfung der Beschaffenheit, Eigenschaften und Funktionsweise der Waren nicht notwendigen Umgang zurückzuführen ist.</p>
+
+        <hr>
+
+        <h3>Muster-Widerrufsformular</h3>
+        <p>(Wenn du den Vertrag widerrufen willst, dann fülle bitte dieses Formular aus und sende es zurück.)</p>
+        <p>
+          An: ${SHOP_NAME}, ${ADDRESS_LINE}, E-Mail: ${SUPPORT_EMAIL}<br><br>
+          Hiermit widerrufe ich den von mir abgeschlossenen Vertrag über den Kauf der folgenden Waren (*) / die Erbringung der folgenden Dienstleistung (*):<br>
+          ___________________________________________<br><br>
+          Bestellt am (*) / erhalten am (*): _______________________<br>
+          Name des/der Verbraucher(s): ____________________________<br>
+          Anschrift des/der Verbraucher(s): ________________________<br><br>
+          Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier): _______________________<br>
+          Datum: _______________________<br>
+          (*) Unzutreffendes streichen.
+        </p>
+
+        <hr>
+        <p><b>Hinweis:</b> Ab dem 19.06.2026 wird voraussichtlich ein zusätzlicher „Widerrufsbutton“ als Funktion erforderlich. To-Do: Umsetzung vor diesem Datum.</p>
+      `;
+
+      const agb = `
+        <h2>AGB (Verbraucher)</h2>
+
+        <p><b>1. Geltungsbereich</b><br>
+        Diese AGB gelten für alle Bestellungen über diese Website durch Verbraucher (§ 13 BGB). Abweichende Bedingungen des Kunden finden keine Anwendung, es sei denn, wir stimmen ausdrücklich zu.</p>
+
+        <p><b>2. Vertragspartner</b><br>
+        Vertragspartner ist ${SHOP_NAME}, ${OWNER_LINE}, ${ADDRESS_LINE}, E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>.</p>
+
+        <p><b>3. Angebot und Vertragsschluss</b><br>
+        Die Darstellung der Produkte ist kein rechtlich bindendes Angebot, sondern eine Aufforderung zur Abgabe einer Bestellung. Der Vertrag kommt zustande, wenn du im PayPal-Checkout die zahlungspflichtige Bestellung bestätigst und die Zahlung autorisiert wird.</p>
+
+        <p><b>4. Preise und Versandkosten</b><br>
+        Alle Preise verstehen sich als Endpreise in Euro inkl. gesetzlicher Umsatzsteuer, sofern Umsatzsteuer anfällt. Versandkosten werden pauschal je Zone berechnet und vor Abgabe der Bestellung angezeigt.</p>
+
+        <p><b>5. Zahlung</b><br>
+        Die Zahlung erfolgt über PayPal. Im Checkout werden dir die verfügbaren PayPal-Zahlarten angezeigt.</p>
+
+        <p><b>6. Lieferung</b><br>
+        Die Lieferung erfolgt an die im PayPal-Checkout übermittelte Lieferadresse. Lieferzeiten sind in „lieferzeiten“ angegeben und können je Zone variieren.</p>
+
+        <p><b>7. Eigentumsvorbehalt</b><br>
+        Die Ware bleibt bis zur vollständigen Bezahlung unser Eigentum.</p>
+
+        <p><b>8. Gewährleistung</b><br>
+        Es gilt das gesetzliche Mängelhaftungsrecht.</p>
+
+        <p><b>9. Haftung</b><br>
+        Wir haften unbeschränkt bei Vorsatz und grober Fahrlässigkeit. Bei leichter Fahrlässigkeit haften wir nur bei Verletzung wesentlicher Vertragspflichten (Kardinalpflichten) und begrenzt auf den vorhersehbaren, typischerweise eintretenden Schaden. Die Haftung für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit bleibt unberührt.</p>
+
+        <p><b>10. Schlussbestimmungen</b><br>
+        Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts. Zwingende Verbraucherschutzvorschriften des Staates, in dem du deinen gewöhnlichen Aufenthalt hast, bleiben unberührt.</p>
+
+        <p><b>11. Verbraucherstreitbeilegung</b><br>
+        Wir sind nicht verpflichtet und nicht bereit, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen, sofern wir dir nicht ausdrücklich etwas anderes mitteilen.</p>
+      `;
+
+      const ship = `
+        <h2>Versand & Zahlung</h2>
+        <p><b>Versandkosten (pauschal)</b></p>
+        <ul>
+          <li>Deutschland (DE): ${fmtEUR(SHIPPING.DE)}</li>
+          <li>Europa (EU): ${fmtEUR(SHIPPING.EU)}</li>
+          <li>Weltweit (WW): ${fmtEUR(SHIPPING.WW)}</li>
+        </ul>
+        <p><b>Zahlung</b><br>
+        Zahlung erfolgt über PayPal. Die Lieferadresse wird aus PayPal übernommen.</p>
+      `;
+
+      const size = `
+        <h2>Größentabelle</h2>
+        <p>Normale Unisex-Passform. Bei Zwischengrößen: eher die größere Größe wählen.</p>
+        <ul>
+          <li>XS – sehr schmal</li>
+          <li>S – schmal</li>
+          <li>M – normal</li>
+          <li>L – locker</li>
+          <li>XL – weit</li>
+          <li>XXL – sehr weit</li>
+        </ul>
+      `;
+
+      const delivery = `
+        <h2>Lieferzeiten</h2>
+        <ul>
+          <li>Deutschland: 3–5 Werktage</li>
+          <li>EU: 5–8 Werktage</li>
+          <li>Weltweit: 8–14 Werktage</li>
+        </ul>
+        <p>Hinweis: Lieferzeiten können in Spitzenzeiten abweichen.</p>
+      `;
+
+      return { imp, ds, widerruf, agb, ship, size, delivery };
+    }
+
+    function openLegal(key){
+      const texts = legalTexts();
+      const map = {
+        imp: { title: "impressum", html: texts.imp },
+        ds:  { title: "datenschutz", html: texts.ds },
+        wd:  { title: "widerruf", html: texts.widerruf },
+        agb: { title: "agb", html: texts.agb },
+        ship:{ title: "versand & zahlung", html: texts.ship },
+        size:{ title: "größentabelle", html: texts.size },
+        delivery:{ title: "lieferzeiten", html: texts.delivery }
+      };
+      const item = map[key] || map.imp;
+      modalTitle.textContent = item.title || "legal";
+      modalBody.innerHTML = item.html || "";
+      modal.classList.add("isOpen");
+      modal.setAttribute("aria-hidden","false");
+    }
+    function closeLegal(){
+      modal.classList.remove("isOpen");
+      modal.setAttribute("aria-hidden","true");
+    }
+
+    function buildOrderNote(){
+      const t = totals();
+      const size = sizeEl.value;
+      const colorLabel = I18N.de.colors?.[state.colorKey] || state.colorKey;
+      const zone = shipEl.value;
+      return `order: la vida da vuelta t-shirt | size: ${size} | color: ${colorLabel} | zone: ${zone} | qty: ${t.qty} | shipping: ${money(t.shipCost)} EUR | total: ${money(t.total)} EUR | contact: ${SUPPORT_EMAIL}`;
+    }
+
+    // ======================
+    // PayPal SDK loading + render
+    // ======================
+    function loadPayPalSdk(){
+      return new Promise((resolve, reject) => {
+        if(!PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID === "PAYPAL_CLIENT_ID_PLATZHALTER"){
+          reject(new Error("PayPal Client-ID fehlt (Platzhalter)."));
+          return;
+        }
+        if(window.paypal && window.paypal.Buttons){
+          resolve();
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(PAYPAL_CLIENT_ID)}&currency=${encodeURIComponent(CURRENCY)}&intent=capture`;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error("PayPal SDK konnte nicht geladen werden."));
+        document.head.appendChild(s);
+      });
+    }
+
+    async function ensurePayPalRendered(){
+      if(state.paypalRendered) return;
+
+      // If no client id: keep fallback visible
+      if(!PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID === "PAYPAL_CLIENT_ID_PLATZHALTER"){
+        paypalFallback.style.display = "block";
+        return;
+      }
+
+      await loadPayPalSdk();
+      paypalFallback.style.display = "none";
+
+      window.paypal.Buttons({
+        style: { layout: "horizontal", tagline: false, height: 46 },
+
+        onClick: (data, actions) => {
+          if(!validateConsentUI()){
+            return actions.reject();
+          }
+          return actions.resolve();
+        },
+
+        createOrder: (data, actions) => {
+          const t = totals();
+          const size = sizeEl.value;
+          const colorLabel = I18N.de.colors?.[state.colorKey] || state.colorKey;
+          const zone = shipEl.value;
+
+          const itemName = `La Vida da vuelta T-Shirt (${colorLabel}, größe ${size})`;
+
+          return actions.order.create({
+            purchase_units: [{
+              description: `${itemName} · zone ${zone}`,
+              items: [{
+                name: itemName,
+                unit_amount: { currency_code: CURRENCY, value: money(UNIT_PRICE_EUR) },
+                quantity: String(t.qty),
+                category: "PHYSICAL_GOODS"
+              }],
+              amount: {
+                currency_code: CURRENCY,
+                value: money(t.total),
+                breakdown: {
+                  item_total: { currency_code: CURRENCY, value: money(t.itemTotal) },
+                  shipping:   { currency_code: CURRENCY, value: money(t.shipCost) }
+                }
+              }
+            }],
+            application_context: {
+              shipping_preference: "GET_FROM_FILE" // address from PayPal
+            }
+          });
+        },
+
+        onApprove: async (data, actions) => {
+          const details = await actions.order.capture();
+          alert("danke! zahlung bestätigt.\n\ntransaktion: " + (details && details.id ? details.id : ""));
+        },
+
+        onError: (err) => {
+          console.error(err);
+          warnBox.textContent = "paypal fehler. bitte später erneut versuchen.";
+          warnBox.classList.add("show");
+        }
+      }).render("#paypal-button-container");
+
+      state.paypalRendered = true;
+    }
+
+    // ======================
+    // Events
+    // ======================
+    colorEl.addEventListener("change", ()=>{
+      state.colorKey = colorEl.value;
+      refreshTotals();
+      updatePreview();
+    });
+    shipEl.addEventListener("change", ()=>{ refreshTotals(); });
+    qtyEl.addEventListener("input", ()=>{ refreshTotals(); });
+    sizeEl.addEventListener("change", ()=>{ refreshTotals(); });
+    langEl.addEventListener("change", ()=>{ /* DE only minimal right now */ });
+
+    [agreeA, agreeW, agreeD].forEach(el=>{
+      el.addEventListener("change", ()=> validateConsentUI());
+    });
+
+    copyBtn.addEventListener("click", async ()=>{
+      const note = buildOrderNote();
+      try{
+        await navigator.clipboard.writeText(note);
+        const old = copyBtn.textContent;
+        copyBtn.textContent = "✓";
+        setTimeout(()=> copyBtn.textContent = old, 900);
+      }catch(e){
+        alert(note);
+      }
+    });
+
+    wdBtn.addEventListener("click", ()=> openLegal("wd"));
+
+    document.addEventListener("click", (e)=>{
+      const btn = e.target.closest("[data-legal]");
+      if(!btn) return;
+      e.preventDefault();
+      openLegal(btn.getAttribute("data-legal"));
+    });
+
+    modalClose.addEventListener("click", closeLegal);
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeLegal(); });
+    document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeLegal(); });
+
+    // ======================
+    // Init
+    // ======================
+    function init(){
+      // normalize unknown color
+      if(!COLOR_KEYS.includes(state.colorKey)) state.colorKey = "white";
+      chkA.textContent = I18N.de.chkA;
+      chkW.textContent = I18N.de.chkW;
+      chkD.textContent = I18N.de.chkD;
+      payNote.textContent = I18N.de.payNote;
+      chkHint.textContent = I18N.de.chkHint;
+
+      supportNote.innerHTML = `support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`;
+
+      refreshTotals();
+      updatePreview();
+      validateConsentUI();
+      ensurePayPalRendered().catch(()=>{ /* fallback visible */ });
+    }
+    init();
+
+  }catch(e){
+    try{
+      const errBox = document.getElementById("errBox");
+      const errMsg = document.getElementById("errMsg");
+      errMsg.textContent = String(e && e.message ? e.message : e);
+      errBox.classList.add("show");
+    }catch(_){}
+  }
+})();
+</script>
+</body>
+</html>
