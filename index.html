@@ -946,6 +946,7 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
           <h2>Impressum</h2>
           <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
           <p>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <br>Tel.: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
           <p><b>Unternehmensform:</b> Einzelunternehmer</p>
         `,
         en:`
@@ -953,6 +954,7 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
           ${disclaimer}
           <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
           <p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <br>Tel.: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
           <p><b>Business type:</b> Sole proprietor</p>
         `,
         es:`
@@ -960,6 +962,7 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
           ${disclaimer}
           <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
           <p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <br>Tel.: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
           <p><b>Forma jurídica:</b> Autónomo</p>
         `,
         fr:`
@@ -967,6 +970,7 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
           ${disclaimer}
           <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
           <p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <br>Tel.: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
           <p><b>Forme:</b> Entrepreneur individuel</p>
         `,
         it:`
@@ -974,6 +978,7 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
           ${disclaimer}
           <p><b>${SHOP_NAME}</b><br>${OWNER_LINE}<br>${ADDRESS_LINE}</p>
           <p>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>${VAT_ID}</p>
+          <br>Tel.: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
           <p><b>Forma:</b> Ditta individuale</p>
         `
       };
@@ -981,8 +986,10 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
       const DS = {
         de:`
           <h2>Datenschutzerklärung</h2>
-          <p><b>1. Verantwortlicher</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>1. Verantwortlicher</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>E-Mail: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>  
+          <br>Tel.: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a></p>
           <p><b>2. Hosting</b><br>
+         
           Diese Website wird über GitHub Pages bereitgestellt. Beim Aufruf verarbeitet der Hosting-Anbieter technisch erforderliche Zugriffsdaten (z. B. IP-Adresse, Zeitpunkt, User-Agent) in Server-Logfiles, um die Website auszuliefern und die Sicherheit zu gewährleisten.</p>
           <p><b>3. Zahlungsabwicklung über PayPal</b><br>
           Wenn du mit PayPal bezahlst, erfolgt die Zahlungsabwicklung über PayPal. Dabei werden zur Durchführung der Zahlung und zur Versandabwicklung Daten (z. B. Name, Lieferadresse, E-Mail-Adresse, Zahlungsstatus) an uns übermittelt.
@@ -997,7 +1004,11 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
         en:`
           <h2>Privacy Policy</h2>
           ${disclaimer}
-          <p><b>1. Controller</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+         <p><b>1. Controller</b><br>
+${SHOP_NAME}, ${ADDRESS_LINE}<br>
+Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>
+Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
+</p>
           <p><b>2. Hosting</b><br>
           This website is delivered via GitHub Pages. When you access the site, the hosting provider may process technical access data (e.g., IP address, timestamp, user-agent) in server logs to deliver the website and maintain security.</p>
           <p><b>3. PayPal payments</b><br>
@@ -1013,6 +1024,10 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
           <h2>Política de privacidad</h2>
           ${disclaimer}
           <p><b>1. Responsable</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
+</p>
+          <p><b>1. Controller</b><br>
+>
           <p><b>2. Hosting</b><br>
           Este sitio se ofrece a través de GitHub Pages. Al acceder, el proveedor puede tratar datos técnicos (IP, fecha/hora, user-agent) en registros para entregar el sitio y garantizar la seguridad.</p>
           <p><b>3. Pagos con PayPal</b><br>
@@ -1027,7 +1042,8 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
         fr:`
           <h2>Politique de confidentialité</h2>
           ${disclaimer}
-          <p><b>1. Responsable</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          <p><b>1. Responsable</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>
+          Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a></p>
           <p><b>2. Hébergement</b><br>
           Le site est fourni via GitHub Pages. Lors de l’accès, le fournisseur peut traiter des données techniques (IP, horodatage, user-agent) dans des journaux pour l’affichage et la sécurité.</p>
           <p><b>3. Paiement PayPal</b><br>
@@ -1043,6 +1059,7 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
           <h2>Informativa privacy</h2>
           ${disclaimer}
           <p><b>1. Titolare</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+          Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a></p>
           <p><b>2. Hosting</b><br>
           Il sito è fornito tramite GitHub Pages. All’accesso, il provider può trattare dati tecnici (IP, data/ora, user-agent) nei log per erogazione e sicurezza.</p>
           <p><b>3. Pagamenti PayPal</b><br>
@@ -1662,7 +1679,9 @@ const SUPPORT_PHONE = "+49 [1552 448 13 41]";
     // ========= init =========
     function init(){
       state.colorKey = "white";
-      supportNote.innerHTML = `support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>`;
+     supportNote.innerHTML =
+  `support: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a> · 
+   <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>`;
 
       applyLang();
       validateConsentUI();
