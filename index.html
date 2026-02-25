@@ -602,11 +602,18 @@
   const errBox = document.getElementById("errBox");
   const errMsg = document.getElementById("errMsg");
   window.addEventListener("error", (e) => {
-    try{
-      errMsg.textContent = String(e && (e.message || e.error) ? (e.message || e.error) : "Unknown error");
-      errBox.classList.add("show");
-    }catch(_){}
-  });
+  // Extension-/Browser-Noise ignorieren (hat nichts mit deiner Seite zu tun)
+  const msg  = String(e && e.message ? e.message : "");
+  const file = String(e && e.filename ? e.filename : "");
+  if (msg.includes("message channel closed")) return;
+  if (file.startsWith("chrome-extension://") || file.startsWith("moz-extension://")) return;
+
+  try{
+    errMsg.textContent = msg || "Unknown error";
+    errBox.classList.add("show");
+  }catch(_){}
+});
+    
 
   try{
     // ========= CONFIG =========
