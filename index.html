@@ -181,12 +181,10 @@
       justify-content:center;
       position:relative;
       border: 1px solid rgba(0,0,0,.10);
-    }
     .paypalSlot.isDisabled{
-      opacity:.55;
-      filter: grayscale(1);
-      pointer-events:none;
-    }
+  opacity:.55;
+  filter: grayscale(1);
+}
     #paypal-button-container{
       width:100%;
       height:46px;
@@ -533,9 +531,9 @@
           <div class="warn" id="warnBox"></div>
 
           <div class="ctaRow">
-            <div class="paypalSlot isDisabled" id="paypalSlot" aria-label="paypal checkout">
+            <div class="paypalSlot " id="paypalSlot" aria-label="paypal checkout">
               <div id="paypal-button-container"></div>
-              <button class="paypalFallback" id="paypalFallback" type="button" disabled>bezahlen · 26,90 €</button>
+              <button class="paypalFallback" id="paypalFallback" type="button" >bezahlen · 26,90 €</button>
             </div>
 
             <button class="btn btnDanger" id="wdBtn" type="button">widerruf</button>
