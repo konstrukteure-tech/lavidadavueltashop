@@ -1538,17 +1538,23 @@ Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
     function hasRealPayPal(){
   return typeof PAYPAL_CLIENT_ID === "string" && PAYPAL_CLIENT_ID.length > 20;
 }
+// Supersperre
+let paypalLocked = false;
+    // Supersperre: wenn PayPal einmal "real" aktiv war, nie wieder zurück auf Placeholder
+let paypalLocked = false;
+let paypalButtonsRendered = false;
+    
+function showPayPalPlaceholder(){
+  if (paypalLocked) return; // <- verhindert Zurückspringen
+  paypalContainer.style.display = "none";
+  paypalFallback.style.display = "block";
+}
 
-    function showPayPalPlaceholder(){
-      // Always yellow, always visible
-      paypalContainer.style.display = "none";
-      paypalFallback.style.display = "block";
-    }
-
-    function showPayPalRealSlot(){
-      paypalFallback.style.display = "none";
-      paypalContainer.style.display = "block";
-    }
+function showPayPalRealSlot(){
+  paypalLocked = true; // <- ab jetzt darf es NIE wieder zurückspringen
+  paypalFallback.style.display = "none";
+  paypalContainer.style.display = "block";
+}
 
     function loadPayPalSdk(){
       return new Promise((resolve, reject) => {
@@ -1577,12 +1583,18 @@ Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
       }
 
       try{
-        await loadPayPalSdk();
-        showPayPalRealSlot();
-      }catch(_){
-        showPayPalPlaceholder();
-        return;
-      }
+  await loadPayPalSdk();
+  showPayPalRealSlot();
+
+  state.paypalRendered = true;   // merkt sich: PayPal wurde einmal sauber geladen
+  paypalLocked = true;           // Supersperre aktivieren
+
+}catch(_){
+  if (!paypalLocked) {           // nur wenn es noch nicht gelockt ist
+    showPayPalPlaceholder();
+  }
+  return;
+}
 
       window.paypal.Buttons({
         style: { layout: "horizontal", tagline: false, height: 46 },
