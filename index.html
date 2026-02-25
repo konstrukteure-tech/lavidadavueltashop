@@ -1526,10 +1526,9 @@ Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
     }
 
     // ========= PayPal =========
-    function hasRealPayPal(){
-  return typeof PAYPAL_CLIENT_ID === "string" && PAYPAL_CLIENT_ID.length > 20;
+function hasRealPayPal(){
+  return typeof PAYPAL_CLIENT_ID === "string" && PAYPAL_CLIENT_ID.trim().length > 20;
 }
-
     function showPayPalPlaceholder(){
       // Always yellow, always visible
       paypalContainer.style.display = "none";
@@ -1552,7 +1551,7 @@ Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
           return;
         }
         const s = document.createElement("script");
-        s.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(PAYPAL_CLIENT_ID)}&currency=${encodeURIComponent(CURRENCY)}&intent=capture`;
+        s.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(PAYPAL_CLIENT_ID.trim())}&currency=${encodeURIComponent(CURRENCY)}&intent=capture&components=buttons`;
         s.onload = resolve;
         s.onerror = () => reject(new Error("PayPal SDK konnte nicht geladen werden."));
         document.head.appendChild(s);
