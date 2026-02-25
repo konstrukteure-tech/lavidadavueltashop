@@ -1,4 +1,4 @@
-F<!doctype html>
+<!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
@@ -1541,8 +1541,7 @@ Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
 // Supersperre
 let paypalLocked = false;
     // Supersperre: wenn PayPal einmal "real" aktiv war, nie wieder zurück auf Placeholder
-let paypalLocked = false;
-let paypalButtonsRendered = false;
+
     
 function showPayPalPlaceholder(){
   if (paypalLocked) return; // <- verhindert Zurückspringen
@@ -1642,11 +1641,12 @@ function showPayPalRealSlot(){
           alert("Danke! Zahlung bestätigt.\n\nTransaktion: " + (details && details.id ? details.id : ""));
         },
 
-        onError: () => {
-          showPayPalPlaceholder();
-          warnBox.textContent = "paypal fehler. bitte später erneut versuchen.";
-          warnBox.classList.add("show");
-        }
+      onError: () => {
+  // NIE zurückspringen, wenn bereits gelockt
+  if (!paypalLocked) showPayPalPlaceholder();
+  warnBox.textContent = "paypal fehler. bitte später erneut versuchen.";
+  warnBox.classList.add("show");
+}
       }).render("#paypal-button-container");
 
       state.paypalRendered = true;
