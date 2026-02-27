@@ -621,7 +621,7 @@
     const ADDRESS_LINE = "Hüxstraße 75, 23552 Lübeck, Deutschland";
     const VAT_ID = "";
     const SUPPORT_EMAIL = "LaVidaShop@gmx.net";
-const SUPPORT_PHONE = "+49 [1552 448 13 41]";
+const SUPPORT_PHONE = "+49 1552 448 13 41";
     // PayPal (replace when ready)
     const PAYPAL_CLIENT_ID = "AXD8cHhLEslSBAlvGm7eXnMKb60kCcNfyDBsmqQ4Le5GrWxMdh0YgT_UrYM8gxUHkSY20Gs2tfZ6nWHF";
     const CURRENCY = "EUR";
@@ -1027,23 +1027,35 @@ Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
           Access, rectification, erasure, restriction, portability, objection, and the right to lodge a complaint with a supervisory authority.</p>
         `,
         es:`
-          <h2>Política de privacidad</h2>
-          ${disclaimer}
-          <p><b>1. Responsable</b><br>${SHOP_NAME}, ${ADDRESS_LINE}<br>Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
-Phone: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
-</p>
-          <p><b>1. Controller</b><br>
->
-          <p><b>2. Hosting</b><br>
-          Este sitio se ofrece a través de GitHub Pages. Al acceder, el proveedor puede tratar datos técnicos (IP, fecha/hora, user-agent) en registros para entregar el sitio y garantizar la seguridad.</p>
-          <p><b>3. Pagos con PayPal</b><br>
-          Si pagas con PayPal, PayPal procesa el pago. Para el pago y el envío se nos pueden transmitir datos (nombre, dirección de envío, email, estado del pago). Base legal: ejecución del contrato.</p>
-          <p><b>4. Contacto</b><br>
-          Si nos contactas por email, tratamos tus datos para responder. Base legal: contrato y/o interés legítimo.</p>
-          <p><b>5. Conservación</b><br>
-          Guardamos los datos solo el tiempo necesario y según obligaciones legales.</p>
-          <p><b>6. Derechos</b><br>
-          Acceso, rectificación, supresión, limitación, portabilidad, oposición y reclamación ante la autoridad competente.</p>
+  <h2>Política de privacidad</h2>
+  ${disclaimer}
+  <p><b>1. Responsable</b><br>
+  ${SHOP_NAME}, ${ADDRESS_LINE}<br>
+  Email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a><br>
+  Tel.: <a href="tel:${SUPPORT_PHONE.replace(/\s/g,'')}">${SUPPORT_PHONE}</a>
+  </p>
+
+  <p><b>2. Hosting</b><br>
+  Este sitio se ofrece a través de GitHub Pages. Al acceder, el proveedor puede tratar datos técnicos (p. ej., dirección IP, fecha/hora, user-agent) en registros del servidor para entregar el sitio y garantizar la seguridad.
+  </p>
+
+  <p><b>3. Pagos con PayPal</b><br>
+  Si pagas con PayPal, PayPal procesa el pago. Para ejecutar el pago y gestionar el envío, se nos pueden transmitir datos (p. ej., nombre, dirección de envío, email, estado del pago).
+  Base legal: ejecución del contrato.
+  </p>
+
+  <p><b>4. Contacto</b><br>
+  Si nos contactas por email, tratamos tus datos para responder. Base legal: ejecución del contrato y/o interés legítimo.
+  </p>
+
+  <p><b>5. Conservación</b><br>
+  Guardamos los datos solo el tiempo necesario y según obligaciones legales de conservación.
+  </p>
+
+  <p><b>6. Derechos</b><br>
+  Acceso, rectificación, supresión, limitación, portabilidad, oposición y reclamación ante la autoridad competente.
+  </p>
+`,
         `,
         fr:`
           <h2>Politique de confidentialité</h2>
